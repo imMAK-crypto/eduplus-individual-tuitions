@@ -1,7 +1,30 @@
 import type { Metadata, Viewport } from 'next';
+import { Plus_Jakarta_Sans, Inter, Baloo_2 } from 'next/font/google';
 import './globals.css';
 import SiteChrome from '@/components/SiteChrome';
 import Interactions from '@/components/Interactions';
+import IntroSplash from '@/components/IntroSplash';
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['500', '600', '700', '800'],
+  display: 'swap',
+  variable: '--font-jakarta',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+const baloo = Baloo_2({
+  subsets: ['latin'],
+  weight: ['700', '800'],
+  display: 'swap',
+  variable: '--font-baloo',
+});
 
 export const metadata: Metadata = {
   title: {
@@ -25,13 +48,16 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${jakarta.variable} ${inter.variable} ${baloo.variable}`}
+    >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Baloo+2:wght@700;800&display=swap"
-          rel="stylesheet"
+        {/* Hide intro splash pre-hydration if already shown this session */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem('eduplus-intro-shown'))document.documentElement.classList.add('no-intro')}catch(e){}`,
+          }}
         />
         <script
           type="application/ld+json"
@@ -57,6 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <IntroSplash />
         <SiteChrome>{children}</SiteChrome>
         <Interactions />
       </body>
