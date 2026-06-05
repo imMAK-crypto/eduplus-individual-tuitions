@@ -46,7 +46,7 @@
   --sh-soft: 0 2px 10px rgba(2,32,71,.06);
 
   /* Layout */
-  --container: 1200px;
+  --container: 1320px;
   --pad: clamp(16px,5vw,40px);
   --rhythm: clamp(64px,9vw,120px);
 
@@ -69,7 +69,13 @@ body{
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
   overflow-anchor:none;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+  min-height:100dvh;
 }
+main#main{flex:1 0 auto;}
+.footer{margin-top:auto;}
 img{max-width:100%;display:block;}
 a{color:inherit;text-decoration:none;}
 button{font:inherit;cursor:pointer;border:none;background:none;color:inherit;}
