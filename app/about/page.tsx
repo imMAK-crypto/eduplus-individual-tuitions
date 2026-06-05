@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import {
   BulbIcon,
   CompassIcon,
@@ -25,7 +26,7 @@ export default function AboutPage() {
       <section className="page-hero" data-screen-label="About hero">
         <div className="container">
           <div className="crumbs reveal">
-            <a href="/">Home</a>
+            <Link href="/">Home</Link>
             <span className="sep">/</span>
             <span>About</span>
           </div>
@@ -72,9 +73,9 @@ export default function AboutPage() {
                 <button className="btn btn-red" data-open-modal>
                   Book a Free Demo
                 </button>
-                <a className="btn btn-outline" href="/programs">
+                <Link className="btn btn-outline" href="/programs">
                   See our programs
-                </a>
+                </Link>
               </div>
             </div>
             <div className="hero-visual reveal" style={{ maxWidth: '460px' }}>
@@ -275,9 +276,9 @@ export default function AboutPage() {
                 </span>
               </div>
               <div style={{ display: 'flex', gap: '.7rem', flexWrap: 'wrap', marginTop: '.4rem' }}>
-                <a className="btn btn-blue" href="/contact">
+                <Link className="btn btn-blue" href="/contact">
                   Contact &amp; directions
-                </a>
+                </Link>
               </div>
             </div>
             <div className="map-wrap reveal">

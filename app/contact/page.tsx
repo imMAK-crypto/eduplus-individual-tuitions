@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { ClockIcon, PhoneIcon, PinIcon, PlusIcon, WhatsAppIcon } from '@/lib/icons';
 import { SITE, telLink, waLink } from '@/lib/site';
 import PageEnquiryForm from '@/components/PageEnquiryForm';
@@ -16,7 +17,7 @@ export default function ContactPage() {
       <section className="page-hero" data-screen-label="Contact hero">
         <div className="container">
           <div className="crumbs reveal">
-            <a href="/">Home</a>
+            <Link href="/">Home</Link>
             <span className="sep">/</span>
             <span>Contact</span>
           </div>

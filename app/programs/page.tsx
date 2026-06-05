@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import {
   ArrowIcon,
   AtomIcon,
@@ -27,7 +28,7 @@ export default function ProgramsPage() {
       <section className="page-hero" data-screen-label="Programs hero">
         <div className="container">
           <div className="crumbs reveal">
-            <a href="/">Home</a>
+            <Link href="/">Home</Link>
             <span className="sep">/</span>
             <span>Programs</span>
           </div>

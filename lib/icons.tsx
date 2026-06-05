@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 type Props = React.SVGProps<SVGSVGElement>;
 
@@ -218,7 +219,7 @@ export const SendIcon = stroke(
 export function Logo({ mono = false, lg = false }: { mono?: boolean; lg?: boolean }) {
   const cls = ['logo', mono && 'mono', lg && 'lg'].filter(Boolean).join(' ');
   return (
-    <a href="/" className={cls} aria-label="Eduplus — Beyond Classroom, home">
+    <Link href="/" className={cls} aria-label="Eduplus — Beyond Classroom, home">
       <span className="logo-word">
         <span className="c1">E</span>
         <span className="c2">d</span>
@@ -230,6 +231,6 @@ export function Logo({ mono = false, lg = false }: { mono?: boolean; lg?: boolea
         <span className="plus">+</span>
       </span>
       <span className="logo-sub">Beyond Classroom</span>
-    </a>
+    </Link>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SITE, NAV, telLink, waLink, type NavKey } from '@/lib/site';
 import {
@@ -174,14 +175,14 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
             <Logo />
             <div className="nav-links">
               {NAV.map((n) => (
-                <a
+                <Link
                   key={n.key}
                   href={n.href}
                   className={n.key === active ? 'active' : undefined}
                   aria-current={n.key === active ? 'page' : undefined}
                 >
                   {n.label}
-                </a>
+                </Link>
               ))}
             </div>
             <div className="nav-cta">
@@ -219,9 +220,9 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
         </div>
         <nav className="mm-links" aria-label="Mobile">
           {NAV.map((n) => (
-            <a key={n.key} href={n.href} onClick={() => setMenuOpen(false)}>
+            <Link key={n.key} href={n.href} onClick={() => setMenuOpen(false)}>
               {n.label}
-            </a>
+            </Link>
           ))}
         </nav>
         <div className="mm-actions">
@@ -285,21 +286,21 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
             <div className="foot-col">
               <h4>Explore</h4>
               <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/programs">Programs</a></li>
-                <li><a href="/#results">Results</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li><Link href="/">Home</Link></li>
+                <li><Link href="/about">About</Link></li>
+                <li><Link href="/programs">Programs</Link></li>
+                <li><Link href="/#results">Results</Link></li>
+                <li><Link href="/contact">Contact</Link></li>
               </ul>
             </div>
             <div className="foot-col">
               <h4>Programs</h4>
               <ul>
-                <li><a href="/programs">Primary (1–4)</a></li>
-                <li><a href="/programs">Middle (5–7)</a></li>
-                <li><a href="/programs">High School (8–10)</a></li>
-                <li><a href="/programs">Plus One / Plus Two</a></li>
-                <li><a href="/programs">Entrance Foundation</a></li>
+                <li><Link href="/programs">Primary (1–4)</Link></li>
+                <li><Link href="/programs">Middle (5–7)</Link></li>
+                <li><Link href="/programs">High School (8–10)</Link></li>
+                <li><Link href="/programs">Plus One / Plus Two</Link></li>
+                <li><Link href="/programs">Entrance Foundation</Link></li>
               </ul>
             </div>
             <div className="foot-col">

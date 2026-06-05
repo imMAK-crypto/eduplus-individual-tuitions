@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {
   ArrowIcon,
   AtomIcon,
@@ -468,9 +469,9 @@ export default function HomePage() {
           </div>
 
           <div className="center" style={{ marginTop: '2.4rem' }}>
-            <a className="btn btn-ghost" href="/programs">
+            <Link className="btn btn-ghost" href="/programs">
               View all programs <ArrowIcon width={18} height={18} />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
