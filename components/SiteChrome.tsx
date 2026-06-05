@@ -30,7 +30,7 @@ function pageKey(path: string | null): NavKey {
   return PAGE_FROM_PATH[path] || 'home';
 }
 
-export default function SiteChrome() {
+export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const active = pageKey(pathname);
   const isShowcase = pathname === '/phone-showcase';
@@ -133,7 +133,7 @@ export default function SiteChrome() {
     setSubmitted(true);
   }
 
-  if (isShowcase) return null;
+  if (isShowcase) return <>{children}</>;
 
   function successMsg() {
     const student = studentRef.current?.value || '';
@@ -249,6 +249,9 @@ export default function SiteChrome() {
           </span>
         </div>
       </div>
+
+      {/* Page content goes between header and footer */}
+      {children}
 
       {/* Footer */}
       <footer className="footer">

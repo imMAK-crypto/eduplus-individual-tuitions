@@ -57,8 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <SiteChrome />
-        {children}
+        <SiteChrome>{children}</SiteChrome>
         <Interactions />
       </body>
     </html>
