@@ -46,7 +46,7 @@
   --sh-soft: 0 2px 10px rgba(2,32,71,.06);
 
   /* Layout */
-  --container: 1320px;
+  --container: 1920px;
   --pad: clamp(16px,5vw,40px);
   --rhythm: clamp(64px,9vw,120px);
 
