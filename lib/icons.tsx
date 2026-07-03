@@ -11,6 +11,8 @@ const stroke = (children: React.ReactNode) => (p: Props) => (
     strokeWidth={2}
     strokeLinecap="round"
     strokeLinejoin="round"
+    aria-hidden="true"
+    focusable="false"
     {...p}
   >
     {children}
@@ -214,6 +216,34 @@ export const RupeeIcon = stroke(
 // Arrow / send (used in some value cards)
 export const SendIcon = stroke(
   <path d="M3 11l19-9-9 19-2-8-8-2z" />
+);
+
+// Friendly brand illustration used in place of photo slots until real photos land.
+export const BrandIllustration = (p: Props) => (
+  <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...p}>
+    {/* soft blob */}
+    <circle cx="200" cy="205" r="150" fill="#eaf2fd" />
+    {/* graduation cap */}
+    <g>
+      <path d="M200 96l86 34-86 34-86-34 86-34z" fill="#0563CE" />
+      <path d="M150 156v34c0 14 22 26 50 26s50-12 50-26v-34l-50 20-50-20z" fill="#0457b4" />
+      <path d="M286 130v44" stroke="#191919" strokeWidth="5" strokeLinecap="round" />
+      <circle cx="286" cy="182" r="9" fill="#F5B204" />
+    </g>
+    {/* open book */}
+    <g>
+      <path d="M108 236c26-14 58-14 92 2v92c-34-16-66-16-92-2v-92z" fill="#fff" stroke="#DE3436" strokeWidth="5" strokeLinejoin="round" />
+      <path d="M292 236c-26-14-58-14-92 2v92c34-16 66-16 92-2v-92z" fill="#fff" stroke="#86B915" strokeWidth="5" strokeLinejoin="round" />
+      <path d="M200 240v90" stroke="#cbd5e1" strokeWidth="4" />
+      <path d="M126 258c18-7 38-7 56 1M126 280c18-7 38-7 56 1" stroke="#DE3436" strokeWidth="4" strokeLinecap="round" opacity=".55" />
+      <path d="M274 258c-18-7-38-7-56 1M274 280c-18-7-38-7-56 1" stroke="#86B915" strokeWidth="4" strokeLinecap="round" opacity=".55" />
+    </g>
+    {/* sparkles */}
+    <path d="M96 150l5 12 12 5-12 5-5 12-5-12-12-5 12-5 5-12z" fill="#F5B204" />
+    <path d="M312 96l4 9 9 4-9 4-4 9-4-9-9-4 9-4 4-9z" fill="#DE3436" />
+    <circle cx="330" cy="250" r="8" fill="#86B915" />
+    <circle cx="78" cy="300" r="7" fill="#0563CE" />
+  </svg>
 );
 
 export function Logo({ mono = false, lg = false }: { mono?: boolean; lg?: boolean }) {
