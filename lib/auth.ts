@@ -17,14 +17,35 @@ export type AdminUser = {
 
 const USERS_PATH = path.join(process.cwd(), 'content', 'users.json');
 
+// An admin seeded via environment variables (ADMIN_USERNAME + ADMIN_PASSWORD_HASH).
+// Lets a public-repo / read-only-filesystem deploy have a working login without
+// ever committing a password hash to the repository.
+function envSeedUser(): AdminUser | null {
+  const username = process.env.ADMIN_USERNAME;
+  const passwordHash = process.env.ADMIN_PASSWORD_HASH;
+  if (!username || !passwordHash) return null;
+  return {
+    id: 'env-seed',
+    username: username.toLowerCase(),
+    passwordHash,
+    role: 'admin',
+    createdAt: '2026-01-01T00:00:00.000Z',
+  };
+}
+
 export async function readUsers(): Promise<AdminUser[]> {
+  let fileUsers: AdminUser[] = [];
   try {
     const raw = await fs.readFile(USERS_PATH, 'utf8');
-    const parsed = JSON.parse(raw) as { users?: AdminUser[] };
-    return parsed.users ?? [];
+    fileUsers = (JSON.parse(raw) as { users?: AdminUser[] }).users ?? [];
   } catch {
-    return [];
+    fileUsers = [];
   }
+  const seed = envSeedUser();
+  if (seed && !fileUsers.some((u) => u.username === seed.username)) {
+    return [seed, ...fileUsers];
+  }
+  return fileUsers;
 }
 
 export async function writeUsers(users: AdminUser[]) {
