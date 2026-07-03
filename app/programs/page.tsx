@@ -8,22 +8,81 @@ import {
   ChartIcon,
   GlobeIcon,
   LangIcon,
+  HelpIcon,
   NotebookIcon,
   RupeeIcon,
   ShieldIcon,
   TargetIcon,
 } from '@/lib/icons';
-import { waLink } from '@/lib/site';
+import { SITE, breadcrumbLd, waLink } from '@/lib/site';
+
+const COURSES: { name: string; desc: string }[] = [
+  {
+    name: 'Foundation tuition (LKG – Class 4)',
+    desc: 'One-to-one and small-batch tuition in all subjects for LKG to Class 4 — Kerala State, CBSE and ICSE, online and offline.',
+  },
+  {
+    name: 'Middle school tuition (Class 5 – 7)',
+    desc: 'Concept-first Maths, Science, English, Social and languages for Class 5 to 7 — online and offline.',
+  },
+  {
+    name: 'High school & SSLC tuition (Class 8 – 10)',
+    desc: 'Board-focused coaching for Class 8 to 10 with exam technique, revision and model papers.',
+  },
+  {
+    name: 'Plus One & Plus Two tuition (Class 11 & 12)',
+    desc: 'Science, Commerce and Humanities subject coaching for Plus One and Plus Two, aligned to the board exam.',
+  },
+  {
+    name: 'Exam-target batches (Class 10 onwards)',
+    desc: 'Short, intensive batches timed to board (SSLC, +1, +2), half-yearly and term exams — revision, previous-year papers and daily doubt-clearing.',
+  },
+];
+
+const courseLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: COURSES.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Course',
+      name: c.name,
+      description: c.desc,
+      provider: {
+        '@type': 'EducationalOrganization',
+        name: SITE.name,
+        sameAs: SITE.url,
+      },
+    },
+  })),
+};
 
 export const metadata: Metadata = {
-  title: 'Programs & Courses',
+  title: 'Programs & Courses — LKG to Plus Two',
   description:
-    'Tuition programs for Class 1–12 — Primary, Middle, High School (SSLC), Plus One / Plus Two (Science, Commerce, Humanities) and entrance foundation. Kerala State, CBSE & ICSE in Ashokapuram, Kozhikode.',
+    'Tuition programs for LKG–Class 12 — Foundation, High School (SSLC), Plus One / Plus Two (Science, Commerce, Humanities) & exam-target batches. One-to-one, online & offline. Kerala State, CBSE & ICSE in Ashokapuram, Kozhikode.',
+  alternates: { canonical: '/programs' },
+  openGraph: {
+    title: 'Programs for LKG to Plus Two | Eduplus Individual Tuitions',
+    description:
+      'One-to-one tuition programs for LKG–12 in Ashokapuram, Kozhikode — online & offline. SSLC, Plus One, Plus Two & exam-target batches.',
+    url: '/programs',
+    type: 'website',
+  },
 };
 
 export default function ProgramsPage() {
   return (
     <main id="main">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd('Programs', '/programs')) }}
+      />
       {/* PAGE HERO */}
       <section className="page-hero" data-screen-label="Programs hero">
         <div className="container">
@@ -37,11 +96,12 @@ export default function ProgramsPage() {
               What we teach
             </span>
             <h1 className="display reveal" style={{ margin: '.6rem 0 1rem' }}>
-              Programs for Class 1 to 12, <span className="underline-accent">every</span> board.
+              Programs for LKG to Plus Two, <span className="underline-accent">every</span> board.
             </h1>
             <p className="lead reveal">
               Kerala State, CBSE &amp; ICSE — from early foundations to board exams and stream
-              subjects. Tap any program to enquire and we'll arrange a free demo.
+              subjects, one-to-one and online or offline. Tap any program to enquire and we'll
+              arrange a free demo.
             </p>
           </div>
           <div className="hero-chips reveal" style={{ marginTop: '1.4rem' }}>
@@ -61,11 +121,12 @@ export default function ProgramsPage() {
               <NotebookIcon />
             </span>
             <div>
-              <h2>Primary — Class 1 to 4</h2>
-              <div className="meta">Foundations · reading · homework support</div>
+              <h2>Foundation — LKG to Class 4</h2>
+              <div className="meta">Pre-primary · reading · homework support</div>
             </div>
           </div>
           <div className="subj-strip">
+            <span className="badge badge-yellow">LKG / UKG</span>
             <span className="badge badge-blue">Maths</span>
             <span className="badge badge-green">English</span>
             <span className="badge badge-yellow">EVS</span>
@@ -328,9 +389,7 @@ export default function ProgramsPage() {
             </span>
             <div>
               <h2>Entrance Foundation</h2>
-              <div className="meta">
-                NEET / JEE foundation · aptitude — <em>[PLACEHOLDER: confirm if offered]</em>
-              </div>
+              <div className="meta">NEET / JEE foundation · aptitude &amp; reasoning</div>
             </div>
           </div>
           <div className="prog-grid" data-stagger>
@@ -366,11 +425,63 @@ export default function ProgramsPage() {
             </article>
           </div>
           <p className="price-note">
-            Fees vary by class, board and batch type.{' '}
-            <em>[PLACEHOLDER — add fee details, or keep "enquire for fees".]</em>
+            Fees vary by class, board and batch type — one-to-one, small batch, online or offline.
+            Enquire for current fees and a free demo.
           </p>
         </section>
       </div>
+
+      {/* EXAM-TARGET */}
+      <section className="section exam-spot" id="exam-prep" data-screen-label="Exam-target coaching">
+        <span className="deco d1" />
+        <span className="deco d2" />
+        <div className="container">
+          <div className="sh center reveal">
+            <span className="pulse-tag">
+              <span className="dot" /> Exam season · enrolling now
+            </span>
+            <h2>
+              Exam-target batches, <span className="underline-accent">timed to your exam</span>
+            </h2>
+            <p className="lead maxw">
+              From <strong>Class 10 onwards</strong> we open short, high-intensity batches during
+              exam season — board (SSLC, +1, +2), half-yearly or term exams, built around your exam
+              date.
+            </p>
+          </div>
+          <div className="exam-grid" data-stagger>
+            <article className="exam-card">
+              <span className="ec-ico">
+                <TargetIcon />
+              </span>
+              <h3>Board exam intensive</h3>
+              <p>SSLC, Plus One &amp; Plus Two — revision, previous-year papers &amp; answer-writing.</p>
+              <span className="ec-tag">SSLC · +1 · +2</span>
+            </article>
+            <article className="exam-card">
+              <span className="ec-ico">
+                <ChartIcon />
+              </span>
+              <h3>Half-yearly &amp; term exams</h3>
+              <p>Focused syllabus revision + timed practice tests for any class from 10th onwards.</p>
+              <span className="ec-tag">Class 10+ · term exams</span>
+            </article>
+            <article className="exam-card">
+              <span className="ec-ico">
+                <HelpIcon />
+              </span>
+              <h3>Crash &amp; doubt sessions</h3>
+              <p>Daily doubt-clearing and rapid concept fixes in the final run-up — online or offline.</p>
+              <span className="ec-tag">Daily · online &amp; offline</span>
+            </article>
+          </div>
+          <div className="center" style={{ marginTop: '2.2rem' }}>
+            <button className="btn btn-red btn-lg" data-open-modal data-subjects="Exam-target batch">
+              Reserve an exam-target seat
+            </button>
+          </div>
+        </div>
+      </section>
 
       {/* FINAL CTA */}
       <section className="section final" data-screen-label="Final CTA">

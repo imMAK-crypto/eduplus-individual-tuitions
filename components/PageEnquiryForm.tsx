@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { CheckIcon, WhatsAppIcon } from '@/lib/icons';
-import { waLink } from '@/lib/site';
+import { waLink, validIndianPhone } from '@/lib/site';
 
 export default function PageEnquiryForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -12,21 +12,35 @@ export default function PageEnquiryForm() {
   const classRef = useRef<HTMLSelectElement | null>(null);
   const boardRef = useRef<HTMLSelectElement | null>(null);
   const subjRef = useRef<HTMLInputElement | null>(null);
+  const msgRef = useRef<HTMLTextAreaElement | null>(null);
+
+  function buildMsg() {
+    return `Hi Eduplus! Enquiry:\nStudent: ${studentRef.current?.value || ''}\nClass: ${
+      classRef.current?.value || ''
+    } (${boardRef.current?.value || ''})\nSubjects: ${subjRef.current?.value || '—'}\nMessage: ${
+      msgRef.current?.value || '—'
+    }\nPhone: ${phoneRef.current?.value || ''}`;
+  }
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const err: Record<string, boolean> = {};
     if ((studentRef.current?.value || '').trim().length <= 1) err.student = true;
-    if (!/\d{10}/.test((phoneRef.current?.value || '').replace(/\D/g, ''))) err.phone = true;
+    if (!validIndianPhone(phoneRef.current?.value || '')) err.phone = true;
     if (!classRef.current?.value) err.class = true;
     if (!boardRef.current?.value) err.board = true;
     setErrors(err);
     if (Object.keys(err).length) return;
     setSubmitted(true);
+    try {
+      window.open(waLink(buildMsg()), '_blank', 'noopener,noreferrer');
+    } catch {
+      /* popup blocked — the success screen still offers the same link */
+    }
   }
 
   if (submitted) {
-    const msg = `Hi Eduplus! Enquiry:\nStudent: ${studentRef.current?.value}\nClass: ${classRef.current?.value} (${boardRef.current?.value})\nSubjects: ${subjRef.current?.value || '—'}\nPhone: ${phoneRef.current?.value}`;
+    const msg = buildMsg();
     return (
       <div className="modal-success" style={{ padding: '1.5rem 0' }}>
         <div className="ok">
@@ -74,6 +88,8 @@ export default function PageEnquiryForm() {
           </label>
           <select id="p-class" name="class" required ref={classRef} defaultValue="">
             <option value="">Select…</option>
+            <option>LKG</option>
+            <option>UKG</option>
             {Array.from({ length: 12 }).map((_, i) => (
               <option key={i + 1}>Class {i + 1}</option>
             ))}
@@ -99,7 +115,7 @@ export default function PageEnquiryForm() {
       </div>
       <div className="field">
         <label htmlFor="p-msg">Message (optional)</label>
-        <textarea id="p-msg" name="message" placeholder="Anything you'd like us to know" />
+        <textarea id="p-msg" name="message" placeholder="Anything you'd like us to know" ref={msgRef} />
       </div>
       <button type="submit" className="btn btn-red btn-block btn-lg">
         Request Callback

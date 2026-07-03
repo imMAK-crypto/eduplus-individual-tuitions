@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { SITE, NAV, telLink, waLink, type NavKey } from '@/lib/site';
+import { SITE, NAV, telLink, waLink, validIndianPhone, type NavKey } from '@/lib/site';
 import {
   Logo,
   PhoneIcon,
@@ -61,6 +61,51 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // remember a dismissed announcement across visits
+  useEffect(() => {
+    try {
+      if (localStorage.getItem('eduplus-announce-hidden')) setAnnounceHidden(true);
+    } catch {
+      /* storage disabled — just show it */
+    }
+  }, []);
+
+  // focus trap for whichever overlay is open (modal or mobile menu)
+  useEffect(() => {
+    const sel = modalOpen ? '.modal' : menuOpen ? '.mobile-menu' : null;
+    if (!sel) return;
+    const container = document.querySelector<HTMLElement>(sel);
+    if (!container) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const f = container.querySelectorAll<HTMLElement>(
+        'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])'
+      );
+      if (!f.length) return;
+      const first = f[0];
+      const last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [modalOpen, menuOpen]);
+
+  // Esc closes the mobile menu
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [menuOpen]);
+
   // body class for action-bar padding
   useEffect(() => {
     if (isShowcase) return;
@@ -93,11 +138,16 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     document.body.style.overflow = modalOpen || menuOpen ? 'hidden' : '';
   }, [modalOpen, menuOpen]);
 
-  // apply prefill values once modal mounts/opens
+  // reset + apply prefill values once modal mounts/opens (no stale data on reopen)
   useEffect(() => {
     if (!modalOpen) return;
-    if (modalPrefill.klass && classRef.current) classRef.current.value = modalPrefill.klass;
-    if (modalPrefill.subjects && subjRef.current) subjRef.current.value = modalPrefill.subjects;
+    if (studentRef.current) studentRef.current.value = '';
+    if (phoneRef.current) phoneRef.current.value = '';
+    if (timeRef.current) timeRef.current.value = '';
+    if (msgRef.current) msgRef.current.value = '';
+    if (classRef.current) classRef.current.value = modalPrefill.klass || '';
+    if (subjRef.current) subjRef.current.value = modalPrefill.subjects || '';
+    setErrors({});
     const t = setTimeout(() => firstFieldRef.current?.focus(), 120);
     return () => clearTimeout(t);
   }, [modalOpen, modalPrefill]);
@@ -126,12 +176,18 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     const subj = subjRef.current?.value || '';
     const err: Record<string, boolean> = {};
     if (student.trim().length <= 1) err.student = true;
-    if (!/\d{10}/.test(phone.replace(/\D/g, ''))) err.phone = true;
+    if (!validIndianPhone(phone)) err.phone = true;
     if (!klass) err.class = true;
     if (!board) err.board = true;
     setErrors(err);
     if (Object.keys(err).length) return;
     setSubmitted(true);
+    // hand the lead straight to WhatsApp (their real inbox) — user-gesture, so allowed
+    try {
+      window.open(waLink(successMsg()), '_blank', 'noopener,noreferrer');
+    } catch {
+      /* popup blocked — the success screen still offers the same link */
+    }
   }
 
   if (isShowcase) return <>{children}</>;
@@ -142,7 +198,9 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     const klass = classRef.current?.value || '';
     const board = boardRef.current?.value || '';
     const subj = subjRef.current?.value || '';
-    return `Hi Eduplus! Demo request:\nStudent: ${student}\nClass: ${klass} (${board})\nSubjects: ${subj || '—'}\nPhone: ${phone}`;
+    const time = timeRef.current?.value || '';
+    const message = msgRef.current?.value || '';
+    return `Hi Eduplus! Demo request:\nStudent: ${student}\nClass: ${klass} (${board})\nSubjects: ${subj || '—'}\nPreferred time: ${time || '—'}\nMessage: ${message || '—'}\nPhone: ${phone}`;
   }
 
   return (
@@ -161,7 +219,14 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
           <button
             className="close"
             aria-label="Dismiss announcement"
-            onClick={() => setAnnounceHidden(true)}
+            onClick={() => {
+              setAnnounceHidden(true);
+              try {
+                localStorage.setItem('eduplus-announce-hidden', '1');
+              } catch {
+                /* storage disabled — dismissal just won't persist */
+              }
+            }}
           >
             <XIcon />
           </button>
@@ -296,11 +361,11 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
             <div className="foot-col">
               <h4>Programs</h4>
               <ul>
-                <li><Link href="/programs">Primary (1–4)</Link></li>
+                <li><Link href="/programs">Foundation (LKG–4)</Link></li>
                 <li><Link href="/programs">Middle (5–7)</Link></li>
                 <li><Link href="/programs">High School (8–10)</Link></li>
                 <li><Link href="/programs">Plus One / Plus Two</Link></li>
-                <li><Link href="/programs">Entrance Foundation</Link></li>
+                <li><Link href="/programs#exam-prep">Exam-target batches</Link></li>
               </ul>
             </div>
             <div className="foot-col">
@@ -330,7 +395,10 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
             </div>
           </div>
           <div className="foot-bottom">
-            <span>© 2026 {SITE.name}. All rights reserved.</span>
+            <span>
+              © {new Date().getFullYear()} {SITE.name}. All rights reserved. ·{' '}
+              <Link href="/privacy">Privacy</Link>
+            </span>
             <span className="made">
               Made in Kozhikode <HeartIcon />
             </span>
@@ -420,6 +488,8 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                     </label>
                     <select id="f-class" name="class" required ref={classRef} defaultValue="">
                       <option value="">Select…</option>
+                      <option>LKG</option>
+                      <option>UKG</option>
                       {Array.from({ length: 12 }).map((_, i) => (
                         <option key={i + 1}>Class {i + 1}</option>
                       ))}

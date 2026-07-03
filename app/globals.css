@@ -623,6 +623,154 @@ html.no-intro .intro-splash{display:none;}
 .hours-table tr:last-child td{border-bottom:none;}
 
 /* ============================================================
+   LEARNING MODES + STAGES (home highlight)
+   ============================================================ */
+.mode-switch{max-width:940px;margin-inline:auto;text-align:center;}
+.tabs.seg{display:inline-flex;flex-wrap:nowrap;gap:4px;background:var(--g-100);padding:5px;border-radius:var(--r-pill);margin:0 auto 1.6rem;}
+.tabs.seg .tab{background:transparent;color:var(--g-600);box-shadow:none;display:inline-flex;align-items:center;gap:.5em;}
+.tabs.seg .tab svg{width:1.1em;height:1.1em;}
+.tabs.seg .tab.active{background:#fff;color:var(--blue);box-shadow:var(--sh-soft);}
+
+.mode-card{background:#fff;border:1px solid var(--g-100);border-radius:var(--r-lg);box-shadow:var(--sh-card);
+  padding:clamp(1.4rem,3vw,2rem);display:flex;gap:1.4rem;align-items:flex-start;text-align:left;}
+@media(max-width:620px){.mode-card{flex-direction:column;gap:1rem;}}
+.mc-ico{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;flex:none;}
+.mc-ico svg{width:30px;height:30px;}
+.mc-ico.blue{background:var(--blue-50);color:var(--blue);}
+.mc-ico.green{background:var(--green-50);color:var(--green-600);}
+.mc-body h3{margin-bottom:.5rem;}
+.mc-body p{color:var(--g-600);margin-bottom:1rem;}
+.mc-list{display:grid;gap:.5rem;margin-bottom:1.3rem;}
+.mc-list li{display:flex;align-items:center;gap:.55rem;font-size:.95rem;color:var(--g-700);font-family:var(--font-head);font-weight:600;}
+.mc-list svg{width:18px;height:18px;color:var(--green-600);flex:none;}
+
+.stage-grid{display:grid;gap:1.3rem;grid-template-columns:1fr;margin-top:2.4rem;}
+@media(min-width:640px){.stage-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:960px){.stage-grid{grid-template-columns:repeat(3,1fr);}}
+.stage-card{display:flex;flex-direction:column;gap:.7rem;border-top:5px solid var(--blue);}
+.stage-card.red{border-color:var(--red);}
+.stage-card.green{border-color:var(--green);}
+.sc-top{display:flex;align-items:center;justify-content:space-between;gap:.6rem;}
+.sc-range{font-family:var(--font-head);font-weight:800;font-size:1.02rem;letter-spacing:-.01em;color:var(--blue);background:var(--blue-50);padding:.3rem .75rem;border-radius:var(--r-pill);white-space:nowrap;}
+.stage-card.red .sc-range{color:var(--red);background:var(--red-50);}
+.stage-card.green .sc-range{color:var(--green-600);background:var(--green-50);}
+.sc-ico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--blue-50);color:var(--blue);flex:none;}
+.sc-ico svg{width:24px;height:24px;}
+.stage-card.red .sc-ico{background:var(--red-50);color:var(--red);}
+.stage-card.green .sc-ico{background:var(--green-50);color:var(--green-600);}
+.stage-card h3{margin-top:.3rem;}
+.stage-card>p{color:var(--g-600);font-size:.95rem;}
+.sc-list{display:grid;gap:.45rem;margin:.2rem 0;}
+.sc-list li{display:flex;align-items:center;gap:.5rem;font-size:.9rem;color:var(--g-700);}
+.sc-list svg{width:16px;height:16px;color:var(--green-600);flex:none;}
+.sc-foot{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.2rem;}
+.stage-card .enquire{margin-top:auto;align-self:flex-start;color:var(--blue);font-family:var(--font-head);font-weight:700;font-size:.92rem;display:inline-flex;align-items:center;gap:.35em;padding-top:.5rem;}
+.stage-card .enquire svg{width:1em;height:1em;transition:transform .18s;}
+.stage-card .enquire:hover svg{transform:translateX(3px);}
+.stage-card.red .enquire{color:var(--red);}
+.stage-card.green .enquire{color:var(--green-600);}
+
+/* ============================================================
+   EXAM-TARGET SPOTLIGHT (home highlight)
+   ============================================================ */
+.exam-spot{position:relative;overflow:hidden;background:linear-gradient(135deg,#0a1b3d 0%, var(--blue-600) 68%, var(--blue) 100%);color:#fff;}
+.exam-spot .container{position:relative;z-index:2;}
+.exam-spot h2{color:#fff;}
+.exam-spot .lead{color:rgba(255,255,255,.82);}
+.exam-spot .lead strong{color:#fff;}
+.exam-spot .underline-accent::after{opacity:.85;}
+.exam-spot .deco{position:absolute;border-radius:50%;opacity:.16;pointer-events:none;}
+.exam-spot .d1{width:260px;height:260px;background:var(--yellow);top:-90px;right:-40px;}
+.exam-spot .d2{width:200px;height:200px;background:var(--green);bottom:-80px;left:-30px;}
+.pulse-tag{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-head);font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);padding:.42rem .95rem;border-radius:var(--r-pill);margin-bottom:.9rem;}
+.pulse-tag .dot{width:9px;height:9px;border-radius:50%;background:var(--yellow);position:relative;flex:none;}
+@media (prefers-reduced-motion: no-preference){.pulse-tag .dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--yellow);animation:pulse 2s ease-out infinite;}}
+.exam-grid{display:grid;gap:1.2rem;grid-template-columns:1fr;}
+@media(min-width:820px){.exam-grid{grid-template-columns:repeat(3,1fr);}}
+.exam-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:var(--r-lg);padding:1.5rem;display:flex;flex-direction:column;gap:.7rem;transition:transform .22s ease, background .22s ease;}
+.exam-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.12);}
+.ec-ico{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:rgba(245,178,4,.18);color:var(--yellow);}
+.ec-ico svg{width:26px;height:26px;}
+.exam-card h3{color:#fff;font-size:1.2rem;}
+.exam-card p{color:rgba(255,255,255,.78);font-size:.94rem;}
+.ec-tag{align-self:flex-start;margin-top:auto;font-family:var(--font-head);font-weight:700;font-size:.76rem;letter-spacing:.02em;color:#fff;background:rgba(255,255,255,.12);padding:.32rem .72rem;border-radius:var(--r-pill);}
+.exam-tags{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;margin-top:2rem;}
+.etag{font-family:var(--font-head);font-weight:700;font-size:.82rem;color:#0a1b3d;background:#fff;padding:.4rem .9rem;border-radius:var(--r-pill);box-shadow:0 6px 16px rgba(0,0,0,.18);}
+
+/* ============================================================
+   ANCHOR OFFSET + A11Y/CONTRAST FIXES
+   ============================================================ */
+/* stop the sticky header covering section tops on #hash jumps */
+[id]{scroll-margin-top:96px;}
+/* AA contrast for large stat numbers on light backgrounds */
+.stat:nth-child(4) .num{color:#9a7100;}
+.stat .num .suf{color:var(--green-600);}
+/* let accent phrases wrap on very small screens instead of overflowing */
+@media(max-width:380px){.underline-accent{white-space:normal;}}
+
+/* hero "exam batches" quick link */
+.hero-exam-link{display:inline-flex;align-items:center;gap:.4rem;margin:-0.4rem 0 1.4rem;
+  font-family:var(--font-head);font-weight:700;font-size:.92rem;color:var(--red);}
+.hero-exam-link svg{transition:transform .18s;}
+.hero-exam-link:hover{color:var(--red-600);}
+.hero-exam-link:hover svg{transform:translateX(3px);}
+
+/* ============================================================
+   BRAND ILLUSTRATION (fills photo slots until real photos land)
+   ============================================================ */
+.hero-photo{
+  background:
+    radial-gradient(120% 100% at 85% 0%, var(--blue-50) 0%, transparent 60%),
+    radial-gradient(90% 90% at 0% 100%, var(--green-50) 0%, transparent 55%),
+    #fff;
+}
+.hero-illus{width:100%;height:100%;display:block;}
+.illus-note{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);
+  font-family:var(--font-head);font-weight:600;font-size:.72rem;color:var(--g-500);
+  background:rgba(255,255,255,.82);padding:.28rem .7rem;border-radius:999px;white-space:nowrap;}
+
+/* ============================================================
+   GOOGLE-REVIEW TRUST CARD (results section)
+   ============================================================ */
+.grev{max-width:640px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  padding:clamp(1.8rem,4vw,2.6rem);}
+.grev .grev-score{font-family:var(--font-head);font-weight:800;font-size:clamp(3rem,7vw,4.4rem);line-height:1;color:var(--ink);letter-spacing:-.03em;}
+.grev .grev-stars{display:flex;gap:4px;color:var(--yellow);}
+.grev .grev-stars svg{width:26px;height:26px;}
+.grev .grev-sub{color:var(--g-600);font-family:var(--font-head);font-weight:600;}
+.grev .grev-sub strong{color:var(--ink);}
+.grev .btn{margin-top:1rem;}
+.grev-logo{font-family:var(--font-head);font-weight:700;}
+.grev-logo .g-b{color:#4285F4;}.grev-logo .g-r{color:#EA4335;}.grev-logo .g-y{color:#FBBC05;}.grev-logo .g-g{color:#34A853;}
+
+/* ============================================================
+   AREAS WE SERVE (local SEO strip)
+   ============================================================ */
+.areas-strip{text-align:center;}
+.area-chips{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-top:1.2rem;}
+.area-chip{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-head);font-weight:600;font-size:.9rem;
+  color:var(--g-700);background:#fff;border:1px solid var(--g-200);padding:.5rem .95rem;border-radius:var(--r-pill);box-shadow:var(--sh-soft);}
+.area-chip svg{width:15px;height:15px;color:var(--red);}
+
+/* ============================================================
+   404 + LEGAL PAGES
+   ============================================================ */
+.err-page{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.1rem;padding-block:clamp(3rem,8vw,6rem);}
+.err-page .code{font-family:var(--font-head);font-weight:800;font-size:clamp(4rem,14vw,8rem);line-height:1;color:var(--blue);letter-spacing:-.04em;}
+.err-page .code span{color:var(--red);}
+.err-page p{color:var(--g-600);max-width:44ch;}
+.err-actions{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-top:.6rem;}
+.legal{max-width:760px;margin-inline:auto;}
+.legal h2{font-size:clamp(1.3rem,2.6vw,1.7rem);margin:1.8rem 0 .6rem;}
+.legal ul.bullets{list-style:disc;padding-left:1.3rem;margin-bottom:1.1rem;color:var(--g-600);}
+.legal ul.bullets li{margin-bottom:.4rem;}
+
+/* ============================================================
+   EXAM-TARGET on Programs (reused band, tightened spacing)
+   ============================================================ */
+.exam-spot.compact{border-radius:var(--r-xl);margin-top:1rem;}
+
+/* ============================================================
    PHONE SHOWCASE
    ============================================================ */
 .showcase-body{

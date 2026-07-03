@@ -1,18 +1,46 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ClockIcon, PhoneIcon, PinIcon, PlusIcon, WhatsAppIcon } from '@/lib/icons';
-import { SITE, telLink, waLink } from '@/lib/site';
+import { SITE, breadcrumbLd, telLink, waLink } from '@/lib/site';
 import PageEnquiryForm from '@/components/PageEnquiryForm';
 
 export const metadata: Metadata = {
   title: 'Contact & Admissions',
   description:
-    'Contact Eduplus Individual Tuitions in Ashokapuram, Kozhikode. Call, WhatsApp or send an enquiry to book a free demo class. Behind Rajendra Hospital, Kozhikode 673001.',
+    'Contact Eduplus Individual Tuitions in Ashokapuram, Kozhikode. Call, WhatsApp or send an enquiry to book a free demo class — one-to-one tuition LKG–12, online & offline. Behind Rajendra Hospital, Kozhikode 673001.',
+  alternates: { canonical: '/contact' },
+  openGraph: {
+    title: 'Contact Eduplus Individual Tuitions — Ashokapuram, Kozhikode',
+    description:
+      'Call, WhatsApp or enquire to book a free demo class. One-to-one tuition LKG–12, online & offline, behind Rajendra Hospital, Kozhikode 673001.',
+    url: '/contact',
+    type: 'website',
+  },
 };
 
 export default function ContactPage() {
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: CONTACT_FAQ.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.a.replace(/<[^>]+>/g, '').replace(/\[[^\]]*\]/g, '').replace(/\s+/g, ' ').trim(),
+      },
+    })),
+  };
   return (
     <main id="main">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd('Contact', '/contact')) }}
+      />
       {/* PAGE HERO */}
       <section className="page-hero" data-screen-label="Contact hero">
         <div className="container">
@@ -56,9 +84,7 @@ export default function ContactPage() {
                   </span>
                   <span>
                     <span className="t1">Call us</span>
-                    <span className="t2">
-                      {SITE.phone} · <em>[confirm number]</em>
-                    </span>
+                    <span className="t2">{SITE.phone}</span>
                   </span>
                 </a>
                 <a className="cc" href={waLink()} target="_blank" rel="noopener noreferrer">
@@ -112,7 +138,7 @@ export default function ContactPage() {
                       </tbody>
                     </table>
                     <span className="t2" style={{ display: 'block', marginTop: '.4rem' }}>
-                      <em>[PLACEHOLDER — confirm exact weekly hours]</em>
+                      Flexible morning &amp; evening batches — online &amp; offline.
                     </span>
                   </span>
                 </div>
@@ -183,18 +209,18 @@ export default function ContactPage() {
 const CONTACT_FAQ: { q: string; a: string }[] = [
   {
     q: 'How soon will you reply?',
-    a: 'WhatsApp gets the fastest response during working hours. Callback requests are usually returned the same day. <em>[Confirm with client.]</em>',
+    a: 'WhatsApp gets the fastest response during working hours. Callback requests are usually returned the same day.',
   },
   {
     q: 'Is the demo class really free?',
-    a: "Yes — your first demo class is free with no obligation to continue.",
+    a: 'Yes — your first demo class is free with no obligation to continue.',
   },
   {
-    q: 'Do you offer home / online tuition?',
-    a: '<em>[PLACEHOLDER — confirm whether home or online tuition is available, and any area limits.]</em>',
+    q: 'Do you offer online tuition?',
+    a: 'Yes — every programme runs both offline at our Ashokapuram centre and live online, with the same one-to-one attention.',
   },
   {
-    q: 'How do I pay the fees?',
-    a: '<em>[PLACEHOLDER — add accepted payment methods and fee cycle.]</em>',
+    q: 'How do I pay the fees, and what do they cost?',
+    a: 'Fees depend on the class, board and batch type (one-to-one, small batch, online or offline). Message or call us and we’ll share current fees and set up a free demo.',
   },
 ];

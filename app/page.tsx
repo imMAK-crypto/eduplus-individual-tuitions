@@ -3,6 +3,7 @@ import {
   ArrowIcon,
   AtomIcon,
   BookIcon,
+  BrandIllustration,
   BulbIcon,
   ChartIcon,
   CheckIcon,
@@ -21,21 +22,39 @@ import {
   TargetIcon,
   UsersIcon,
 } from '@/lib/icons';
-import { SITE, telLink, waLink } from '@/lib/site';
+import { SITE, YEARS_ACTIVE, telLink, waLink } from '@/lib/site';
 
-function Stars() {
+function Stars({ label = 'Rated 5 out of 5' }: { label?: string }) {
   return (
-    <div className="stars">
+    <div className="stars" role="img" aria-label={label}>
       {Array.from({ length: 5 }).map((_, i) => (
-        <StarIcon key={i} />
+        <StarIcon key={i} aria-hidden="true" />
       ))}
     </div>
   );
 }
 
 export default function HomePage() {
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        // strip markup + any [placeholder] notes so rich results stay clean
+        text: f.a.replace(/<[^>]+>/g, '').replace(/\[[^\]]*\]/g, '').replace(/\s+/g, ' ').trim(),
+      },
+    })),
+  };
+
   return (
     <main id="main">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
       {/* (1) HERO */}
       <section className="hero" data-screen-label="Hero">
         <div className="container hero-grid">
@@ -44,11 +63,13 @@ export default function HomePage() {
               Beyond Classroom · Ashokapuram, Kozhikode
             </span>
             <h1 className="display reveal" style={{ marginTop: '.6rem' }}>
-              Learning that goes <span className="underline-accent">beyond</span> the classroom.
+              One-to-one tuition that goes <span className="underline-accent">beyond</span> the
+              classroom.
             </h1>
             <p className="lead reveal">
-              Personalised, individual tuition for Class 1–12 in Ashokapuram, Kozhikode — Kerala
-              State, CBSE &amp; ICSE. Real attention, real results.
+              Individual, personalised coaching for <strong>LKG to Plus Two</strong> in Ashokapuram,
+              Kozhikode — online &amp; offline, Kerala State, CBSE &amp; ICSE. Real attention, real
+              results.
             </p>
             <div className="hero-cta reveal">
               <button className="btn btn-red btn-lg" data-open-modal>
@@ -58,11 +79,14 @@ export default function HomePage() {
                 Call Now
               </a>
             </div>
+            <a className="hero-exam-link reveal" href="#exam-prep">
+              📣 Exam coming up? See our exam-target batches <ArrowIcon width={16} height={16} />
+            </a>
             <div className="hero-chips" data-stagger>
-              <span className="chip">✔ One-to-one &amp; small batches</span>
-              <span className="chip">✔ Experienced local teachers</span>
-              <span className="chip">✔ Doubt-clearing &amp; mentorship</span>
-              <span className="chip">✔ Board-exam focused</span>
+              <span className="chip">✔ True one-to-one · online &amp; offline</span>
+              <span className="chip">✔ LKG to Plus Two · all boards</span>
+              <span className="chip">✔ Exam-target batches</span>
+              <span className="chip">★ 4.8 Google rating · since {SITE.foundedYear}</span>
             </div>
           </div>
           <div className="hero-visual reveal">
@@ -71,13 +95,8 @@ export default function HomePage() {
             <span className="blob b3" />
             <span className="blob b4 sq" />
             <div className="hero-photo">
-              <span className="slot-label">
-                [ photo slot ]
-                <br />
-                students studying together
-                <br />
-                warm, real, local · 1:1 ratio
-              </span>
+              <BrandIllustration className="hero-illus" />
+              <span className="illus-note">Photos coming soon</span>
             </div>
           </div>
         </div>
@@ -101,15 +120,20 @@ export default function HomePage() {
                 <span className="t2">behind Rajendra Hospital</span>
               </span>
             </a>
-            <div className="trust-item">
-              <span className="ti-ico" style={{ color: 'var(--green)' }}>
-                <ClockIcon />
+            <a
+              className="trust-item"
+              href={SITE.mapsLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="ti-ico" style={{ color: 'var(--yellow)' }}>
+                <StarIcon />
               </span>
               <span>
-                <span className="t1">Opens 10:00 AM</span>
-                <span className="t2">daily · flexible batches</span>
+                <span className="t1">4.8★ Google rating</span>
+                <span className="t2">{SITE.ratingCount} reviews · since {SITE.foundedYear}</span>
               </span>
-            </div>
+            </a>
             <div className="trust-item">
               <span className="ti-ico" style={{ color: 'var(--red)' }}>
                 <CheckIcon />
@@ -128,6 +152,287 @@ export default function HomePage() {
                 <span className="t2">all major boards</span>
               </span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* (2.5) LEARNING MODES + STAGES — one-to-one, online/offline, every stage */}
+      <section className="section modes" id="learning" data-screen-label="How we teach">
+        <div className="container">
+          <div className="sh center reveal">
+            <span className="eyebrow" style={{ color: 'var(--red)' }}>
+              Individual · one-to-one
+            </span>
+            <h2>
+              One-to-one coaching, <span className="underline-accent">online or offline</span>
+            </h2>
+            <p className="lead maxw">
+              Real individual attention for every class from <strong>LKG to Plus Two</strong> — learn
+              at our Ashokapuram centre or live online, whichever suits your family. Rated{' '}
+              <strong>4.8★ by parents</strong> since 2015.
+            </p>
+          </div>
+
+          {/* interactive mode switch (reuses the tabs engine) */}
+          <div className="mode-switch" data-tabs>
+            <div className="tabs seg" role="tablist" aria-label="Choose learning mode">
+              <button className="tab active" role="tab" aria-selected="true" data-tab="mode-offline">
+                <PinIcon /> At the centre
+              </button>
+              <button className="tab" role="tab" aria-selected="false" data-tab="mode-online">
+                <GlobeIcon /> Live online
+              </button>
+            </div>
+
+            <div className="tab-panel show" id="mode-offline" role="tabpanel">
+              <div className="mode-card">
+                <div className="mc-ico blue">
+                  <PinIcon />
+                </div>
+                <div className="mc-body">
+                  <h3>Face-to-face at our centre</h3>
+                  <p>
+                    One-to-one and small-batch tuition at our Ashokapuram centre, right behind
+                    Rajendra Hospital — a calm, focused place to learn.
+                  </p>
+                  <ul className="mc-list">
+                    <li>
+                      <CheckIcon /> Fixed teacher &amp; personal attention
+                    </li>
+                    <li>
+                      <CheckIcon /> Printed notes, worksheets &amp; papers
+                    </li>
+                    <li>
+                      <CheckIcon /> Daily in-person doubt-clearing
+                    </li>
+                    <li>
+                      <CheckIcon /> Motivating peer study group
+                    </li>
+                  </ul>
+                  <button className="btn btn-blue" data-open-modal data-subjects="Offline tuition">
+                    Book a centre demo
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="tab-panel" id="mode-online" role="tabpanel">
+              <div className="mode-card">
+                <div className="mc-ico green">
+                  <GlobeIcon />
+                </div>
+                <div className="mc-body">
+                  <h3>Live online, from home</h3>
+                  <p>
+                    The same teacher and the same true one-to-one focus — over live video, from
+                    anywhere in Kozhikode or beyond.
+                  </p>
+                  <ul className="mc-list">
+                    <li>
+                      <CheckIcon /> Live, interactive one-to-one classes
+                    </li>
+                    <li>
+                      <CheckIcon /> Recordings to revise anytime
+                    </li>
+                    <li>
+                      <CheckIcon /> Flexible morning &amp; evening slots
+                    </li>
+                    <li>
+                      <CheckIcon /> Perfect for exam-season crunch
+                    </li>
+                  </ul>
+                  <button className="btn btn-green" data-open-modal data-subjects="Online tuition">
+                    Book an online demo
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* stage bands: LKG–7 · 8–10 · 11 & 12 */}
+          <div className="stage-grid" data-stagger>
+            <article className="card card-hover stage-card blue">
+              <div className="sc-top">
+                <span className="sc-range">LKG–7</span>
+                <span className="sc-ico">
+                  <NotebookIcon />
+                </span>
+              </div>
+              <h3>Strong foundations, built early</h3>
+              <p>
+                Reading, writing, Maths &amp; concept basics — patient one-to-one teaching that makes
+                school feel easy.
+              </p>
+              <ul className="sc-list">
+                <li>
+                  <CheckIcon /> All subjects · all boards
+                </li>
+                <li>
+                  <CheckIcon /> Reading, writing &amp; handwriting
+                </li>
+                <li>
+                  <CheckIcon /> Homework &amp; doubt support
+                </li>
+              </ul>
+              <div className="sc-foot">
+                <span className="badge badge-blue">1-to-1</span>
+                <span className="badge badge-green">Online &amp; offline</span>
+              </div>
+              <button
+                className="enquire"
+                data-open-modal
+                data-class="Class 5"
+                data-subjects="All subjects (foundation)"
+              >
+                Enquire about this <ArrowIcon />
+              </button>
+            </article>
+
+            <article className="card card-hover stage-card red">
+              <div className="sc-top">
+                <span className="sc-range">Class 8–10</span>
+                <span className="sc-ico">
+                  <TargetIcon />
+                </span>
+              </div>
+              <h3>SSLC &amp; high school, mastered</h3>
+              <p>
+                Every subject with exam technique, revision &amp; model papers — focused coaching to
+                lift your board score.
+              </p>
+              <ul className="sc-list">
+                <li>
+                  <CheckIcon /> Physics, Chemistry, Biology &amp; Maths
+                </li>
+                <li>
+                  <CheckIcon /> Answer-writing &amp; time management
+                </li>
+                <li>
+                  <CheckIcon /> Regular tests &amp; feedback
+                </li>
+              </ul>
+              <div className="sc-foot">
+                <span className="badge badge-red">Board focus</span>
+                <span className="badge badge-green">Online &amp; offline</span>
+              </div>
+              <button
+                className="enquire"
+                data-open-modal
+                data-class="Class 10"
+                data-subjects="All subjects (SSLC)"
+              >
+                Enquire about this <ArrowIcon />
+              </button>
+            </article>
+
+            <article className="card card-hover stage-card green">
+              <div className="sc-top">
+                <span className="sc-range">Class 11 &amp; 12</span>
+                <span className="sc-ico">
+                  <AtomIcon />
+                </span>
+              </div>
+              <h3>Plus One &amp; Plus Two, targeted</h3>
+              <p>
+                Science, Commerce &amp; Humanities subject coaching aimed straight at the +1 / +2
+                board exam.
+              </p>
+              <ul className="sc-list">
+                <li>
+                  <CheckIcon /> Science · Commerce · Humanities
+                </li>
+                <li>
+                  <CheckIcon /> Subject-wise expert teachers
+                </li>
+                <li>
+                  <CheckIcon /> Board &amp; entrance-aligned
+                </li>
+              </ul>
+              <div className="sc-foot">
+                <span className="badge badge-green">+1 / +2</span>
+                <span className="badge badge-blue">Online &amp; offline</span>
+              </div>
+              <button
+                className="enquire"
+                data-open-modal
+                data-class="Class 12"
+                data-subjects="Plus Two subjects"
+              >
+                Enquire about this <ArrowIcon />
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* (2.6) EXAM-TARGET TUITION — intensive batches timed to the exam */}
+      <section className="section exam-spot" id="exam-prep" data-screen-label="Exam-target coaching">
+        <span className="deco d1" />
+        <span className="deco d2" />
+        <div className="container">
+          <div className="sh center reveal">
+            <span className="pulse-tag">
+              <span className="dot" /> Exam season · enrolling now
+            </span>
+            <h2>
+              Exam-target batches, <span className="underline-accent">timed to your exam</span>
+            </h2>
+            <p className="lead maxw">
+              From <strong>Class 10 onwards</strong> we open short, high-intensity batches during
+              exam season — so students walk in prepared, not panicked. Board, half-yearly or term
+              exams: we build the plan around <em>your</em> exam date.
+            </p>
+          </div>
+
+          <div className="exam-grid" data-stagger>
+            <article className="exam-card">
+              <span className="ec-ico">
+                <TargetIcon />
+              </span>
+              <h3>Board exam intensive</h3>
+              <p>
+                SSLC, Plus One &amp; Plus Two — full revision, previous-year papers, answer-writing
+                and marking-scheme practice.
+              </p>
+              <span className="ec-tag">SSLC · +1 · +2</span>
+            </article>
+            <article className="exam-card">
+              <span className="ec-ico">
+                <ChartIcon />
+              </span>
+              <h3>Half-yearly &amp; term exams</h3>
+              <p>
+                Quick, focused syllabus revision plus timed practice tests for any class from 10th
+                onwards during exam months.
+              </p>
+              <span className="ec-tag">Class 10+ · term exams</span>
+            </article>
+            <article className="exam-card">
+              <span className="ec-ico">
+                <HelpIcon />
+              </span>
+              <h3>Crash &amp; doubt sessions</h3>
+              <p>
+                Daily doubt-clearing and rapid concept fixes in the final run-up — online or at the
+                centre, whenever you need it.
+              </p>
+              <span className="ec-tag">Daily · online &amp; offline</span>
+            </article>
+          </div>
+
+          <div className="exam-tags" data-stagger>
+            <span className="etag">SSLC board</span>
+            <span className="etag">Plus One</span>
+            <span className="etag">Plus Two</span>
+            <span className="etag">Half-yearly</span>
+            <span className="etag">Model exams</span>
+            <span className="etag">Revision papers</span>
+          </div>
+
+          <div className="center" style={{ marginTop: '2.4rem' }}>
+            <button className="btn btn-red btn-lg" data-open-modal data-subjects="Exam-target batch">
+              Reserve an exam-target seat
+            </button>
           </div>
         </div>
       </section>
@@ -151,7 +456,7 @@ export default function HomePage() {
           <div data-tabs>
             <div className="tabs" role="tablist" aria-label="Program stages">
               <button className="tab active" role="tab" aria-selected="true" data-tab="p-primary">
-                Primary (1–4)
+                Foundation (LKG–4)
               </button>
               <button className="tab" role="tab" aria-selected="false" data-tab="p-middle">
                 Middle (5–7)
@@ -179,7 +484,7 @@ export default function HomePage() {
                     builds strong basics.
                   </p>
                   <div className="pc-chips">
-                    <span className="badge badge-blue">Class 1–4</span>
+                    <span className="badge badge-blue">LKG–4</span>
                     <span className="badge badge-green">All boards</span>
                   </div>
                   <button
@@ -430,8 +735,7 @@ export default function HomePage() {
                   </span>
                   <h3>NEET / JEE Foundation</h3>
                   <p>
-                    Early foundation &amp; aptitude building for competitive exams, alongside school.{' '}
-                    <em>[PLACEHOLDER — confirm if offered]</em>
+                    Early foundation &amp; aptitude building for competitive exams, alongside school.
                   </p>
                   <div className="pc-chips">
                     <span className="badge badge-red">Class 9–12</span>
@@ -551,90 +855,56 @@ export default function HomePage() {
               Results
             </span>
             <h2>
-              Results that make parents <span className="underline-accent">smile</span>
+              Trusted by <span className="underline-accent">Ashokapuram</span> families
             </h2>
             <p className="lead maxw">
-              Honest, local proof — not vanity metrics.{' '}
-              <em>(All figures below are placeholders for the client to confirm.)</em>
+              Honest, local proof — a rating earned one student at a time since {SITE.foundedYear}.
             </p>
           </div>
           <div className="stat-band">
             <div className="stat reveal">
-              <div className="num" data-count="250" data-suffix="+">
-                0
+              <div className="num">
+                4.8<span className="suf">★</span>
               </div>
-              <div className="lbl">
-                Students mentored <em>[PLACEHOLDER]</em>
-              </div>
+              <div className="lbl">Google rating</div>
             </div>
             <div className="stat reveal">
-              <div className="num" data-count="8" data-suffix="+">
+              <div className="num" data-count={SITE.ratingCount} data-suffix="+">
                 0
               </div>
-              <div className="lbl">
-                Years in Ashokapuram <em>[PLACEHOLDER]</em>
-              </div>
+              <div className="lbl">Parent reviews</div>
             </div>
             <div className="stat reveal">
-              <div className="num" data-count="15" data-suffix="">
+              <div className="num" data-count={YEARS_ACTIVE} data-suffix="+">
                 0
               </div>
-              <div className="lbl">
-                Subjects covered <em>[PLACEHOLDER]</em>
-              </div>
+              <div className="lbl">Years since {SITE.foundedYear}</div>
             </div>
             <div className="stat reveal">
-              <div className="num" data-count="30" data-suffix="%">
+              <div className="num" data-count="3">
                 0
               </div>
-              <div className="lbl">
-                Avg. score improvement <em>[PLACEHOLDER]</em>
-              </div>
+              <div className="lbl">Boards · State, CBSE, ICSE</div>
             </div>
           </div>
-          <div className="tst-grid" data-stagger>
-            <article className="card tst">
-              <Stars />
-              <p className="quote">
-                &ldquo;My daughter went from dreading Maths to topping her class test. The personal
-                attention made all the difference.&rdquo; <em>[PLACEHOLDER testimonial]</em>
-              </p>
-              <div className="who">
-                <span className="av">A</span>
-                <span>
-                  <span className="nm">Parent of Class 9 student</span>
-                  <span className="cl">SSLC · Ashokapuram</span>
-                </span>
-              </div>
-            </article>
-            <article className="card tst">
-              <Stars />
-              <p className="quote">
-                &ldquo;They explain until you actually understand. Doubt sessions any day really
-                helped before my boards.&rdquo; <em>[PLACEHOLDER testimonial]</em>
-              </p>
-              <div className="who">
-                <span className="av">S</span>
-                <span>
-                  <span className="nm">Class 10 student</span>
-                  <span className="cl">Kerala State</span>
-                </span>
-              </div>
-            </article>
-            <article className="card tst">
-              <Stars />
-              <p className="quote">
-                &ldquo;Close to home, caring teachers, and they keep us updated. Exactly what we
-                wanted.&rdquo; <em>[PLACEHOLDER testimonial]</em>
-              </p>
-              <div className="who">
-                <span className="av">R</span>
-                <span>
-                  <span className="nm">Parent of Class 6 student</span>
-                  <span className="cl">CBSE</span>
-                </span>
-              </div>
-            </article>
+          <div className="grev card reveal">
+            <div className="grev-logo">
+              <span className="g-b">G</span>
+              <span className="g-r">o</span>
+              <span className="g-y">o</span>
+              <span className="g-b">g</span>
+              <span className="g-g">l</span>
+              <span className="g-r">e</span> Reviews
+            </div>
+            <div className="grev-score">4.8</div>
+            <Stars label="Rated 4.8 out of 5" />
+            <div className="grev-sub">
+              Based on <strong>{SITE.ratingCount} verified reviews</strong> from parents in
+              Ashokapuram, Kozhikode
+            </div>
+            <a className="btn btn-blue" href={SITE.mapsLink} target="_blank" rel="noopener noreferrer">
+              Read our Google reviews <ArrowIcon />
+            </a>
           </div>
         </div>
       </section>
@@ -707,7 +977,7 @@ export default function HomePage() {
                 <span>
                   <span className="t1">Hours</span>
                   <span className="t2">
-                    {SITE.hours} <em>[confirm full weekly hours]</em>
+                    {SITE.hours} · {SITE.hoursNote}
                   </span>
                 </span>
               </div>
@@ -744,6 +1014,31 @@ export default function HomePage() {
                 src={SITE.mapsEmbed}
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* (7.5) AREAS WE SERVE */}
+      <section className="section areas-strip" data-screen-label="Areas we serve">
+        <div className="container">
+          <div className="sh center reveal">
+            <span className="eyebrow" style={{ color: 'var(--green-600)' }}>
+              Areas we serve
+            </span>
+            <h2>
+              One-to-one tuition across <span className="underline-accent">Kozhikode</span>
+            </h2>
+            <p className="lead maxw">
+              Based in Ashokapuram, behind Rajendra Hospital — and teaching students live online
+              across Kerala.
+            </p>
+          </div>
+          <div className="area-chips" data-stagger>
+            {SITE.areas.map((a) => (
+              <span key={a} className="area-chip">
+                <PinIcon /> {a}
+              </span>
+            ))}
           </div>
         </div>
       </section>
@@ -807,11 +1102,19 @@ function Qa({ q, a }: { q: string; a: string }) {
 const FAQS: { q: string; a: string }[] = [
   {
     q: 'What classes and boards do you teach?',
-    a: 'We tutor Class 1–12 across Kerala State, CBSE and ICSE boards — from foundation subjects to full board-exam preparation. <em>[Confirm exact coverage with client.]</em>',
+    a: 'We tutor LKG to Class 12 (Plus Two) across Kerala State, CBSE and ICSE boards — from foundation subjects right through to full board-exam preparation.',
   },
   {
-    q: 'Do you offer one-to-one tuition?',
-    a: 'Yes. We offer both one-to-one tuition and small batches so every student gets real personal attention.',
+    q: 'Do you offer one-to-one and individual tuition?',
+    a: 'Yes. Individual, one-to-one focus is what we do — plus small batches — so every student is genuinely seen, heard and helped.',
+  },
+  {
+    q: 'Do you offer online tuition as well as offline?',
+    a: 'Yes — every programme is available both offline at our Ashokapuram centre and live online, with the same one-to-one attention either way.',
+  },
+  {
+    q: 'Do you run special coaching before board or half-yearly exams?',
+    a: 'Yes. From Class 10 onwards we open focused exam-target batches during exam season — board (SSLC, +1, +2), half-yearly and term exams — with revision, previous-year papers, answer-writing and daily doubt-clearing.',
   },
   {
     q: 'Where exactly are you located?',
@@ -819,15 +1122,11 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: 'What are your timings?',
-    a: 'We open at 10:00 AM daily, with flexible morning and evening batches. <em>[Confirm full weekly hours with client.]</em>',
+    a: 'We’re open Monday to Saturday, 10 AM – 8 PM, with flexible morning and evening batches; Sunday by appointment. Live online classes are available across Kerala.',
   },
   {
     q: 'Is there a free demo class?',
     a: "Yes — your first demo class is free and there's no obligation to continue. It's the best way to see if we're the right fit.",
-  },
-  {
-    q: 'How are batches sized?',
-    a: 'We deliberately keep batches small so teachers can give individual attention. <em>[Confirm typical batch size with client.]</em>',
   },
   {
     q: 'How do you track progress?',

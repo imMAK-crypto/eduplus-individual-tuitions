@@ -55,29 +55,46 @@ export default function Interactions() {
       });
     }, 1600);
 
-    /* ----- tabs ----- */
+    /* ----- tabs (with roving tabindex + arrow-key nav) ----- */
     const tabGroups = Array.from(document.querySelectorAll<HTMLElement>('[data-tabs]'));
-    const tabHandlers: { el: HTMLElement; handler: (e: Event) => void }[] = [];
+    const tabHandlers: { el: HTMLElement; type: string; handler: (e: Event) => void }[] = [];
     tabGroups.forEach((group) => {
-      const tabs = group.querySelectorAll<HTMLButtonElement>('.tab');
+      const tabs = Array.from(group.querySelectorAll<HTMLButtonElement>('.tab'));
       const panels = group.querySelectorAll<HTMLElement>('.tab-panel');
-      tabs.forEach((t) => {
-        const handler = () => {
-          tabs.forEach((x) => {
-            x.classList.remove('active');
-            x.setAttribute('aria-selected', 'false');
-          });
-          panels.forEach((p) => p.classList.remove('show'));
-          t.classList.add('active');
-          t.setAttribute('aria-selected', 'true');
-          const panelId = t.dataset.tab;
-          if (panelId) {
-            const panel = group.querySelector<HTMLElement>(`#${panelId}`);
-            panel?.classList.add('show');
+      const activate = (t: HTMLButtonElement, focus = false) => {
+        tabs.forEach((x) => {
+          x.classList.remove('active');
+          x.setAttribute('aria-selected', 'false');
+          x.setAttribute('tabindex', '-1');
+        });
+        panels.forEach((p) => p.classList.remove('show'));
+        t.classList.add('active');
+        t.setAttribute('aria-selected', 'true');
+        t.setAttribute('tabindex', '0');
+        const panelId = t.dataset.tab;
+        if (panelId) group.querySelector<HTMLElement>(`#${panelId}`)?.classList.add('show');
+        if (focus) t.focus();
+      };
+      tabs.forEach((t, i) => {
+        // initialise roving tabindex
+        t.setAttribute('tabindex', t.classList.contains('active') ? '0' : '-1');
+        const onClick = () => activate(t);
+        const onKey = (e: Event) => {
+          const ke = e as KeyboardEvent;
+          let next = -1;
+          if (ke.key === 'ArrowRight' || ke.key === 'ArrowDown') next = (i + 1) % tabs.length;
+          else if (ke.key === 'ArrowLeft' || ke.key === 'ArrowUp') next = (i - 1 + tabs.length) % tabs.length;
+          else if (ke.key === 'Home') next = 0;
+          else if (ke.key === 'End') next = tabs.length - 1;
+          if (next >= 0) {
+            e.preventDefault();
+            activate(tabs[next], true);
           }
         };
-        t.addEventListener('click', handler);
-        tabHandlers.push({ el: t, handler });
+        t.addEventListener('click', onClick);
+        t.addEventListener('keydown', onKey);
+        tabHandlers.push({ el: t, type: 'click', handler: onClick });
+        tabHandlers.push({ el: t, type: 'keydown', handler: onKey });
       });
     });
 
@@ -190,7 +207,7 @@ export default function Interactions() {
       window.removeEventListener('scroll', onScrollReveal);
       window.removeEventListener('resize', onScrollReveal);
       window.removeEventListener('scroll', onScrollCount);
-      tabHandlers.forEach(({ el, handler }) => el.removeEventListener('click', handler));
+      tabHandlers.forEach(({ el, type, handler }) => el.removeEventListener(type, handler));
       accordionHandlers.forEach(({ el, handler }) => el.removeEventListener('click', handler));
       parallaxCleanup?.();
     };

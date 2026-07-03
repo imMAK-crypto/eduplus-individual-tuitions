@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
+  BrandIllustration,
   BulbIcon,
   CompassIcon,
   HeartIcon,
@@ -11,17 +12,29 @@ import {
   TargetIcon,
   UsersIcon,
 } from '@/lib/icons';
-import { SITE, telLink } from '@/lib/site';
+import { SITE, YEARS_ACTIVE, breadcrumbLd, telLink } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'About Eduplus',
   description:
-    'Eduplus Individual Tuitions is a neighbourhood tuition centre in Ashokapuram, Kozhikode. Our mission: personal attention, concept clarity and mentorship — beyond the classroom.',
+    'Eduplus Individual Tuitions is a neighbourhood tuition centre in Ashokapuram, Kozhikode, teaching LKG–Class 12 one-to-one, online & offline since 2015. Personal attention, concept clarity and mentorship — beyond the classroom.',
+  alternates: { canonical: '/about' },
+  openGraph: {
+    title: 'About Eduplus Individual Tuitions — Ashokapuram, Kozhikode',
+    description:
+      'A neighbourhood tuition centre teaching LKG–12 one-to-one, online & offline since 2015. Personal attention, concept clarity and mentorship.',
+    url: '/about',
+    type: 'website',
+  },
 };
 
 export default function AboutPage() {
   return (
     <main id="main">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd('About', '/about')) }}
+      />
       {/* PAGE HERO */}
       <section className="page-hero" data-screen-label="About hero">
         <div className="container">
@@ -60,14 +73,14 @@ export default function AboutPage() {
               </h2>
               <p>
                 In large classrooms, quieter students slip through the cracks and doubts pile up
-                unspoken. We started Eduplus to fix exactly that — with small batches, genuine
-                one-to-one attention, and teachers who stay until a concept truly clicks.{' '}
-                <em>[PLACEHOLDER — replace with the founder's real story.]</em>
+                unspoken. We started Eduplus in {SITE.foundedYear} to fix exactly that — with small
+                batches, genuine one-to-one attention, and teachers who stay until a concept truly
+                clicks.
               </p>
               <p>
-                Today we support students across Class 1–12 in Kerala State, CBSE and ICSE boards.
-                But what hasn't changed is our promise: to look after each child as if they were
-                our own.
+                Today we support students from LKG to Class 12 in Kerala State, CBSE and ICSE
+                boards — one-to-one, online and offline. But what hasn't changed is our promise: to
+                look after each child as if they were our own.
               </p>
               <div style={{ display: 'flex', gap: '.7rem', flexWrap: 'wrap', marginTop: '1.4rem' }}>
                 <button className="btn btn-red" data-open-modal>
@@ -83,13 +96,8 @@ export default function AboutPage() {
               <span className="blob b3" />
               <span className="blob b4" />
               <div className="hero-photo">
-                <span className="slot-label">
-                  [ photo slot ]
-                  <br />
-                  centre / teacher with students
-                  <br />
-                  warm, authentic, local
-                </span>
+                <BrandIllustration className="hero-illus" />
+                <span className="illus-note">Photos coming soon</span>
               </div>
             </div>
           </div>
@@ -211,32 +219,26 @@ export default function AboutPage() {
         <div className="container">
           <div className="stat-band" style={{ marginBottom: 0 }}>
             <div className="stat reveal">
-              <div className="num" data-count="250" data-suffix="+">
+              <div className="num" data-count={YEARS_ACTIVE} data-suffix="+">
                 0
               </div>
-              <div className="lbl">
-                Students mentored <em>[PLACEHOLDER]</em>
-              </div>
+              <div className="lbl">Years teaching · since {SITE.foundedYear}</div>
             </div>
             <div className="stat reveal">
-              <div className="num" data-count="8" data-suffix="+">
-                0
+              <div className="num">
+                4.8<span className="suf">★</span>
               </div>
-              <div className="lbl">
-                Years teaching <em>[PLACEHOLDER]</em>
-              </div>
+              <div className="lbl">Google rating</div>
             </div>
             <div className="stat reveal">
-              <div className="num" data-count="3" data-suffix="">
+              <div className="num" data-count="3">
                 0
               </div>
               <div className="lbl">Boards covered</div>
             </div>
             <div className="stat reveal">
-              <div className="num" data-count="12" data-suffix="">
-                0
-              </div>
-              <div className="lbl">Classes (1–12)</div>
+              <div className="num">LKG–12</div>
+              <div className="lbl">Classes covered</div>
             </div>
           </div>
         </div>
