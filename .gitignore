@@ -25,6 +25,10 @@ yarn-error.log*
 .env
 .env*.local
 
+# admin users store (password hashes) — created by /admin/setup; in prod it lives in the private repo
+/content/users.json
+/content/.drafts/
+
 # vercel
 .vercel
 

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ClockIcon, PhoneIcon, PinIcon, PlusIcon, WhatsAppIcon } from '@/lib/icons';
 import { SITE, breadcrumbLd, telLink, waLink } from '@/lib/site';
 import PageEnquiryForm from '@/components/PageEnquiryForm';
+import contactContent from '@/content/contact.json';
 
 export const metadata: Metadata = {
   title: 'Contact & Admissions',
@@ -206,21 +207,4 @@ export default function ContactPage() {
   );
 }
 
-const CONTACT_FAQ: { q: string; a: string }[] = [
-  {
-    q: 'How soon will you reply?',
-    a: 'WhatsApp gets the fastest response during working hours. Callback requests are usually returned the same day.',
-  },
-  {
-    q: 'Is the demo class really free?',
-    a: 'Yes — your first demo class is free with no obligation to continue.',
-  },
-  {
-    q: 'Do you offer online tuition?',
-    a: 'Yes — every programme runs both offline at our Ashokapuram centre and live online, with the same one-to-one attention.',
-  },
-  {
-    q: 'How do I pay the fees, and what do they cost?',
-    a: 'Fees depend on the class, board and batch type (one-to-one, small batch, online or offline). Message or call us and we’ll share current fees and set up a free demo.',
-  },
-];
+const CONTACT_FAQ: { q: string; a: string }[] = contactContent.faqs;

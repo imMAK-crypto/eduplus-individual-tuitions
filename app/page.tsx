@@ -23,6 +23,20 @@ import {
   UsersIcon,
 } from '@/lib/icons';
 import { SITE, YEARS_ACTIVE, telLink, waLink } from '@/lib/site';
+import home from '@/content/home.json';
+
+// Renders a heading, underlining the accent phrase if present (editable in admin).
+function AccentTitle({ text, accent }: { text: string; accent?: string }) {
+  if (!accent || !text.includes(accent)) return <>{text}</>;
+  const i = text.indexOf(accent);
+  return (
+    <>
+      {text.slice(0, i)}
+      <span className="underline-accent">{accent}</span>
+      {text.slice(i + accent.length)}
+    </>
+  );
+}
 
 function Stars({ label = 'Rated 5 out of 5' }: { label?: string }) {
   return (
@@ -60,33 +74,29 @@ export default function HomePage() {
         <div className="container hero-grid">
           <div className="hero-copy">
             <span className="eyebrow reveal" style={{ color: 'var(--blue)' }}>
-              Beyond Classroom · Ashokapuram, Kozhikode
+              {home.hero.eyebrow}
             </span>
             <h1 className="display reveal" style={{ marginTop: '.6rem' }}>
-              One-to-one tuition that goes <span className="underline-accent">beyond</span> the
-              classroom.
+              <AccentTitle text={home.hero.title} accent={home.hero.accent} />
             </h1>
-            <p className="lead reveal">
-              Individual, personalised coaching for <strong>LKG to Plus Two</strong> in Ashokapuram,
-              Kozhikode — online &amp; offline, Kerala State, CBSE &amp; ICSE. Real attention, real
-              results.
-            </p>
+            <p className="lead reveal">{home.hero.lead}</p>
             <div className="hero-cta reveal">
               <button className="btn btn-red btn-lg" data-open-modal>
-                Book a Free Demo Class
+                {home.hero.ctaPrimary}
               </button>
               <a className="btn btn-outline btn-lg" href={telLink}>
-                Call Now
+                {home.hero.ctaSecondary}
               </a>
             </div>
             <a className="hero-exam-link reveal" href="#exam-prep">
-              📣 Exam coming up? See our exam-target batches <ArrowIcon width={16} height={16} />
+              {home.hero.examLink} <ArrowIcon width={16} height={16} />
             </a>
             <div className="hero-chips" data-stagger>
-              <span className="chip">✔ True one-to-one · online &amp; offline</span>
-              <span className="chip">✔ LKG to Plus Two · all boards</span>
-              <span className="chip">✔ Exam-target batches</span>
-              <span className="chip">★ 4.8 Google rating · since {SITE.foundedYear}</span>
+              {home.hero.chips.map((c) => (
+                <span key={c} className="chip">
+                  {c}
+                </span>
+              ))}
             </div>
           </div>
           <div className="hero-visual reveal">
@@ -372,16 +382,12 @@ export default function HomePage() {
         <div className="container">
           <div className="sh center reveal">
             <span className="pulse-tag">
-              <span className="dot" /> Exam season · enrolling now
+              <span className="dot" /> {home.exam.tag}
             </span>
             <h2>
-              Exam-target batches, <span className="underline-accent">timed to your exam</span>
+              <AccentTitle text={home.exam.title} accent={home.exam.accent} />
             </h2>
-            <p className="lead maxw">
-              From <strong>Class 10 onwards</strong> we open short, high-intensity batches during
-              exam season — so students walk in prepared, not panicked. Board, half-yearly or term
-              exams: we build the plan around <em>your</em> exam date.
-            </p>
+            <p className="lead maxw">{home.exam.lead}</p>
           </div>
 
           <div className="exam-grid" data-stagger>
@@ -1099,37 +1105,4 @@ function Qa({ q, a }: { q: string; a: string }) {
   );
 }
 
-const FAQS: { q: string; a: string }[] = [
-  {
-    q: 'What classes and boards do you teach?',
-    a: 'We tutor LKG to Class 12 (Plus Two) across Kerala State, CBSE and ICSE boards — from foundation subjects right through to full board-exam preparation.',
-  },
-  {
-    q: 'Do you offer one-to-one and individual tuition?',
-    a: 'Yes. Individual, one-to-one focus is what we do — plus small batches — so every student is genuinely seen, heard and helped.',
-  },
-  {
-    q: 'Do you offer online tuition as well as offline?',
-    a: 'Yes — every programme is available both offline at our Ashokapuram centre and live online, with the same one-to-one attention either way.',
-  },
-  {
-    q: 'Do you run special coaching before board or half-yearly exams?',
-    a: 'Yes. From Class 10 onwards we open focused exam-target batches during exam season — board (SSLC, +1, +2), half-yearly and term exams — with revision, previous-year papers, answer-writing and daily doubt-clearing.',
-  },
-  {
-    q: 'Where exactly are you located?',
-    a: 'Pootholi Building, behind Rajendra Hospital, Ashokapuram, Kozhikode 673001. Plus code 7Q8J+F3.',
-  },
-  {
-    q: 'What are your timings?',
-    a: 'We’re open Monday to Saturday, 10 AM – 8 PM, with flexible morning and evening batches; Sunday by appointment. Live online classes are available across Kerala.',
-  },
-  {
-    q: 'Is there a free demo class?',
-    a: "Yes — your first demo class is free and there's no obligation to continue. It's the best way to see if we're the right fit.",
-  },
-  {
-    q: 'How do you track progress?',
-    a: 'Through regular tests, doubt sessions and direct parent updates, so you always know how your child is doing.',
-  },
-];
+const FAQS: { q: string; a: string }[] = home.faqs;
