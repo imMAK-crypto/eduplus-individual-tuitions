@@ -455,8 +455,13 @@ export default function HomePage() {
             </h2>
             <p className="lead maxw">
               From early foundations to board exams — pick a stage to see how we tailor tuition to
-              your child.
+              your child. Every program covers all three boards:
             </p>
+            <div className="board-badges">
+              <span className="badge badge-blue">Kerala State</span>
+              <span className="badge badge-green">CBSE</span>
+              <span className="badge badge-red">ICSE</span>
+            </div>
           </div>
 
           <div data-tabs>
@@ -472,9 +477,6 @@ export default function HomePage() {
               </button>
               <button className="tab" role="tab" aria-selected="false" data-tab="p-hs">
                 Plus One / Plus Two
-              </button>
-              <button className="tab" role="tab" aria-selected="false" data-tab="p-entrance">
-                Entrance Foundation
               </button>
             </div>
 
@@ -733,49 +735,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="tab-panel" id="p-entrance" role="tabpanel">
-              <div className="prog-grid" data-stagger>
-                <article className="card card-hover prog-card red">
-                  <span className="pc-ico">
-                    <AtomIcon />
-                  </span>
-                  <h3>NEET / JEE Foundation</h3>
-                  <p>
-                    Early foundation &amp; aptitude building for competitive exams, alongside school.
-                  </p>
-                  <div className="pc-chips">
-                    <span className="badge badge-red">Class 9–12</span>
-                    <span className="badge badge-blue">Foundation</span>
-                  </div>
-                  <button
-                    className="enquire"
-                    data-open-modal
-                    data-class="Class 11"
-                    data-subjects="NEET/JEE Foundation"
-                  >
-                    Enquire about this <ArrowIcon />
-                  </button>
-                </article>
-                <article className="card card-hover prog-card blue">
-                  <span className="pc-ico">
-                    <TargetIcon />
-                  </span>
-                  <h3>Aptitude &amp; Reasoning</h3>
-                  <p>Logical reasoning and problem-solving skills that help in any entrance test.</p>
-                  <div className="pc-chips">
-                    <span className="badge badge-blue">Class 8–12</span>
-                  </div>
-                  <button
-                    className="enquire"
-                    data-open-modal
-                    data-class="Class 9"
-                    data-subjects="Aptitude"
-                  >
-                    Enquire about this <ArrowIcon />
-                  </button>
-                </article>
-              </div>
-            </div>
           </div>
 
           <div className="center" style={{ marginTop: '2.4rem' }}>

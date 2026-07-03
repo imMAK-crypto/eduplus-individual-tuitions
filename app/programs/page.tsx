@@ -23,15 +23,15 @@ const COURSES: { name: string; desc: string }[] = [
   },
   {
     name: 'Middle school tuition (Class 5 – 7)',
-    desc: 'Concept-first Maths, Science, English, Social and languages for Class 5 to 7 — online and offline.',
+    desc: 'Concept-first Maths, Science, English, Social and languages for Class 5 to 7 — Kerala State, CBSE and ICSE, online and offline.',
   },
   {
     name: 'High school & SSLC tuition (Class 8 – 10)',
-    desc: 'Board-focused coaching for Class 8 to 10 with exam technique, revision and model papers.',
+    desc: 'Board-focused coaching for Class 8 to 10 (Kerala State, CBSE and ICSE) with exam technique, revision and model papers.',
   },
   {
     name: 'Plus One & Plus Two tuition (Class 11 & 12)',
-    desc: 'Science, Commerce and Humanities subject coaching for Plus One and Plus Two, aligned to the board exam.',
+    desc: 'Science, Commerce and Humanities subject coaching for Plus One and Plus Two — Kerala State, CBSE and ICSE, aligned to the board exam.',
   },
   {
     name: 'Exam-target batches (Class 10 onwards)',
@@ -125,6 +125,12 @@ export default function ProgramsPage() {
               <div className="meta">Pre-primary · reading · homework support</div>
             </div>
           </div>
+          <div className="board-line">
+            Boards:
+            <span className="badge badge-blue">Kerala State</span>
+            <span className="badge badge-green">CBSE</span>
+            <span className="badge badge-red">ICSE</span>
+          </div>
           <div className="subj-strip">
             <span className="badge badge-yellow">LKG / UKG</span>
             <span className="badge badge-blue">Maths</span>
@@ -187,6 +193,12 @@ export default function ProgramsPage() {
               <h2>Middle — Class 5 to 7</h2>
               <div className="meta">Concept core · languages · social</div>
             </div>
+          </div>
+          <div className="board-line">
+            Boards:
+            <span className="badge badge-blue">Kerala State</span>
+            <span className="badge badge-green">CBSE</span>
+            <span className="badge badge-red">ICSE</span>
           </div>
           <div className="subj-strip">
             <span className="badge badge-blue">Maths</span>
@@ -254,6 +266,12 @@ export default function ProgramsPage() {
               <h2>High School — Class 8 to 10</h2>
               <div className="meta">SSLC board focus · all subjects · exam technique</div>
             </div>
+          </div>
+          <div className="board-line">
+            Boards:
+            <span className="badge badge-blue">Kerala State</span>
+            <span className="badge badge-green">CBSE</span>
+            <span className="badge badge-red">ICSE</span>
           </div>
           <div className="subj-strip">
             <span className="badge badge-blue">Physics</span>
@@ -323,6 +341,12 @@ export default function ProgramsPage() {
               <div className="meta">Science · Commerce · Humanities — subject tuition</div>
             </div>
           </div>
+          <div className="board-line">
+            Boards:
+            <span className="badge badge-blue">Kerala State</span>
+            <span className="badge badge-green">CBSE</span>
+            <span className="badge badge-red">ICSE</span>
+          </div>
           <div className="prog-grid" data-stagger>
             <article className="card card-hover prog-card blue">
               <span className="pc-ico">
@@ -381,54 +405,10 @@ export default function ProgramsPage() {
           </div>
         </section>
 
-        {/* ENTRANCE */}
-        <section className="stage" data-screen-label="Entrance">
-          <div className="stage-head">
-            <span className="sn" style={{ background: 'var(--ink)' }}>
-              <TargetIcon />
-            </span>
-            <div>
-              <h2>Entrance Foundation</h2>
-              <div className="meta">NEET / JEE foundation · aptitude &amp; reasoning</div>
-            </div>
-          </div>
-          <div className="prog-grid" data-stagger>
-            <article className="card card-hover prog-card red">
-              <span className="pc-ico">
-                <AtomIcon />
-              </span>
-              <h3>NEET / JEE Foundation</h3>
-              <p>Early foundation &amp; aptitude building alongside school.</p>
-              <button
-                className="enquire"
-                data-open-modal
-                data-class="Class 11"
-                data-subjects="NEET/JEE Foundation"
-              >
-                Enquire <ArrowIcon />
-              </button>
-            </article>
-            <article className="card card-hover prog-card blue">
-              <span className="pc-ico">
-                <TargetIcon />
-              </span>
-              <h3>Aptitude &amp; Reasoning</h3>
-              <p>Logical reasoning &amp; problem-solving for any entrance test.</p>
-              <button
-                className="enquire"
-                data-open-modal
-                data-class="Class 9"
-                data-subjects="Aptitude"
-              >
-                Enquire <ArrowIcon />
-              </button>
-            </article>
-          </div>
-          <p className="price-note">
-            Fees vary by class, board and batch type — one-to-one, small batch, online or offline.
-            Enquire for current fees and a free demo.
-          </p>
-        </section>
+        <p className="price-note">
+          Fees vary by class, board and batch type — one-to-one, small batch, online or offline.
+          Enquire for current fees and a free demo.
+        </p>
       </div>
 
       {/* EXAM-TARGET */}

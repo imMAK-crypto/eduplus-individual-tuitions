@@ -600,6 +600,24 @@ html.no-intro .intro-splash{display:none;}
 .stage-head .meta{color:var(--g-500);font-family:var(--font-head);font-weight:600;font-size:.9rem;margin-top:.15rem;}
 .price-note{font-family:var(--font-head);color:var(--g-500);font-size:.86rem;margin-top:1.4rem;text-align:center;}
 .subj-strip{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem;}
+.board-line{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;
+  font-family:var(--font-head);font-weight:700;font-size:.82rem;color:var(--g-500);}
+.board-line .badge{font-size:.74rem;}
+.board-badges{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1.1rem;}
+
+/* comparison (Why page) */
+.compare-grid{display:grid;gap:1.2rem;grid-template-columns:1fr;}
+@media(min-width:760px){.compare-grid{grid-template-columns:1fr 1fr;}}
+.compare h3{margin-bottom:1rem;}
+.compare.eduplus{border:2px solid var(--green);box-shadow:var(--sh-card-lg);}
+.compare.typical{background:var(--soft);}
+.compare-list{display:grid;gap:.7rem;}
+.compare-list li{display:flex;align-items:center;gap:.6rem;font-size:.98rem;font-family:var(--font-head);font-weight:600;}
+.compare-list li svg{width:20px;height:20px;flex:none;}
+.compare-list li.yes{color:var(--ink);}
+.compare-list li.yes svg{color:var(--green-600);}
+.compare-list li.no{color:var(--g-500);}
+.compare-list li.no svg{color:var(--red);}
 
 /* ============================================================
    CONTACT PAGE

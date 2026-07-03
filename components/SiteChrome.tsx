@@ -23,6 +23,8 @@ const PAGE_FROM_PATH: Record<string, NavKey> = {
   '/': 'home',
   '/about': 'about',
   '/programs': 'programs',
+  '/exam-prep': 'exam',
+  '/why': 'why',
   '/contact': 'contact',
 };
 
@@ -356,7 +358,8 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                 <li><Link href="/">Home</Link></li>
                 <li><Link href="/about">About</Link></li>
                 <li><Link href="/programs">Programs</Link></li>
-                <li><Link href="/#results">Results</Link></li>
+                <li><Link href="/exam-prep">Exam Prep</Link></li>
+                <li><Link href="/why">Why Eduplus</Link></li>
                 <li><Link href="/contact">Contact</Link></li>
               </ul>
             </div>
