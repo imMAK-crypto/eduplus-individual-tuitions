@@ -34,7 +34,7 @@ function pageKey(path: string | null): NavKey {
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const active = pageKey(pathname);
-  const isShowcase = pathname === '/phone-showcase';
+  const isShowcase = pathname === '/phone-showcase' || !!pathname?.startsWith('/admin');
 
   const [announceHidden, setAnnounceHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -210,11 +210,13 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       </a>
 
       {/* Announcement */}
-      {!announceHidden && (
+      {!announceHidden && SITE.announce?.on && (
         <div className="announce">
           <span>
-            🎓 Admissions open for 2026–27 · Personal attention, real results ·{' '}
-            <a href={telLink}>Call {SITE.phone}</a>
+            {SITE.announce.text} ·{' '}
+            <a href={telLink}>
+              {SITE.announce.linkLabel} {SITE.phone}
+            </a>
           </span>
           <button
             className="close"

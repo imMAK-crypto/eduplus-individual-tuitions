@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 /**
  * Brand intro splash. Renders on first hit of the session, fades out
@@ -9,9 +10,14 @@ import { useEffect, useState } from 'react';
  * head script also hides it pre-hydration on revisits to avoid a flash.
  */
 export default function IntroSplash() {
+  const pathname = usePathname();
   const [phase, setPhase] = useState<'show' | 'fading' | 'done'>('show');
 
   useEffect(() => {
+    if (pathname?.startsWith('/admin')) {
+      setPhase('done');
+      return;
+    }
     try {
       if (sessionStorage.getItem('eduplus-intro-shown')) {
         setPhase('done');

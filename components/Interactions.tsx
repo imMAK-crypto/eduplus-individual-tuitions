@@ -12,7 +12,7 @@ export default function Interactions() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname === '/phone-showcase') return;
+    if (pathname === '/phone-showcase' || pathname?.startsWith('/admin')) return;
     /* ----- scroll reveal (rAF + rect check) ----- */
     const els = Array.from(
       document.querySelectorAll<HTMLElement>('.reveal,[data-stagger]')
