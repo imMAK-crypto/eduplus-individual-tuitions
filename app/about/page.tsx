@@ -97,7 +97,6 @@ export default function AboutPage() {
               <span className="blob b4" />
               <div className="hero-photo">
                 <BrandIllustration className="hero-illus" />
-                <span className="illus-note">Photos coming soon</span>
               </div>
             </div>
           </div>

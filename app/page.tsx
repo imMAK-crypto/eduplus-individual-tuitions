@@ -106,7 +106,6 @@ export default function HomePage() {
             <span className="blob b4 sq" />
             <div className="hero-photo">
               <BrandIllustration className="hero-illus" />
-              <span className="illus-note">Photos coming soon</span>
             </div>
           </div>
         </div>
