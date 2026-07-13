@@ -1,0 +1,66 @@
+{
+  "admissionFee": 500,
+  "currency": "₹",
+  "tiers": [
+    {
+      "id": "t1",
+      "range": "Class I – IV",
+      "short": "I–IV",
+      "feePerHour": 150,
+      "accent": "blue",
+      "note": "Foundation years — reading, writing & strong basics",
+      "classes": ["Class 1", "Class 2", "Class 3", "Class 4"]
+    },
+    {
+      "id": "t2",
+      "range": "Class V – VII",
+      "short": "V–VII",
+      "feePerHour": 175,
+      "accent": "green",
+      "note": "Middle school — concept-first Maths, Science & languages",
+      "classes": ["Class 5", "Class 6", "Class 7"]
+    },
+    {
+      "id": "t3",
+      "range": "Class VIII",
+      "short": "VIII",
+      "feePerHour": 200,
+      "accent": "yellow",
+      "note": "High-school gateway — deeper subjects, regular tests",
+      "classes": ["Class 8"]
+    },
+    {
+      "id": "t4",
+      "range": "Class IX",
+      "short": "IX",
+      "feePerHour": 225,
+      "accent": "yellow",
+      "note": "Pre-board year — exam technique starts here",
+      "classes": ["Class 9"]
+    },
+    {
+      "id": "t5",
+      "range": "Class X",
+      "short": "X",
+      "feePerHour": 250,
+      "accent": "red",
+      "note": "SSLC board year — revision, papers & answer-writing",
+      "classes": ["Class 10"]
+    },
+    {
+      "id": "t6",
+      "range": "Class XI / XII",
+      "short": "XI/XII",
+      "feePerHour": 350,
+      "accent": "blue",
+      "note": "Plus One & Plus Two — includes SAY & Improvement batches",
+      "classes": ["Class 11", "Class 12"]
+    }
+  ],
+  "notes": [
+    "Fee may vary for ICSE / IGCSE syllabus.",
+    "Admission fee is a one-time payment of ₹500 for every class.",
+    "Your first demo class is completely free — no obligation.",
+    "One-to-one and small-batch options, online or offline at the same rate."
+  ]
+}

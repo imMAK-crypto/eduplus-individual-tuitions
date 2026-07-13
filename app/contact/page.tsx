@@ -129,17 +129,17 @@ export default function ContactPage() {
                     <table className="hours-table">
                       <tbody>
                         <tr>
-                          <td>Monday – Saturday</td>
-                          <td>10:00 AM – 8:00 PM</td>
+                          <td>Monday – Friday</td>
+                          <td>2:00 PM – 7:00 PM</td>
                         </tr>
                         <tr>
-                          <td>Sunday</td>
-                          <td>By appointment</td>
+                          <td>Saturday &amp; Sunday</td>
+                          <td>7:00 AM – 6:30 PM</td>
                         </tr>
                       </tbody>
                     </table>
                     <span className="t2" style={{ display: 'block', marginTop: '.4rem' }}>
-                      Flexible morning &amp; evening batches — online &amp; offline.
+                      Open all 7 days — flexible batches, online &amp; offline.
                     </span>
                   </span>
                 </div>

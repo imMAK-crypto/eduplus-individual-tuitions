@@ -36,13 +36,14 @@ export function validIndianPhone(raw: string): boolean {
   return /^[6-9]\d{9}$/.test(local);
 }
 
-export type NavKey = 'home' | 'about' | 'programs' | 'exam' | 'why' | 'results' | 'contact';
+export type NavKey = 'home' | 'about' | 'programs' | 'exam' | 'fees' | 'why' | 'results' | 'contact';
 
 export const NAV: { label: string; href: string; key: NavKey }[] = [
   { label: 'Home', href: '/', key: 'home' },
   { label: 'About', href: '/about', key: 'about' },
   { label: 'Programs', href: '/programs', key: 'programs' },
   { label: 'Exam Prep', href: '/exam-prep', key: 'exam' },
+  { label: 'Fees', href: '/fees', key: 'fees' },
   { label: 'Why Eduplus', href: '/why', key: 'why' },
   { label: 'Contact', href: '/contact', key: 'contact' },
 ];

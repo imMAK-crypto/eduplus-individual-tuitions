@@ -789,6 +789,193 @@ html.no-intro .intro-splash{display:none;}
 .exam-spot.compact{border-radius:var(--r-xl);margin-top:1rem;}
 
 /* ============================================================
+   EXAM HOURS PILL (exam-spot sections)
+   ============================================================ */
+.exam-hours{display:flex;align-items:center;justify-content:center;gap:.55rem;margin-top:1.8rem;
+  color:rgba(255,255,255,.94);font-family:var(--font-head);font-weight:700;font-size:.95rem;text-align:center;flex-wrap:wrap;}
+.exam-hours svg{width:18px;height:18px;color:var(--yellow);flex:none;}
+
+/* programs price note link */
+.price-note a{color:var(--blue);font-weight:700;}
+.price-note a:hover{text-decoration:underline;}
+
+/* ============================================================
+   FEES TEASER (home) — copy + mini rate chart
+   ============================================================ */
+.fee-tease{padding-block:0 var(--rhythm);}
+.fee-tease-card{
+  display:grid;gap:2rem;align-items:center;
+  background:
+    radial-gradient(120% 140% at 100% 0%, var(--green-50) 0%, transparent 55%),
+    radial-gradient(100% 120% at 0% 100%, var(--blue-50) 0%, transparent 55%),
+    #fff;
+  border:1px solid var(--g-100);border-radius:var(--r-xl);box-shadow:var(--sh-card);
+  padding:clamp(1.6rem,4vw,3rem);
+}
+@media(min-width:900px){.fee-tease-card{grid-template-columns:1.05fr .95fr;}}
+.ft-copy h2{margin:.6rem 0 1rem;}
+.ft-copy .lead{margin-bottom:1.5rem;max-width:44ch;}
+.ft-rates{display:flex;align-items:flex-end;justify-content:center;gap:clamp(.4rem,1.6vw,1rem);
+  border-bottom:3px solid var(--g-200);padding-bottom:0;}
+.ft-rate{display:flex;flex-direction:column;align-items:center;gap:.35rem;flex:1;max-width:76px;}
+.ft-amt{font-family:var(--font-head);font-weight:800;font-size:clamp(.72rem,1.4vw,.92rem);color:var(--ink);white-space:nowrap;}
+.ft-bar{width:100%;max-width:44px;height:calc(150px * var(--pn) / 100);border-radius:9px 9px 0 0;
+  background:linear-gradient(180deg,var(--blue),var(--blue-600));}
+.ft-rate.green .ft-bar{background:linear-gradient(180deg,var(--green),var(--green-600));}
+.ft-rate.yellow .ft-bar{background:linear-gradient(180deg,var(--yellow),#d99e04);}
+.ft-rate.red .ft-bar{background:linear-gradient(180deg,var(--red),var(--red-600));}
+.ft-cls{font-family:var(--font-head);font-weight:700;font-size:.72rem;color:var(--g-500);margin-bottom:-1.55rem;padding-top:.35rem;}
+
+/* ============================================================
+   FEES PAGE — THE FEE LADDER
+   ============================================================ */
+.fee-ladder{display:flex;flex-direction:column;gap:1.1rem;position:relative;padding-left:30px;}
+.fee-ladder::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--blue) 0%,var(--green) 35%,var(--yellow) 60%,var(--red) 82%,var(--blue-600) 100%);opacity:.25;}
+.rung{position:relative;display:flex;flex-direction:column;}
+.rung::before{content:"";position:absolute;left:-28px;top:26px;width:15px;height:15px;border-radius:50%;
+  background:var(--blue);box-shadow:0 0 0 4px #fff,0 0 0 5px var(--g-200);}
+.rung.green::before{background:var(--green);}
+.rung.yellow::before{background:var(--yellow);}
+.rung.red::before{background:var(--red);}
+.rung-card{position:relative;background:#fff;border:1px solid var(--g-100);border-radius:var(--r-lg);
+  box-shadow:var(--sh-card);padding:1.25rem 1.25rem 1.1rem;display:flex;flex-direction:column;gap:.4rem;
+  transition:transform .22s ease, box-shadow .25s ease;}
+.rung-card:hover{transform:translateY(-5px);box-shadow:var(--sh-card-lg);}
+.rung-card::before{content:"";display:block;height:6px;border-radius:4px;margin-bottom:.5rem;
+  width:calc(var(--pn) * 1%);min-width:18%;
+  background:linear-gradient(90deg,var(--blue),var(--blue-600));}
+.rung.green .rung-card::before{background:linear-gradient(90deg,var(--green),var(--green-600));}
+.rung.yellow .rung-card::before{background:linear-gradient(90deg,var(--yellow),#d99e04);}
+.rung.red .rung-card::before{background:linear-gradient(90deg,var(--red),var(--red-600));}
+.r-step{font-family:var(--font-head);font-weight:800;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--g-400);}
+.r-cls{font-size:1.15rem;margin:0;}
+.r-amt{font-family:var(--font-head);font-weight:800;font-size:clamp(1.9rem,3.4vw,2.4rem);line-height:1;letter-spacing:-.02em;color:var(--blue);}
+.rung.green .r-amt{color:var(--green-600);}
+.rung.yellow .r-amt{color:#9a7100;}
+.rung.red .r-amt{color:var(--red);}
+.r-per{font-size:.85rem;font-weight:700;color:var(--g-500);letter-spacing:0;margin-left:2px;}
+.r-note{color:var(--g-600);font-size:.88rem;line-height:1.5;}
+.r-adm{align-self:flex-start;font-family:var(--font-head);font-weight:700;font-size:.72rem;
+  color:var(--g-600);background:var(--g-100);padding:.28rem .6rem;border-radius:var(--r-pill);margin-top:.15rem;}
+.rung .enquire{margin-top:.45rem;align-self:flex-start;color:var(--blue);font-family:var(--font-head);
+  font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;gap:.35em;}
+.rung .enquire svg{width:1em;height:1em;transition:transform .18s;}
+.rung .enquire:hover svg{transform:translateX(3px);}
+.rung.green .enquire{color:var(--green-600);}
+.rung.yellow .enquire{color:#9a7100;}
+.rung.red .enquire{color:var(--red);}
+.rung-bar{display:none;}
+.rung-flag{position:absolute;top:-12px;right:14px;font-family:var(--font-head);font-weight:800;font-size:.68rem;
+  letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--red);
+  padding:.3rem .7rem;border-radius:var(--r-pill);box-shadow:0 6px 14px rgba(222,52,54,.35);}
+.rung.top .rung-card{border:2px solid var(--blue);}
+
+/* desktop: the ladder becomes ascending pillars on a baseline */
+@media(min-width:1000px){
+  .fee-ladder{flex-direction:row;align-items:flex-end;gap:1rem;padding-left:0;border-bottom:4px solid var(--g-200);}
+  .fee-ladder::before{display:none;}
+  .rung{flex:1;}
+  .rung::before{display:none;}
+  .rung-bar{display:block;width:64%;margin:0 auto;border-radius:10px 10px 0 0;
+    height:calc(150px * var(--pn) / 100 - 44px);
+    background:linear-gradient(180deg,var(--blue-50),transparent);
+    border:1px solid var(--g-100);border-bottom:none;margin-top:.8rem;}
+  .rung.green .rung-bar{background:linear-gradient(180deg,var(--green-50),transparent);}
+  .rung.yellow .rung-bar{background:linear-gradient(180deg,var(--yellow-50),transparent);}
+  .rung.red .rung-bar{background:linear-gradient(180deg,var(--red-50),transparent);}
+  .rung-card::before{width:100%;}
+}
+.fee-vary{text-align:center;color:var(--g-600);font-size:.92rem;margin-top:2rem;font-family:var(--font-head);}
+
+/* ============================================================
+   FEES PAGE — ESTIMATOR (controls + receipt)
+   ============================================================ */
+.fee-est{display:grid;gap:1.6rem;max-width:1060px;margin-inline:auto;align-items:start;}
+@media(min-width:920px){.fee-est{grid-template-columns:1.1fr .9fr;gap:2rem;}}
+.fe-controls{background:#fff;border:1px solid var(--g-100);border-radius:var(--r-lg);
+  box-shadow:var(--sh-card);padding:clamp(1.3rem,3vw,1.8rem);}
+.fe-field + .fe-field{margin-top:1.6rem;}
+.fe-label{display:block;font-family:var(--font-head);font-weight:700;font-size:.95rem;color:var(--g-700);margin-bottom:.7rem;}
+.fe-label strong{color:var(--blue);}
+.fe-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;}
+@media(max-width:440px){.fe-tiers{grid-template-columns:repeat(2,1fr);}}
+.fe-tier{display:flex;flex-direction:column;align-items:center;gap:2px;padding:.65rem .4rem;
+  border:1.5px solid var(--g-200);border-radius:12px;background:#fff;font-family:var(--font-head);
+  transition:border-color .15s, background .15s, box-shadow .15s, transform .15s;}
+.fe-tier:hover{border-color:var(--g-300);transform:translateY(-1px);}
+.fe-tier .ft-r{font-weight:700;font-size:.8rem;color:var(--g-600);}
+.fe-tier .ft-f{font-weight:800;font-size:1.02rem;color:var(--ink);}
+.fe-tier .ft-f em{font-style:normal;font-size:.66rem;color:var(--g-500);font-weight:700;}
+.fe-tier.on{border-color:var(--blue);background:var(--blue-50);box-shadow:0 0 0 3px var(--blue-50);}
+.fe-tier.on .ft-r,.fe-tier.on .ft-f{color:var(--blue);}
+.fe-range{width:100%;accent-color:var(--blue);height:28px;cursor:pointer;}
+.fe-scale{display:flex;justify-content:space-between;color:var(--g-500);font-size:.78rem;font-family:var(--font-head);font-weight:600;}
+
+/* receipt */
+.fe-receipt{position:relative;background:#fff;border-radius:4px;box-shadow:var(--sh-card-lg);
+  padding:1.7rem 1.5rem 1.9rem;font-family:var(--font-head);}
+.fe-receipt::before,.fe-receipt::after{content:"";position:absolute;left:0;right:0;height:12px;
+  background-repeat:repeat-x;background-size:18px 12px;}
+.fe-receipt::before{top:-11px;
+  background-image:linear-gradient(135deg,transparent 50%,#fff 50%),linear-gradient(225deg,transparent 50%,#fff 50%);
+  background-position:0 0,9px 0;}
+.fe-receipt::after{bottom:-11px;
+  background-image:linear-gradient(45deg,#fff 50%,transparent 50%),linear-gradient(315deg,#fff 50%,transparent 50%);
+  background-position:0 0,9px 0;}
+.fr-head{text-align:center;border-bottom:1.5px dashed var(--g-300);padding-bottom:.9rem;}
+.fr-brand{display:block;font-weight:800;font-size:.74rem;letter-spacing:.22em;color:var(--g-500);}
+.fr-sub{display:block;font-weight:800;font-size:1.2rem;margin-top:.3rem;color:var(--ink);}
+.fr-lines{margin:.6rem 0 .2rem;}
+.fr-line{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  padding:.6rem 0;border-bottom:1px dashed var(--g-200);}
+.fr-line dt{color:var(--g-600);font-weight:600;font-size:.92rem;}
+.fr-line dd{margin:0;font-weight:800;font-size:1rem;color:var(--ink);font-variant-numeric:tabular-nums;}
+.fr-line.em dd{color:var(--blue);font-size:1.1rem;}
+.fr-line.total{border-bottom:none;border-top:2.5px solid var(--ink);margin-top:.35rem;padding-top:.85rem;}
+.fr-line.total dt{color:var(--ink);font-weight:800;}
+.fr-line.total dd{font-size:1.45rem;letter-spacing:-.02em;}
+.fr-note{font-size:.78rem;color:var(--g-500);margin:.7rem 0 1.1rem;font-weight:600;}
+.fr-cta{display:grid;gap:.6rem;}
+
+/* ============================================================
+   FEES PAGE — REFERENCE TABLE + NOTES
+   ============================================================ */
+.fee-ref{display:grid;gap:1.6rem;align-items:start;}
+@media(min-width:900px){.fee-ref{grid-template-columns:1.1fr .9fr;gap:2rem;}}
+.fee-table-card{background:#fff;border:1px solid var(--g-100);border-radius:var(--r-lg);
+  box-shadow:var(--sh-card);padding:clamp(1.3rem,3vw,1.8rem);}
+.fee-table-card h3,.fee-notes h3{margin-bottom:1rem;}
+.fee-table-wrap{overflow-x:auto;}
+.fee-table{width:100%;border-collapse:collapse;font-size:.95rem;min-width:340px;}
+.fee-table thead th{font-family:var(--font-head);font-weight:800;font-size:.72rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--g-500);text-align:left;padding:.55rem .6rem;border-bottom:2px solid var(--g-200);}
+.fee-table tbody th{font-family:var(--font-head);font-weight:700;text-align:left;padding:.7rem .6rem;color:var(--ink);}
+.fee-table tbody td{padding:.7rem .6rem;font-family:var(--font-head);font-weight:700;color:var(--g-700);font-variant-numeric:tabular-nums;}
+.fee-table tbody tr{border-bottom:1px solid var(--g-100);}
+.fee-table tbody tr:hover{background:var(--soft);}
+.fee-table tbody tr:last-child{background:var(--blue-50);}
+.fee-table tbody tr:last-child th,.fee-table tbody tr:last-child td{color:var(--blue);}
+.fee-table-foot{font-size:.8rem;color:var(--g-500);margin-top:.7rem;font-family:var(--font-head);font-weight:600;}
+.fee-notes ul{display:grid;gap:.7rem;}
+.fee-notes li{display:flex;gap:.6rem;align-items:flex-start;color:var(--g-700);font-size:.96rem;line-height:1.55;}
+.fee-notes li svg{width:18px;height:18px;color:var(--green-600);flex:none;margin-top:3px;}
+
+/* ============================================================
+   FORM MODE PICKER (Offline / Online)
+   ============================================================ */
+.mode-pick{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;}
+.mp-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.8rem .6rem;
+  border:1.5px solid var(--g-200);border-radius:var(--r-sm);background:#fff;
+  font-family:var(--font-head);font-weight:700;font-size:.95rem;color:var(--g-600);
+  transition:border-color .15s, background .15s, color .15s, box-shadow .15s;}
+.mp-btn svg{width:18px;height:18px;flex:none;}
+.mp-btn:hover{border-color:var(--g-300);}
+.mp-btn.on{border-color:var(--blue);color:var(--blue);background:var(--blue-50);box-shadow:0 0 0 3px var(--blue-50);}
+.mp-btn.on.mp-online{border-color:var(--green-600);color:var(--green-600);background:var(--green-50);box-shadow:0 0 0 3px var(--green-50);}
+.field.error .mp-btn{border-color:var(--red);}
+
+/* ============================================================
    PHONE SHOWCASE
    ============================================================ */
 .showcase-body{

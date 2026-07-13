@@ -9,6 +9,7 @@ import {
   PhoneIcon,
   WhatsAppIcon,
   PinIcon,
+  GlobeIcon,
   ClockIcon,
   MenuIcon,
   XIcon,
@@ -24,6 +25,7 @@ const PAGE_FROM_PATH: Record<string, NavKey> = {
   '/about': 'about',
   '/programs': 'programs',
   '/exam-prep': 'exam',
+  '/fees': 'fees',
   '/why': 'why',
   '/contact': 'contact',
 };
@@ -42,9 +44,14 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalPrefill, setModalPrefill] = useState<{ klass?: string; subjects?: string }>({});
+  const [modalPrefill, setModalPrefill] = useState<{
+    klass?: string;
+    subjects?: string;
+    mode?: string;
+  }>({});
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, boolean>>({});
+  const [mode, setMode] = useState<'Offline' | 'Online' | ''>('');
   const lastFocusedRef = useRef<HTMLElement | null>(null);
   const firstFieldRef = useRef<HTMLInputElement | null>(null);
   const studentRef = useRef<HTMLInputElement | null>(null);
@@ -53,7 +60,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
   const boardRef = useRef<HTMLSelectElement | null>(null);
   const subjRef = useRef<HTMLInputElement | null>(null);
   const timeRef = useRef<HTMLInputElement | null>(null);
-  const msgRef = useRef<HTMLTextAreaElement | null>(null);
+  const topicRef = useRef<HTMLInputElement | null>(null);
 
   // sticky header scroll state
   useEffect(() => {
@@ -128,6 +135,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       setModalPrefill({
         klass: t.dataset.class || undefined,
         subjects: t.dataset.subjects || undefined,
+        mode: t.dataset.mode || undefined,
       });
       setModalOpen(true);
     };
@@ -146,9 +154,10 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     if (studentRef.current) studentRef.current.value = '';
     if (phoneRef.current) phoneRef.current.value = '';
     if (timeRef.current) timeRef.current.value = '';
-    if (msgRef.current) msgRef.current.value = '';
+    if (topicRef.current) topicRef.current.value = '';
     if (classRef.current) classRef.current.value = modalPrefill.klass || '';
     if (subjRef.current) subjRef.current.value = modalPrefill.subjects || '';
+    setMode(modalPrefill.mode === 'Online' || modalPrefill.mode === 'Offline' ? modalPrefill.mode : '');
     setErrors({});
     const t = setTimeout(() => firstFieldRef.current?.focus(), 120);
     return () => clearTimeout(t);
@@ -175,12 +184,12 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     const phone = phoneRef.current?.value || '';
     const klass = classRef.current?.value || '';
     const board = boardRef.current?.value || '';
-    const subj = subjRef.current?.value || '';
     const err: Record<string, boolean> = {};
     if (student.trim().length <= 1) err.student = true;
     if (!validIndianPhone(phone)) err.phone = true;
     if (!klass) err.class = true;
     if (!board) err.board = true;
+    if (!mode) err.mode = true;
     setErrors(err);
     if (Object.keys(err).length) return;
     setSubmitted(true);
@@ -201,8 +210,8 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     const board = boardRef.current?.value || '';
     const subj = subjRef.current?.value || '';
     const time = timeRef.current?.value || '';
-    const message = msgRef.current?.value || '';
-    return `Hi Eduplus! Demo request:\nStudent: ${student}\nClass: ${klass} (${board})\nSubjects: ${subj || '—'}\nPreferred time: ${time || '—'}\nMessage: ${message || '—'}\nPhone: ${phone}`;
+    const topic = topicRef.current?.value || '';
+    return `Hi Eduplus! Demo request:\nStudent: ${student}\nClass: ${klass} (${board})\nMode: ${mode || '—'}\nSubjects: ${subj || '—'}\nTopic: ${topic || '—'}\nPreferred time: ${time || '—'}\nPhone: ${phone}`;
   }
 
   return (
@@ -359,6 +368,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                 <li><Link href="/about">About</Link></li>
                 <li><Link href="/programs">Programs</Link></li>
                 <li><Link href="/exam-prep">Exam Prep</Link></li>
+                <li><Link href="/fees">Fee Structure</Link></li>
                 <li><Link href="/why">Why Eduplus</Link></li>
                 <li><Link href="/contact">Contact</Link></li>
               </ul>
@@ -370,6 +380,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                 <li><Link href="/programs">Middle (5–7)</Link></li>
                 <li><Link href="/programs">High School (8–10)</Link></li>
                 <li><Link href="/programs">Plus One / Plus Two</Link></li>
+                <li><Link href="/exam-prep">SAY &amp; Improvement (+1/+2)</Link></li>
                 <li><Link href="/programs#exam-prep">Exam-target batches</Link></li>
               </ul>
             </div>
@@ -514,6 +525,32 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                     <div className="err">Select a board.</div>
                   </div>
                 </div>
+                <div className={`field ${errors.mode ? 'error' : ''}`}>
+                  <label id="f-mode-label">
+                    Class mode <span className="req">*</span>
+                  </label>
+                  <div className="mode-pick" role="radiogroup" aria-labelledby="f-mode-label">
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={mode === 'Offline'}
+                      className={`mp-btn ${mode === 'Offline' ? 'on' : ''}`}
+                      onClick={() => setMode('Offline')}
+                    >
+                      <PinIcon /> Offline · at centre
+                    </button>
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={mode === 'Online'}
+                      className={`mp-btn mp-online ${mode === 'Online' ? 'on' : ''}`}
+                      onClick={() => setMode('Online')}
+                    >
+                      <GlobeIcon /> Online · live class
+                    </button>
+                  </div>
+                  <div className="err">Choose offline or online.</div>
+                </div>
                 <div className="field">
                   <label htmlFor="f-subj">Subject(s) interested</label>
                   <input id="f-subj" name="subjects" placeholder="e.g. Maths, Science" ref={subjRef} />
@@ -523,12 +560,12 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                   <input id="f-time" name="time" placeholder="e.g. Weekday evenings" ref={timeRef} />
                 </div>
                 <div className="field">
-                  <label htmlFor="f-msg">Message (optional)</label>
-                  <textarea
-                    id="f-msg"
-                    name="message"
-                    placeholder="Anything you'd like us to know"
-                    ref={msgRef}
+                  <label htmlFor="f-topic">Topic</label>
+                  <input
+                    id="f-topic"
+                    name="topic"
+                    placeholder="e.g. Algebra doubts, SSLC revision, SAY exam"
+                    ref={topicRef}
                   />
                 </div>
                 <button type="submit" className="btn btn-red btn-block btn-lg">

@@ -7,6 +7,7 @@ const PAGES: Page[] = [
   { nm: 'Home', ds: 'Hero · programs · results · FAQ', src: '/', pill: 'Landing page' },
   { nm: 'About', ds: 'Story · mission · approach', src: '/about', pill: 'Who we are' },
   { nm: 'Programs', ds: 'Class 1–12 · all boards', src: '/programs', pill: 'Courses' },
+  { nm: 'Fees', ds: 'Fee ladder · estimator', src: '/fees', pill: 'Fee structure' },
   { nm: 'Contact', ds: 'Enquiry · map · hours', src: '/contact', pill: 'Get in touch' },
 ];
 

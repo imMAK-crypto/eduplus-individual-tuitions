@@ -2,8 +2,8 @@ import 'server-only';
 import { promises as fs } from 'fs';
 import path from 'path';
 
-export type ContentKey = 'site' | 'home' | 'about' | 'programs' | 'contact';
-export const CONTENT_KEYS: ContentKey[] = ['site', 'home', 'about', 'programs', 'contact'];
+export type ContentKey = 'site' | 'home' | 'about' | 'programs' | 'contact' | 'fees';
+export const CONTENT_KEYS: ContentKey[] = ['site', 'home', 'about', 'programs', 'contact', 'fees'];
 
 const CONTENT_DIR = path.join(process.cwd(), 'content');
 const filePath = (key: ContentKey) => path.join(CONTENT_DIR, `${key}.json`);

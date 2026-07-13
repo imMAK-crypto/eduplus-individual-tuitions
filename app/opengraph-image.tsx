@@ -46,7 +46,7 @@ export default function OgImage() {
         <div style={{ display: 'flex', alignItems: 'center', fontSize: 30, color: 'rgba(255,255,255,0.9)' }}>
           <span>Ashokapuram, Kozhikode</span>
           <span style={{ margin: '0 16px', color: '#F5B204' }}>·</span>
-          <span>Rated 4.8/5 since 2015</span>
+          <span>Trusted since 2015</span>
           <span style={{ margin: '0 16px', color: '#F5B204' }}>·</span>
           <span style={{ color: '#F5B204', fontWeight: 700 }}>Book a free demo</span>
         </div>

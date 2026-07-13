@@ -9,7 +9,6 @@ import {
   HelpIcon,
   PlusIcon,
   ShieldIcon,
-  StarIcon,
   UsersIcon,
   XIcon,
 } from '@/lib/icons';
@@ -18,7 +17,7 @@ import { SITE, YEARS_ACTIVE, breadcrumbLd, telLink } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Why Eduplus — Individual Attention That Gets Results',
   description:
-    'Why families in Ashokapuram, Kozhikode choose Eduplus Individual Tuitions: true one-to-one attention, concept clarity, daily doubt-clearing, regular tests, experienced local teachers and mentorship beyond the classroom. Rated 4.8★ since 2015.',
+    'Why families in Ashokapuram, Kozhikode choose Eduplus Individual Tuitions: true one-to-one attention, concept clarity, daily doubt-clearing, regular tests, experienced local teachers and mentorship beyond the classroom. Since 2015.',
   alternates: { canonical: '/why' },
   openGraph: {
     title: 'Why Eduplus Individual Tuitions',
@@ -44,7 +43,7 @@ const WHY_FAQ = [
   },
   {
     q: 'Are your teachers experienced?',
-    a: 'Yes — experienced, local and accountable teachers who know the boards and the community. Rated 4.8★ by parents since 2015.',
+    a: 'Yes — experienced, local and accountable teachers who know the boards and the community, trusted by parents since 2015.',
   },
 ];
 
@@ -108,7 +107,7 @@ export default function WhyPage() {
             </p>
           </div>
           <div className="hero-chips reveal" style={{ marginTop: '1.4rem' }}>
-            <span className="chip">★ 4.8 Google rating</span>
+            <span className="chip">★ Trusted by parents</span>
             <span className="chip">{YEARS_ACTIVE}+ years · since {SITE.foundedYear}</span>
             <span className="chip">LKG to Plus Two</span>
             <span className="chip">Online &amp; offline</span>
@@ -267,10 +266,8 @@ export default function WhyPage() {
               <div className="lbl">Years since {SITE.foundedYear}</div>
             </div>
             <div className="stat reveal">
-              <div className="num">
-                4.8<span className="suf">★</span>
-              </div>
-              <div className="lbl">Google rating</div>
+              <div className="num">1-to-1</div>
+              <div className="lbl">True individual attention</div>
             </div>
             <div className="stat reveal">
               <div className="num" data-count="3">
@@ -292,15 +289,10 @@ export default function WhyPage() {
               <span className="g-g">l</span>
               <span className="g-r">e</span> Reviews
             </div>
-            <div className="grev-score">4.8</div>
-            <div className="stars grev-stars" role="img" aria-label="Rated 4.8 out of 5">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <StarIcon key={i} aria-hidden="true" />
-              ))}
-            </div>
+            <h3 style={{ fontSize: 'clamp(1.4rem,3vw,1.9rem)' }}>Real parents. Real words.</h3>
             <div className="grev-sub">
-              Based on <strong>{SITE.ratingCount} verified reviews</strong> from parents in
-              Ashokapuram, Kozhikode
+              Don&apos;t take our word for it — read what{' '}
+              <strong>families in Ashokapuram, Kozhikode</strong> say about us on Google.
             </div>
             <a className="btn btn-blue" href={SITE.mapsLink} target="_blank" rel="noopener noreferrer">
               Read our Google reviews <ArrowIcon />

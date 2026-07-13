@@ -16,7 +16,7 @@ After the first account exists, the setup screen locks itself; everyone else sig
 
 | Section | What it controls |
 |---|---|
-| **Global settings** | Phone, WhatsApp, email, hours, Google rating, address & map, areas you serve, social links, and the announcement bar. These appear across the whole site and in SEO. |
+| **Global settings** | Phone, WhatsApp, email, hours, address & map, areas you serve, social links, and the announcement bar. These appear across the whole site and in SEO. |
 | **Home page** | Hero headline & text, the exam-target section, and the FAQ list (add / edit / reorder / delete). |
 | **Contact page** | The contact-page FAQ list. |
 | **Media** | Upload photos and copy their link. |

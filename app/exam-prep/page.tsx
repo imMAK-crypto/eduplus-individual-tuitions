@@ -16,14 +16,14 @@ import {
 import { SITE, breadcrumbLd, telLink, waLink } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Exam-Target Coaching — SSLC, Plus One, Plus Two & Half-Yearly',
+  title: 'Exam-Target Coaching — SSLC, Plus One, Plus Two, SAY & Improvement',
   description:
-    'Exam-focused tuition batches in Ashokapuram, Kozhikode for Class 10 onwards — SSLC, Plus One, Plus Two board exams plus half-yearly & term exams. Revision, previous-year papers, answer-writing and daily doubt-clearing. Kerala State, CBSE & ICSE, online & offline.',
+    'Exam-focused tuition batches in Ashokapuram, Kozhikode for Class 10 onwards — SSLC, Plus One, Plus Two board exams, SAY & Improvement exam classes and exam assistance. Mon–Fri 2 PM–7 PM, Sat & Sun 7 AM–6:30 PM. Kerala State, CBSE & ICSE, online & offline.',
   alternates: { canonical: '/exam-prep' },
   openGraph: {
     title: 'Exam-Target Coaching | Eduplus Individual Tuitions',
     description:
-      'Intensive, time-boxed batches for board, half-yearly & term exams — Class 10 onwards, Kerala State/CBSE/ICSE, online & offline.',
+      'Intensive, time-boxed batches for board, SAY & Improvement exams — Class 10 onwards, Kerala State/CBSE/ICSE, online & offline.',
     url: '/exam-prep',
     type: 'website',
   },
@@ -32,7 +32,15 @@ export const metadata: Metadata = {
 const EXAM_FAQ = [
   {
     q: 'Which exams do you prepare students for?',
-    a: 'Board exams — SSLC (Class 10), Plus One and Plus Two — plus half-yearly and term exams for any class from 10th onwards. Kerala State, CBSE and ICSE.',
+    a: 'Board exams — SSLC (Class 10), Plus One and Plus Two — plus SAY & Improvement exams for +1 / +2, and half-yearly and term exams for any class from 10th onwards. Kerala State, CBSE and ICSE.',
+  },
+  {
+    q: 'Do you run SAY / Improvement exam classes for Plus One and Plus Two?',
+    a: 'Yes — dedicated SAY (Save A Year) and Improvement exam batches for Plus One and Plus Two, with full exam assistance. Classes run Monday to Friday 2 PM – 7 PM and Saturday & Sunday 7 AM – 6:30 PM.',
+  },
+  {
+    q: 'What is "exam assistance"?',
+    a: 'Hands-on support right through your exam window — daily doubt-clearing, revision planning, previous-year papers, answer-writing practice and last-minute concept fixes, online or at the centre.',
   },
   {
     q: 'When do exam-target batches start?',
@@ -107,15 +115,19 @@ export default function ExamPrepPage() {
             </h1>
             <p className="lead reveal">
               From <strong>Class 10 onwards</strong>, we run short, high-intensity batches timed to
-              your exam — SSLC, Plus One, Plus Two, half-yearly and term exams. Focused revision,
-              real papers, and daily doubt-clearing until you’re exam-ready.
+              your exam — SSLC, Plus One, Plus Two, <strong>SAY &amp; Improvement exams</strong>,
+              half-yearly and term exams. Focused revision, real papers, and exam assistance until
+              you’re exam-ready.
             </p>
           </div>
           <div className="hero-chips reveal" style={{ marginTop: '1.4rem' }}>
             <span className="chip">Class 10 onwards</span>
+            <span className="chip">SAY &amp; Improvement · +1 / +2</span>
             <span className="chip">Kerala State · CBSE · ICSE</span>
             <span className="chip">Online &amp; offline</span>
-            <span className="chip">One-to-one &amp; small batch</span>
+            <span className="chip">
+              <ClockIcon /> Mon–Fri 2–7 PM · Sat–Sun 7 AM–6:30 PM
+            </span>
           </div>
           <div className="hero-cta reveal" style={{ marginTop: '1.6rem' }}>
             <button className="btn btn-red btn-lg" data-open-modal data-subjects="Exam-target batch">
@@ -212,6 +224,9 @@ export default function ExamPrepPage() {
               <button className="tab" role="tab" aria-selected="false" data-tab="e-plus2">
                 Plus Two
               </button>
+              <button className="tab" role="tab" aria-selected="false" data-tab="e-say">
+                SAY &amp; Improvement
+              </button>
               <button className="tab" role="tab" aria-selected="false" data-tab="e-half">
                 Half-yearly &amp; term
               </button>
@@ -281,6 +296,46 @@ export default function ExamPrepPage() {
                     <span className="badge badge-red">ICSE</span>
                   </div>
                   <button className="enquire" data-open-modal data-class="Class 12" data-subjects="Plus Two exam batch">
+                    Enquire <ArrowIcon />
+                  </button>
+                </article>
+              </div>
+            </div>
+
+            <div className="tab-panel" id="e-say" role="tabpanel">
+              <div className="prog-grid" data-stagger>
+                <article className="card prog-card red">
+                  <span className="pc-ico">
+                    <ShieldIcon />
+                  </span>
+                  <h3>SAY exam batch (+1 / +2)</h3>
+                  <p>
+                    Didn&apos;t clear a paper? The SAY (Save A Year) exam is your second chance — we
+                    rebuild the weak subjects fast and get you through, without losing the year.
+                  </p>
+                  <div className="pc-chips">
+                    <span className="badge badge-red">Plus One &amp; Plus Two</span>
+                    <span className="badge badge-blue">Mon–Fri 2–7 PM</span>
+                    <span className="badge badge-green">Sat–Sun 7 AM–6:30 PM</span>
+                  </div>
+                  <button className="enquire" data-open-modal data-class="Class 12" data-subjects="SAY exam batch">
+                    Enquire <ArrowIcon />
+                  </button>
+                </article>
+                <article className="card prog-card blue">
+                  <span className="pc-ico">
+                    <ChartIcon />
+                  </span>
+                  <h3>Improvement exam batch (+1 / +2)</h3>
+                  <p>
+                    Passed, but want a better score? Targeted improvement-exam coaching that focuses
+                    only on the marks you left behind — plus full exam assistance on the day.
+                  </p>
+                  <div className="pc-chips">
+                    <span className="badge badge-blue">Plus One &amp; Plus Two</span>
+                    <span className="badge badge-yellow">Exam assistance included</span>
+                  </div>
+                  <button className="enquire" data-open-modal data-class="Class 12" data-subjects="Improvement exam batch">
                     Enquire <ArrowIcon />
                   </button>
                 </article>

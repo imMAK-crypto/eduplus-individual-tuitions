@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import {
   ArrowIcon,
@@ -24,6 +25,7 @@ import {
 } from '@/lib/icons';
 import { SITE, YEARS_ACTIVE, telLink, waLink } from '@/lib/site';
 import home from '@/content/home.json';
+import fees from '@/content/fees.json';
 
 // Renders a heading, underlining the accent phrase if present (editable in admin).
 function AccentTitle({ text, accent }: { text: string; accent?: string }) {
@@ -35,16 +37,6 @@ function AccentTitle({ text, accent }: { text: string; accent?: string }) {
       <span className="underline-accent">{accent}</span>
       {text.slice(i + accent.length)}
     </>
-  );
-}
-
-function Stars({ label = 'Rated 5 out of 5' }: { label?: string }) {
-  return (
-    <div className="stars" role="img" aria-label={label}>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <StarIcon key={i} aria-hidden="true" />
-      ))}
-    </div>
   );
 }
 
@@ -129,20 +121,15 @@ export default function HomePage() {
                 <span className="t2">behind Rajendra Hospital</span>
               </span>
             </a>
-            <a
-              className="trust-item"
-              href={SITE.mapsLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <div className="trust-item">
               <span className="ti-ico" style={{ color: 'var(--yellow)' }}>
                 <StarIcon />
               </span>
               <span>
-                <span className="t1">4.8★ Google rating</span>
-                <span className="t2">{SITE.ratingCount} reviews · since {SITE.foundedYear}</span>
+                <span className="t1">{YEARS_ACTIVE}+ years of teaching</span>
+                <span className="t2">trusted since {SITE.foundedYear}</span>
               </span>
-            </a>
+            </div>
             <div className="trust-item">
               <span className="ti-ico" style={{ color: 'var(--red)' }}>
                 <CheckIcon />
@@ -177,8 +164,8 @@ export default function HomePage() {
             </h2>
             <p className="lead maxw">
               Real individual attention for every class from <strong>LKG to Plus Two</strong> — learn
-              at our Ashokapuram centre or live online, whichever suits your family. Rated{' '}
-              <strong>4.8★ by parents</strong> since 2015.
+              at our Ashokapuram centre or live online, whichever suits your family. Trusted by{' '}
+              <strong>parents across Kozhikode</strong> since 2015.
             </p>
           </div>
 
@@ -209,7 +196,7 @@ export default function HomePage() {
                       <CheckIcon /> Fixed teacher &amp; personal attention
                     </li>
                     <li>
-                      <CheckIcon /> Printed notes, worksheets &amp; papers
+                      <CheckIcon /> Calm, distraction-free study space
                     </li>
                     <li>
                       <CheckIcon /> Daily in-person doubt-clearing
@@ -218,7 +205,12 @@ export default function HomePage() {
                       <CheckIcon /> Motivating peer study group
                     </li>
                   </ul>
-                  <button className="btn btn-blue" data-open-modal data-subjects="Offline tuition">
+                  <button
+                    className="btn btn-blue"
+                    data-open-modal
+                    data-subjects="Offline tuition"
+                    data-mode="Offline"
+                  >
                     Book a centre demo
                   </button>
                 </div>
@@ -250,7 +242,12 @@ export default function HomePage() {
                       <CheckIcon /> Perfect for exam-season crunch
                     </li>
                   </ul>
-                  <button className="btn btn-green" data-open-modal data-subjects="Online tuition">
+                  <button
+                    className="btn btn-green"
+                    data-open-modal
+                    data-subjects="Online tuition"
+                    data-mode="Online"
+                  >
                     Book an online demo
                   </button>
                 </div>
@@ -277,7 +274,7 @@ export default function HomePage() {
                   <CheckIcon /> All subjects · all boards
                 </li>
                 <li>
-                  <CheckIcon /> Reading, writing &amp; handwriting
+                  <CheckIcon /> Reading, writing &amp; strong basics
                 </li>
                 <li>
                   <CheckIcon /> Homework &amp; doubt support
@@ -405,21 +402,21 @@ export default function HomePage() {
               <span className="ec-ico">
                 <ChartIcon />
               </span>
-              <h3>Half-yearly &amp; term exams</h3>
+              <h3>SAY &amp; Improvement classes</h3>
               <p>
-                Quick, focused syllabus revision plus timed practice tests for any class from 10th
-                onwards during exam months.
+                Dedicated SAY (Save A Year) and Improvement exam batches for Plus One &amp; Plus Two —
+                rewrite the result, don&apos;t repeat the year.
               </p>
-              <span className="ec-tag">Class 10+ · term exams</span>
+              <span className="ec-tag">+1 / +2 · SAY &amp; Improvement</span>
             </article>
             <article className="exam-card">
               <span className="ec-ico">
                 <HelpIcon />
               </span>
-              <h3>Crash &amp; doubt sessions</h3>
+              <h3>Exam assistance</h3>
               <p>
-                Daily doubt-clearing and rapid concept fixes in the final run-up — online or at the
-                centre, whenever you need it.
+                Daily doubt-clearing, rapid concept fixes and exam-day guidance right up to the hall
+                — online or at the centre.
               </p>
               <span className="ec-tag">Daily · online &amp; offline</span>
             </article>
@@ -429,10 +426,15 @@ export default function HomePage() {
             <span className="etag">SSLC board</span>
             <span className="etag">Plus One</span>
             <span className="etag">Plus Two</span>
+            <span className="etag">SAY exam</span>
+            <span className="etag">Improvement exam</span>
             <span className="etag">Half-yearly</span>
-            <span className="etag">Model exams</span>
             <span className="etag">Revision papers</span>
           </div>
+
+          <p className="exam-hours reveal">
+            <ClockIcon /> Mon–Fri 2 PM – 7 PM &nbsp;·&nbsp; Sat &amp; Sun 7 AM – 6:30 PM
+          </p>
 
           <div className="center" style={{ marginTop: '2.4rem' }}>
             <button className="btn btn-red btn-lg" data-open-modal data-subjects="Exam-target batch">
@@ -507,9 +509,9 @@ export default function HomePage() {
                   <span className="pc-ico">
                     <BookIcon />
                   </span>
-                  <h3>Reading &amp; Handwriting</h3>
+                  <h3>Reading &amp; Phonics</h3>
                   <p>
-                    Phonics, comprehension and neat handwriting routines that set young learners up
+                    Phonics, comprehension and confident reading habits that set young learners up
                     for life.
                   </p>
                   <div className="pc-chips">
@@ -519,7 +521,7 @@ export default function HomePage() {
                     className="enquire"
                     data-open-modal
                     data-class="Class 2"
-                    data-subjects="Reading, Handwriting"
+                    data-subjects="Reading, Phonics"
                   >
                     Enquire about this <ArrowIcon />
                   </button>
@@ -744,6 +746,43 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* (3.5) FEES TEASER — transparent per-hour rates, links to /fees */}
+      <section className="section fee-tease" data-screen-label="Fees teaser">
+        <div className="container">
+          <div className="fee-tease-card reveal">
+            <div className="ft-copy">
+              <span className="eyebrow" style={{ color: 'var(--green-600)' }}>
+                Transparent fees
+              </span>
+              <h2>
+                Simple, <span className="underline-accent">per-hour</span> fees
+              </h2>
+              <p className="lead">
+                No hidden packages, no surprises — one clear hourly rate for every class and a
+                one-time ₹{fees.admissionFee} admission. That&apos;s it.
+              </p>
+              <Link className="btn btn-green" href="/fees">
+                See the full fee structure <ArrowIcon />
+              </Link>
+            </div>
+            <div className="ft-rates" role="list" aria-label="Fee per hour by class">
+              {fees.tiers.map((t) => (
+                <div
+                  key={t.id}
+                  role="listitem"
+                  className={`ft-rate ${t.accent}`}
+                  style={{ '--pn': Math.round((t.feePerHour / 350) * 100) } as CSSProperties}
+                >
+                  <span className="ft-amt">₹{t.feePerHour}</span>
+                  <span className="ft-bar" aria-hidden="true" />
+                  <span className="ft-cls">{t.short}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* (4) WHY EDUPLUS */}
       <section
         className="section"
@@ -822,27 +861,25 @@ export default function HomePage() {
               Trusted by <span className="underline-accent">Ashokapuram</span> families
             </h2>
             <p className="lead maxw">
-              Honest, local proof — a rating earned one student at a time since {SITE.foundedYear}.
+              Honest, local trust — earned one student at a time since {SITE.foundedYear}.
             </p>
           </div>
           <div className="stat-band">
             <div className="stat reveal">
-              <div className="num">
-                4.8<span className="suf">★</span>
-              </div>
-              <div className="lbl">Google rating</div>
-            </div>
-            <div className="stat reveal">
-              <div className="num" data-count={SITE.ratingCount} data-suffix="+">
-                0
-              </div>
-              <div className="lbl">Parent reviews</div>
+              <div className="num">1-to-1</div>
+              <div className="lbl">True individual attention</div>
             </div>
             <div className="stat reveal">
               <div className="num" data-count={YEARS_ACTIVE} data-suffix="+">
                 0
               </div>
               <div className="lbl">Years since {SITE.foundedYear}</div>
+            </div>
+            <div className="stat reveal">
+              <div className="num" data-count="7">
+                0
+              </div>
+              <div className="lbl">Days a week · open Mon–Sun</div>
             </div>
             <div className="stat reveal">
               <div className="num" data-count="3">
@@ -860,11 +897,10 @@ export default function HomePage() {
               <span className="g-g">l</span>
               <span className="g-r">e</span> Reviews
             </div>
-            <div className="grev-score">4.8</div>
-            <Stars label="Rated 4.8 out of 5" />
+            <h3 style={{ fontSize: 'clamp(1.4rem,3vw,1.9rem)' }}>Real parents. Real words.</h3>
             <div className="grev-sub">
-              Based on <strong>{SITE.ratingCount} verified reviews</strong> from parents in
-              Ashokapuram, Kozhikode
+              Don&apos;t take our word for it — read what{' '}
+              <strong>families in Ashokapuram, Kozhikode</strong> say about us on Google.
             </div>
             <a className="btn btn-blue" href={SITE.mapsLink} target="_blank" rel="noopener noreferrer">
               Read our Google reviews <ArrowIcon />

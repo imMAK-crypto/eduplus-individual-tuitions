@@ -224,10 +224,8 @@ export default function AboutPage() {
               <div className="lbl">Years teaching · since {SITE.foundedYear}</div>
             </div>
             <div className="stat reveal">
-              <div className="num">
-                4.8<span className="suf">★</span>
-              </div>
-              <div className="lbl">Google rating</div>
+              <div className="num">1-to-1</div>
+              <div className="lbl">True individual attention</div>
             </div>
             <div className="stat reveal">
               <div className="num" data-count="3">

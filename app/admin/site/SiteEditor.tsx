@@ -23,8 +23,6 @@ export type SiteData = {
   hoursNote: string;
   areas: string[];
   foundedYear: string;
-  ratingValue: string;
-  ratingCount: string;
   waMsg: string;
   announce: { on: boolean; text: string; linkLabel: string };
   social: { instagram: string; facebook: string; youtube: string };
@@ -73,10 +71,6 @@ export default function SiteEditor({ initial: data0 }: { initial: SiteData }) {
         <div className="a-row2">
           <Text label="Founded year" value={d.foundedYear} onChange={(v) => f({ foundedYear: v })} />
           <div />
-        </div>
-        <div className="a-row2">
-          <Text label="Google rating" value={d.ratingValue} onChange={(v) => f({ ratingValue: v })} hint="e.g. 4.8" />
-          <Text label="Review count" value={d.ratingCount} onChange={(v) => f({ ratingCount: v })} hint="e.g. 26" />
         </div>
       </section>
 

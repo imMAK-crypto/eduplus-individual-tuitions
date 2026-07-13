@@ -37,6 +37,10 @@ const COURSES: { name: string; desc: string }[] = [
     name: 'Exam-target batches (Class 10 onwards)',
     desc: 'Short, intensive batches timed to board (SSLC, +1, +2), half-yearly and term exams — revision, previous-year papers and daily doubt-clearing.',
   },
+  {
+    name: 'SAY & Improvement exam classes (Plus One & Plus Two)',
+    desc: 'Dedicated SAY (Save A Year) and Improvement exam coaching for Plus One and Plus Two with full exam assistance — Mon–Fri 2 PM–7 PM, Sat & Sun 7 AM–6:30 PM.',
+  },
 ];
 
 const courseLd = {
@@ -61,7 +65,7 @@ const courseLd = {
 export const metadata: Metadata = {
   title: 'Programs & Courses — LKG to Plus Two',
   description:
-    'Tuition programs for LKG–Class 12 — Foundation, High School (SSLC), Plus One / Plus Two (Science, Commerce, Humanities) & exam-target batches. One-to-one, online & offline. Kerala State, CBSE & ICSE in Ashokapuram, Kozhikode.',
+    'Tuition programs for LKG–Class 12 — Foundation, High School (SSLC), Plus One / Plus Two (Science, Commerce, Humanities), exam-target batches & SAY / Improvement exam classes. One-to-one, online & offline. Kerala State, CBSE & ICSE in Ashokapuram, Kozhikode.',
   alternates: { canonical: '/programs' },
   openGraph: {
     title: 'Programs for LKG to Plus Two | Eduplus Individual Tuitions',
@@ -137,7 +141,7 @@ export default function ProgramsPage() {
             <span className="badge badge-green">English</span>
             <span className="badge badge-yellow">EVS</span>
             <span className="badge badge-red">Reading</span>
-            <span className="badge badge-blue">Handwriting</span>
+            <span className="badge badge-blue">Phonics</span>
           </div>
           <div className="prog-grid" data-stagger>
             <article className="card card-hover prog-card blue">
@@ -154,13 +158,13 @@ export default function ProgramsPage() {
               <span className="pc-ico">
                 <BookIcon />
               </span>
-              <h3>Reading &amp; Handwriting</h3>
-              <p>Phonics, comprehension and neat handwriting routines.</p>
+              <h3>Reading &amp; Phonics</h3>
+              <p>Phonics, comprehension and confident reading habits.</p>
               <button
                 className="enquire"
                 data-open-modal
                 data-class="Class 2"
-                data-subjects="Reading, Handwriting"
+                data-subjects="Reading, Phonics"
               >
                 Enquire <ArrowIcon />
               </button>
@@ -406,8 +410,8 @@ export default function ProgramsPage() {
         </section>
 
         <p className="price-note">
-          Fees vary by class, board and batch type — one-to-one, small batch, online or offline.
-          Enquire for current fees and a free demo.
+          Simple per-hour fees — ₹150/hr (Class I–IV) up to ₹350/hr (Plus One / Plus Two), one-time
+          ₹500 admission. <Link href="/fees">See the full fee structure →</Link>
         </p>
       </div>
 
@@ -425,8 +429,9 @@ export default function ProgramsPage() {
             </h2>
             <p className="lead maxw">
               From <strong>Class 10 onwards</strong> we open short, high-intensity batches during
-              exam season — board (SSLC, +1, +2), half-yearly or term exams, built around your exam
-              date.
+              exam season — board (SSLC, +1, +2), half-yearly or term exams, plus{' '}
+              <strong>SAY &amp; Improvement classes</strong> for Plus One and Plus Two, built around
+              your exam date.
             </p>
           </div>
           <div className="exam-grid" data-stagger>
@@ -450,9 +455,9 @@ export default function ProgramsPage() {
               <span className="ec-ico">
                 <HelpIcon />
               </span>
-              <h3>Crash &amp; doubt sessions</h3>
-              <p>Daily doubt-clearing and rapid concept fixes in the final run-up — online or offline.</p>
-              <span className="ec-tag">Daily · online &amp; offline</span>
+              <h3>SAY, Improvement &amp; exam assistance</h3>
+              <p>Dedicated SAY &amp; Improvement batches for +1 / +2, with daily doubt-clearing and exam-day support.</p>
+              <span className="ec-tag">+1 / +2 · SAY &amp; Improvement</span>
             </article>
           </div>
           <div className="center" style={{ marginTop: '2.2rem' }}>

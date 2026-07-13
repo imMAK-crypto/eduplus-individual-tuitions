@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     template: '%s | Eduplus Individual Tuitions',
   },
   description:
-    'One-to-one & individual tuition for LKG–Class 12 in Ashokapuram, Kozhikode — online & offline. Kerala State, CBSE & ICSE. Board & exam-target batches (SSLC, +1, +2, half-yearly). Since 2015. Book a free demo class.',
+    'One-to-one & individual tuition for LKG–Class 12 in Ashokapuram, Kozhikode — online & offline. Kerala State, CBSE & ICSE. Board, SAY & Improvement exam batches (SSLC, +1, +2). Since 2015. Book a free demo class.',
   applicationName: SITE.name,
   authors: [{ name: SITE.name }],
   creator: SITE.name,
@@ -51,6 +51,9 @@ export const metadata: Metadata = {
     'ICSE tuition Kozhikode',
     'Kerala State syllabus tuition',
     'board exam coaching Kozhikode',
+    'SAY exam coaching Kozhikode',
+    'improvement exam tuition Plus Two',
+    'tuition fees Kozhikode',
     'LKG to 12 tuition Kozhikode',
     'Eduplus Individual Tuitions',
   ],
@@ -72,7 +75,7 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     title: 'Eduplus — One-to-One Tuition LKG to Plus Two, Kozhikode',
     description:
-      'Personalised 1-to-1 tuition for LKG–12 in Ashokapuram, Kozhikode. Online & offline. Board & exam-target batches. Rated 4.8★. Book a free demo class.',
+      'Personalised 1-to-1 tuition for LKG–12 in Ashokapuram, Kozhikode. Online & offline. Board, SAY & Improvement exam batches. Book a free demo class.',
     locale: 'en_IN',
   },
   twitter: {
@@ -119,7 +122,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   alternateName: 'Eduplus — Beyond Classroom',
                   url: SITE.url,
                   description:
-                    'Individual, one-to-one tuition for LKG to Class 12 (Plus Two) in Ashokapuram, Kozhikode — online and offline. Kerala State, CBSE and ICSE, with board and exam-target coaching.',
+                    'Individual, one-to-one tuition for LKG to Class 12 (Plus Two) in Ashokapuram, Kozhikode — online and offline. Kerala State, CBSE and ICSE, with board, SAY and Improvement exam coaching plus exam assistance.',
                   slogan: SITE.tagline,
                   telephone: SITE.phoneRaw,
                   ...(SITE.email ? { email: SITE.email } : {}),
@@ -156,16 +159,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   openingHoursSpecification: [
                     {
                       '@type': 'OpeningHoursSpecification',
-                      dayOfWeek: [
-                        'Monday',
-                        'Tuesday',
-                        'Wednesday',
-                        'Thursday',
-                        'Friday',
-                        'Saturday',
-                      ],
-                      opens: '10:00',
-                      closes: '20:00',
+                      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                      opens: '14:00',
+                      closes: '19:00',
+                    },
+                    {
+                      '@type': 'OpeningHoursSpecification',
+                      dayOfWeek: ['Saturday', 'Sunday'],
+                      opens: '07:00',
+                      closes: '18:30',
                     },
                   ],
                   knowsAbout: [
@@ -178,17 +180,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     'Plus One',
                     'Plus Two',
                     'Board exam preparation',
+                    'SAY exam coaching',
+                    'Improvement exam coaching',
                     'Half-yearly exam coaching',
                   ],
                   availableLanguage: ['en', 'ml', 'hi'],
                   sameAs: SITE.listings,
-                  aggregateRating: {
-                    '@type': 'AggregateRating',
-                    ratingValue: SITE.ratingValue,
-                    reviewCount: SITE.ratingCount,
-                    bestRating: '5',
-                    worstRating: '1',
-                  },
                   hasOfferCatalog: {
                     '@type': 'OfferCatalog',
                     name: 'Tuition programs',
@@ -227,6 +224,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                           name: 'Exam-target batches (Class 10 onwards)',
                           description:
                             'Short, intensive batches timed to board (SSLC, +1, +2), half-yearly and term exams — revision, previous-year papers and daily doubt-clearing.',
+                        },
+                      },
+                      {
+                        '@type': 'Offer',
+                        itemOffered: {
+                          '@type': 'Service',
+                          name: 'SAY & Improvement exam classes (Plus One & Plus Two)',
+                          description:
+                            'Dedicated SAY (Save A Year) and Improvement exam coaching for Plus One and Plus Two, with exam assistance — Mon–Fri 2 PM–7 PM, Sat & Sun 7 AM–6:30 PM.',
                         },
                       },
                     ],

@@ -12,16 +12,14 @@
   "geo": { "lat": 11.2481, "lng": 75.7947 },
   "mapsLink": "https://www.google.com/maps/search/?api=1&query=Eduplus+Individual+Tuitions+Ashokapuram+Kozhikode",
   "mapsEmbed": "https://www.google.com/maps?q=Ashokapuram+Kozhikode+Kerala&output=embed",
-  "hours": "Mon–Sat, 10 AM – 8 PM",
-  "hoursNote": "Sunday by appointment",
+  "hours": "Mon–Fri 2 PM – 7 PM · Sat & Sun 7 AM – 6:30 PM",
+  "hoursNote": "Open all 7 days",
   "areas": ["Ashokapuram", "Nadakkavu", "Eranhipalam", "Mankavu", "Chevayur", "Kozhikode city"],
   "foundedYear": "2015",
-  "ratingValue": "4.8",
-  "ratingCount": "26",
   "waMsg": "Hi Eduplus, I'd like to know about your tuition programs.",
   "announce": {
     "on": true,
-    "text": "🎓 Admissions open for 2026–27 · Personal attention, real results",
+    "text": "🎓 Admissions open for 2026–27 · SAY & Improvement exam batches for +1 / +2",
     "linkLabel": "Call"
   },
   "social": {

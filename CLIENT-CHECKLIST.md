@@ -9,11 +9,11 @@ These appear in the copy **and** in the site's structured data (SEO). Confirm or
 [`lib/site.ts`](lib/site.ts):
 
 - [ ] **Founded 2015** (`foundedYear`) — drives "since 2015" + the "years teaching" counter everywhere.
-- [ ] **Rating 4.8 / 26 reviews** (`ratingValue`, `ratingCount`) — shown in the hero, trust strip, results card + schema.
 - [ ] **Exact map pin** (`geo.lat`, `geo.lng`) — currently approximate for Ashokapuram.
 - [ ] **Phone number** (`phone` / `phoneRaw` / `whatsappRaw`) — confirm the WhatsApp + call number is correct.
 - [ ] **Business email** (`email`, currently blank so it's hidden) — add to show it + include in schema.
-- [ ] **Opening hours** (`hours` = "Mon–Sat, 10 AM – 8 PM", `hoursNote` = "Sunday by appointment") — correct if needed.
+- [ ] **Opening hours** (`hours` = "Mon–Fri 2 PM – 7 PM · Sat & Sun 7 AM – 6:30 PM") — correct if needed.
+- [ ] **Fee structure** (`content/fees.json`) — per-hour rates ₹150–₹350 + ₹500 admission are live on `/fees`; confirm ICSE/IGCSE variations.
 - [ ] **Areas served** (`areas`) — we listed Ashokapuram, Nadakkavu, Eranhipalam, Mankavu, Chevayur, Kozhikode city. Add/replace real ones.
 
 ## 2. Real photos
@@ -30,7 +30,7 @@ We link to your **Google reviews** instead of showing invented quotes (honest + 
 ## 4. Programs / offerings to confirm
 - [ ] **NEET / JEE foundation** — is this actually offered? (Currently shown on /programs.)
 - [ ] **Home tuition** — do you visit homes, or only centre + online? (Site currently says centre + online.)
-- [ ] **Fees** — we say "enquire for fees". Add ranges if you want them public.
+- [ ] **SAY / Improvement batches (+1/+2)** — now featured on home, /exam-prep and /programs; confirm batch dates each season.
 - [ ] **Batch size** — add typical one-to-one / small-batch numbers if you'd like them shown.
 
 ## 5. Social + contact links

@@ -1,25 +1,26 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { CheckIcon, WhatsAppIcon } from '@/lib/icons';
+import { CheckIcon, GlobeIcon, PinIcon, WhatsAppIcon } from '@/lib/icons';
 import { waLink, validIndianPhone } from '@/lib/site';
 
 export default function PageEnquiryForm() {
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, boolean>>({});
+  const [mode, setMode] = useState<'Offline' | 'Online' | ''>('');
   const studentRef = useRef<HTMLInputElement | null>(null);
   const phoneRef = useRef<HTMLInputElement | null>(null);
   const classRef = useRef<HTMLSelectElement | null>(null);
   const boardRef = useRef<HTMLSelectElement | null>(null);
   const subjRef = useRef<HTMLInputElement | null>(null);
-  const msgRef = useRef<HTMLTextAreaElement | null>(null);
+  const topicRef = useRef<HTMLInputElement | null>(null);
 
   function buildMsg() {
     return `Hi Eduplus! Enquiry:\nStudent: ${studentRef.current?.value || ''}\nClass: ${
       classRef.current?.value || ''
-    } (${boardRef.current?.value || ''})\nSubjects: ${subjRef.current?.value || '—'}\nMessage: ${
-      msgRef.current?.value || '—'
-    }\nPhone: ${phoneRef.current?.value || ''}`;
+    } (${boardRef.current?.value || ''})\nMode: ${mode || '—'}\nSubjects: ${
+      subjRef.current?.value || '—'
+    }\nTopic: ${topicRef.current?.value || '—'}\nPhone: ${phoneRef.current?.value || ''}`;
   }
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -29,6 +30,7 @@ export default function PageEnquiryForm() {
     if (!validIndianPhone(phoneRef.current?.value || '')) err.phone = true;
     if (!classRef.current?.value) err.class = true;
     if (!boardRef.current?.value) err.board = true;
+    if (!mode) err.mode = true;
     setErrors(err);
     if (Object.keys(err).length) return;
     setSubmitted(true);
@@ -109,13 +111,44 @@ export default function PageEnquiryForm() {
           <div className="err">Select a board.</div>
         </div>
       </div>
+      <div className={`field ${errors.mode ? 'error' : ''}`}>
+        <label id="p-mode-label">
+          Class mode <span className="req">*</span>
+        </label>
+        <div className="mode-pick" role="radiogroup" aria-labelledby="p-mode-label">
+          <button
+            type="button"
+            role="radio"
+            aria-checked={mode === 'Offline'}
+            className={`mp-btn ${mode === 'Offline' ? 'on' : ''}`}
+            onClick={() => setMode('Offline')}
+          >
+            <PinIcon /> Offline · at centre
+          </button>
+          <button
+            type="button"
+            role="radio"
+            aria-checked={mode === 'Online'}
+            className={`mp-btn mp-online ${mode === 'Online' ? 'on' : ''}`}
+            onClick={() => setMode('Online')}
+          >
+            <GlobeIcon /> Online · live class
+          </button>
+        </div>
+        <div className="err">Choose offline or online.</div>
+      </div>
       <div className="field">
         <label htmlFor="p-subj">Subject(s) interested</label>
         <input id="p-subj" name="subjects" placeholder="e.g. Maths, Science" ref={subjRef} />
       </div>
       <div className="field">
-        <label htmlFor="p-msg">Message (optional)</label>
-        <textarea id="p-msg" name="message" placeholder="Anything you'd like us to know" ref={msgRef} />
+        <label htmlFor="p-topic">Topic</label>
+        <input
+          id="p-topic"
+          name="topic"
+          placeholder="e.g. Algebra doubts, SSLC revision, SAY exam"
+          ref={topicRef}
+        />
       </div>
       <button type="submit" className="btn btn-red btn-block btn-lg">
         Request Callback
