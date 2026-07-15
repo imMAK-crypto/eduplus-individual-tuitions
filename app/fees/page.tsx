@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { ArrowIcon, CheckIcon, ClockIcon, RupeeIcon, TargetIcon } from '@/lib/icons';
-import { SITE, breadcrumbLd, telLink, waLink } from '@/lib/site';
+import { SITE, breadcrumbLd, ogImage, telLink, waLink } from '@/lib/site';
 import FeeEstimator from '@/components/FeeEstimator';
 import fees from '@/content/fees.json';
 
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
       'Clear per-hour fees for every class — ₹150 to ₹350 per hour, ₹500 one-time admission. Estimate your monthly fee in seconds.',
     url: '/fees',
     type: 'website',
+    images: ogImage('Simple per-hour fees', '₹150–₹350 per hour · ₹500 one-time admission'),
   },
 };
 

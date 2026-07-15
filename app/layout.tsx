@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import { Plus_Jakarta_Sans, Inter, Baloo_2 } from 'next/font/google';
 import './globals.css';
 import SiteChrome from '@/components/SiteChrome';
 import Interactions from '@/components/Interactions';
 import IntroSplash from '@/components/IntroSplash';
-import { SITE } from '@/lib/site';
+import { SITE, realSocials } from '@/lib/site';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -56,6 +57,14 @@ export const metadata: Metadata = {
     'tuition fees Kozhikode',
     'LKG to 12 tuition Kozhikode',
     'Eduplus Individual Tuitions',
+    'best tuition centre in Kozhikode',
+    'tuition centre near me Kozhikode',
+    'tuition in Nadakkavu',
+    'tuition in Eranhipalam',
+    'online tuition Kerala',
+    'ട്യൂഷൻ കോഴിക്കോട്',
+    'ഓൺലൈൻ ട്യൂഷൻ കേരളം',
+    'വ്യക്തിഗത ട്യൂഷൻ കോഴിക്കോട്',
   ],
   alternates: { canonical: '/' },
   robots: {
@@ -88,6 +97,13 @@ export const metadata: Metadata = {
   verification: process.env.NEXT_PUBLIC_GSC_VERIFICATION
     ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }
     : undefined,
+  // Legacy geo tags — still read by local directories and some crawlers.
+  other: {
+    'geo.region': 'IN-KL',
+    'geo.placename': 'Kozhikode, Kerala, India',
+    'geo.position': `${SITE.geo.lat};${SITE.geo.lng}`,
+    ICBM: `${SITE.geo.lat}, ${SITE.geo.lng}`,
+  },
 };
 
 export const viewport: Viewport = {
@@ -185,7 +201,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     'Half-yearly exam coaching',
                   ],
                   availableLanguage: ['en', 'ml', 'hi'],
-                  sameAs: SITE.listings,
+                  sameAs: [...SITE.listings, ...realSocials()],
                   hasOfferCatalog: {
                     '@type': 'OfferCatalog',
                     name: 'Tuition programs',
@@ -245,6 +261,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   name: SITE.name,
                   inLanguage: 'en-IN',
                   publisher: { '@id': `${SITE.url}/#organization` },
+                  // Voice/AI answer engines may read the h1 + lead aloud.
+                  speakable: {
+                    '@type': 'SpeakableSpecification',
+                    cssSelector: ['h1', '.lead'],
+                  },
                 },
               ],
             }),
@@ -255,6 +276,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <IntroSplash />
         <SiteChrome>{children}</SiteChrome>
         <Interactions />
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${process.env.NEXT_PUBLIC_GA_ID}');`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

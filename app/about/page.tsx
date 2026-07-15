@@ -12,7 +12,7 @@ import {
   TargetIcon,
   UsersIcon,
 } from '@/lib/icons';
-import { SITE, YEARS_ACTIVE, breadcrumbLd, telLink } from '@/lib/site';
+import { SITE, YEARS_ACTIVE, breadcrumbLd, ogImage, telLink } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'About Eduplus',
@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       'A neighbourhood tuition centre teaching LKG–12 one-to-one, online & offline since 2015. Personal attention, concept clarity and mentorship.',
     url: '/about',
     type: 'website',
+    images: ogImage('About Eduplus', 'A neighbourhood one-to-one tuition centre since 2015'),
   },
 };
 

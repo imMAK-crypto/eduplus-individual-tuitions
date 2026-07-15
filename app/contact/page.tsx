@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ClockIcon, PhoneIcon, PinIcon, PlusIcon, WhatsAppIcon } from '@/lib/icons';
-import { SITE, breadcrumbLd, telLink, waLink } from '@/lib/site';
+import { SITE, breadcrumbLd, ogImage, telLink, waLink } from '@/lib/site';
 import PageEnquiryForm from '@/components/PageEnquiryForm';
 import contactContent from '@/content/contact.json';
 
@@ -16,6 +16,7 @@ export const metadata: Metadata = {
       'Call, WhatsApp or enquire to book a free demo class. One-to-one tuition LKG–12, online & offline, behind Rajendra Hospital, Kozhikode 673001.',
     url: '/contact',
     type: 'website',
+    images: ogImage('Contact & admissions', 'Call · WhatsApp · free demo class'),
   },
 };
 

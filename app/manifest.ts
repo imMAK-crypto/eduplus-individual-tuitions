@@ -15,6 +15,8 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ['education'],
     icons: [
       { src: '/icon', sizes: '64x64', type: 'image/png', purpose: 'any' },
+      { src: '/pwa-icon?size=192', sizes: '192x192', type: 'image/png', purpose: 'any' },
+      { src: '/pwa-icon?size=512', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
     ],
   };
 }

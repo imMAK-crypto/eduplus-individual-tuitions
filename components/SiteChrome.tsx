@@ -410,6 +410,21 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
               </ul>
             </div>
           </div>
+          {/* Local-SEO landing pages — internal links keep them crawled & ranked */}
+          <div className="foot-areas">
+            <h4>Tuition near you</h4>
+            <ul>
+              <li><Link href="/tuition-in-nadakkavu">Tuition in Nadakkavu</Link></li>
+              <li><Link href="/tuition-in-eranhipalam">Tuition in Eranhipalam</Link></li>
+              <li><Link href="/tuition-in-mankavu">Tuition in Mankavu</Link></li>
+              <li><Link href="/tuition-in-chevayur">Tuition in Chevayur</Link></li>
+              <li><Link href="/home-tuition-calicut">Home Tuition Calicut</Link></li>
+              <li><Link href="/sslc-tuition-kozhikode">SSLC Tuition Kozhikode</Link></li>
+              <li><Link href="/plus-two-tuition-kozhikode">Plus Two Tuition</Link></li>
+              <li><Link href="/cbse-tuition-kozhikode">CBSE Tuition Kozhikode</Link></li>
+              <li><Link href="/online-tuition-kerala">Online Tuition Kerala</Link></li>
+            </ul>
+          </div>
           <div className="foot-bottom">
             <span>
               © {new Date().getFullYear()} {SITE.name}. All rights reserved. ·{' '}

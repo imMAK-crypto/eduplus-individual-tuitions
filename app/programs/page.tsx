@@ -14,7 +14,7 @@ import {
   ShieldIcon,
   TargetIcon,
 } from '@/lib/icons';
-import { SITE, breadcrumbLd, waLink } from '@/lib/site';
+import { SITE, breadcrumbLd, ogImage, waLink } from '@/lib/site';
 
 const COURSES: { name: string; desc: string }[] = [
   {
@@ -58,6 +58,17 @@ const courseLd = {
         name: SITE.name,
         sameAs: SITE.url,
       },
+      availableLanguage: ['en', 'ml', 'hi'],
+      offers: { '@type': 'Offer', category: 'Paid', priceCurrency: 'INR' },
+      hasCourseInstance: {
+        '@type': 'CourseInstance',
+        courseMode: ['Onsite', 'Online'],
+        location: {
+          '@type': 'Place',
+          name: 'Eduplus Individual Tuitions, Ashokapuram',
+          address: 'Pootholi Building, behind Rajendra Hospital, Ashokapuram, Kozhikode, Kerala 673001',
+        },
+      },
     },
   })),
 };
@@ -73,6 +84,7 @@ export const metadata: Metadata = {
       'One-to-one tuition programs for LKG–12 in Ashokapuram, Kozhikode — online & offline. SSLC, Plus One, Plus Two & exam-target batches.',
     url: '/programs',
     type: 'website',
+    images: ogImage('Programs LKG to Plus Two', 'Foundation · SSLC · +1/+2 · exam-target batches'),
   },
 };
 

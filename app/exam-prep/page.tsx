@@ -13,7 +13,7 @@ import {
   ShieldIcon,
   TargetIcon,
 } from '@/lib/icons';
-import { SITE, breadcrumbLd, telLink, waLink } from '@/lib/site';
+import { SITE, breadcrumbLd, ogImage, telLink, waLink } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Exam-Target Coaching — SSLC, Plus One, Plus Two, SAY & Improvement',
@@ -26,6 +26,7 @@ export const metadata: Metadata = {
       'Intensive, time-boxed batches for board, SAY & Improvement exams — Class 10 onwards, Kerala State/CBSE/ICSE, online & offline.',
     url: '/exam-prep',
     type: 'website',
+    images: ogImage('Exam-target coaching', 'SSLC · Plus One · Plus Two · SAY & Improvement'),
   },
 };
 

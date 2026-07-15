@@ -12,7 +12,7 @@ import {
   UsersIcon,
   XIcon,
 } from '@/lib/icons';
-import { SITE, YEARS_ACTIVE, breadcrumbLd, telLink } from '@/lib/site';
+import { SITE, YEARS_ACTIVE, breadcrumbLd, ogImage, telLink } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Why Eduplus — Individual Attention That Gets Results',
@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       'True one-to-one attention, concept clarity, doubt-clearing and mentorship — LKG to Plus Two, online & offline, in Ashokapuram, Kozhikode.',
     url: '/why',
     type: 'website',
+    images: ogImage('Why parents choose Eduplus', 'Individual attention that gets results'),
   },
 };
 
