@@ -222,7 +222,7 @@ h3{font-size:clamp(1.2rem,2vw,1.45rem);letter-spacing:-.01em;}
 .site-header.scrolled .nav{box-shadow:var(--sh-soft);}
 .site-header.scrolled .nav-inner{padding-block:.6rem;}
 .nav-links{display:none;align-items:center;gap:.35rem;}
-.nav-links a{font-family:var(--font-head);font-weight:600;font-size:.95rem;color:var(--g-700);padding:.5rem .8rem;border-radius:var(--r-pill);transition:color .15s,background .15s;}
+.nav-links a{font-family:var(--font-head);font-weight:600;font-size:.95rem;color:var(--g-700);padding:.5rem .8rem;border-radius:var(--r-pill);transition:color .15s,background .15s;white-space:nowrap;}
 .nav-links a:hover{color:var(--blue);background:var(--blue-50);}
 .nav-links a.active{color:var(--blue);}
 .nav-cta{display:none;align-items:center;gap:.5rem;}
@@ -231,10 +231,15 @@ h3{font-size:clamp(1.2rem,2vw,1.45rem);letter-spacing:-.01em;}
 .icon-btn svg{width:20px;height:20px;}
 .hamburger{display:inline-flex;width:46px;height:46px;align-items:center;justify-content:center;border-radius:12px;background:var(--g-100);color:var(--ink);}
 .hamburger svg{width:24px;height:24px;}
-@media(min-width:1000px){
+/* 8 nav items need ~1200px; below that the hamburger menu is used. */
+@media(min-width:1200px){
   .nav-links{display:flex;}
   .nav-cta{display:flex;}
   .hamburger{display:none;}
+}
+@media(min-width:1200px) and (max-width:1399px){
+  .nav-links{gap:.15rem;}
+  .nav-links a{padding:.5rem .62rem;font-size:.92rem;}
 }
 
 /* Mobile menu */
@@ -623,6 +628,23 @@ html.no-intro .intro-splash{display:none;}
 .compare-list li.yes svg{color:var(--green-600);}
 .compare-list li.no{color:var(--g-500);}
 .compare-list li.no svg{color:var(--red);}
+
+/* counselling page */
+.counsel-signs{max-width:880px;margin-inline:auto;}
+.counsel-signs .compare-list li{align-items:flex-start;line-height:1.45;}
+.counsel-signs .compare-list li svg{margin-top:.12rem;}
+@media(min-width:760px){.counsel-signs .compare-list{grid-template-columns:1fr 1fr;column-gap:2rem;}}
+.counsel-care{max-width:780px;margin:2.4rem auto 0;padding:1rem 1.2rem;border-radius:var(--r-lg);
+  background:var(--yellow-50);border:1px solid #f3dc8a;color:var(--g-700);font-size:.92rem;line-height:1.6;}
+.counsel-care a{color:var(--blue);font-weight:700;}
+.fee-tease-card.counsel-tease{background:
+    radial-gradient(120% 140% at 100% 0%, var(--red-50) 0%, transparent 55%),
+    radial-gradient(100% 120% at 0% 100%, var(--yellow-50) 0%, transparent 55%),
+    #fff;}
+.counsel-tease .pulse-tag{color:var(--red);background:var(--red-50);border-color:#f6c9c9;}
+.counsel-tease .pulse-tag .dot,.counsel-tease .pulse-tag .dot::after{background:var(--red);}
+.counsel-tease .compare-list{gap:.85rem;}
+.counsel-tease .compare-list li{font-size:1.02rem;}
 
 /* ============================================================
    CONTACT PAGE

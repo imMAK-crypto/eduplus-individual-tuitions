@@ -25,6 +25,7 @@ const PAGE_FROM_PATH: Record<string, NavKey> = {
   '/about': 'about',
   '/programs': 'programs',
   '/exam-prep': 'exam',
+  '/counselling': 'counselling',
   '/fees': 'fees',
   '/why': 'why',
   '/contact': 'contact',
@@ -368,6 +369,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                 <li><Link href="/about">About</Link></li>
                 <li><Link href="/programs">Programs</Link></li>
                 <li><Link href="/exam-prep">Exam Prep</Link></li>
+                <li><Link href="/counselling">Student Counselling</Link></li>
                 <li><Link href="/fees">Fee Structure</Link></li>
                 <li><Link href="/why">Why Eduplus</Link></li>
                 <li><Link href="/contact">Contact</Link></li>
@@ -382,6 +384,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                 <li><Link href="/programs">Plus One / Plus Two</Link></li>
                 <li><Link href="/exam-prep">SAY &amp; Improvement (+1/+2)</Link></li>
                 <li><Link href="/programs#exam-prep">Exam-target batches</Link></li>
+                <li><Link href="/counselling">Counselling &amp; Career Guidance</Link></li>
               </ul>
             </div>
             <div className="foot-col">

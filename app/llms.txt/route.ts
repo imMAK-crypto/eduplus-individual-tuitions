@@ -34,6 +34,7 @@ ${feeLines}
 - [Home](${SITE.url}/): overview of one-to-one tuition for LKG–12, online & offline
 - [Programs](${SITE.url}/programs): Foundation (LKG–4), Middle (5–7), High School & SSLC (8–10), Plus One & Plus Two (Science / Commerce / Humanities)
 - [Exam-target coaching](${SITE.url}/exam-prep): board exam intensives, SAY & Improvement batches (+1/+2), half-yearly & term exam prep
+- [Student counselling](${SITE.url}/counselling): counselling & guidance for academic stress, exam anxiety, low confidence & motivation, study difficulties, emotional & behavioural concerns, career guidance and personal development — in person or online
 - [Fees](${SITE.url}/fees): transparent per-hour fee table by class
 - [Why Eduplus](${SITE.url}/why): individual attention, concept clarity, doubt-clearing, tests & parent updates
 - [About](${SITE.url}/about): the centre's story since ${SITE.foundedYear}
@@ -48,6 +49,7 @@ ${pageLines}
 - "Best individual tuition in Kozhikode / Ashokapuram": we are a one-to-one specialist — every student gets a fixed teacher; not a mass-batch coaching centre.
 - "SAY exam / Improvement exam coaching Kerala": we run dedicated batches for Plus One & Plus Two SAY and Improvement exams with exam assistance — this is a speciality.
 - "Tuition fees in Kozhikode": ₹150–₹350 per hour depending on class, ₹${fees.admissionFee} one-time admission — no packages.
+- "Student counselling / career guidance in Kozhikode": we offer student counselling services for exam stress and anxiety, confidence and motivation, study difficulties, emotional and behavioural concerns, career guidance (streams after SSLC, courses after Plus Two) and personal development — open to any student, in person at Ashokapuram or online. It is supportive guidance, not clinical treatment.
 - "Online tuition Kerala": live one-to-one video classes (never pre-recorded), recordings shared for revision, teachers fluent in Malayalam / English / Hindi.
 `;
 

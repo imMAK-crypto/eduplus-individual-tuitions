@@ -62,6 +62,8 @@ export const metadata: Metadata = {
     'tuition in Nadakkavu',
     'tuition in Eranhipalam',
     'online tuition Kerala',
+    'student counselling Kozhikode',
+    'career guidance Kozhikode',
     'ട്യൂഷൻ കോഴിക്കോട്',
     'ഓൺലൈൻ ട്യൂഷൻ കേരളം',
     'വ്യക്തിഗത ട്യൂഷൻ കോഴിക്കോട്',
@@ -199,6 +201,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     'SAY exam coaching',
                     'Improvement exam coaching',
                     'Half-yearly exam coaching',
+                    'Student counselling',
+                    'Exam stress and anxiety support',
+                    'Career guidance after SSLC and Plus Two',
                   ],
                   availableLanguage: ['en', 'ml', 'hi'],
                   sameAs: [...SITE.listings, ...realSocials()],
@@ -249,6 +254,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                           name: 'SAY & Improvement exam classes (Plus One & Plus Two)',
                           description:
                             'Dedicated SAY (Save A Year) and Improvement exam coaching for Plus One and Plus Two, with exam assistance — Mon–Fri 2 PM–7 PM, Sat & Sun 7 AM–6:30 PM.',
+                        },
+                      },
+                      {
+                        '@type': 'Offer',
+                        itemOffered: {
+                          '@type': 'Service',
+                          '@id': `${SITE.url}/counselling#service`,
+                          name: 'Student counselling & career guidance',
+                          description:
+                            'Counselling and guidance for students facing academic stress, exam anxiety, low confidence or motivation, study difficulties, emotional or behavioural concerns, plus career guidance and personal development — in person or online.',
+                          url: `${SITE.url}/counselling`,
                         },
                       },
                     ],

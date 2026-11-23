@@ -6,6 +6,7 @@ import {
   BookIcon,
   BulbIcon,
   ChartIcon,
+  CheckIcon,
   GlobeIcon,
   LangIcon,
   HelpIcon,
@@ -476,6 +477,38 @@ export default function ProgramsPage() {
             <button className="btn btn-red btn-lg" data-open-modal data-subjects="Exam-target batch">
               Reserve an exam-target seat
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* STUDENT COUNSELLING — new service, full page at /counselling */}
+      <section className="section" data-screen-label="Counselling">
+        <div className="container">
+          <div className="fee-tease-card counsel-tease reveal">
+            <div className="ft-copy">
+              <span className="pulse-tag">
+                <span className="dot" /> New · Student counselling services
+              </span>
+              <h2>
+                Support beyond <span className="underline-accent">marks</span>
+              </h2>
+              <p className="lead">
+                Professional guidance and counselling for students facing difficulties with studies,
+                stress, confidence, emotions or behaviour, plus career guidance after SSLC and Plus
+                Two. In person or online.
+              </p>
+              <Link className="btn btn-red" href="/counselling">
+                Explore student counselling <ArrowIcon />
+              </Link>
+            </div>
+            <ul className="compare-list" aria-label="Counselling areas">
+              <li className="yes"><CheckIcon /> Academic stress &amp; exam anxiety</li>
+              <li className="yes"><CheckIcon /> Low confidence &amp; motivation</li>
+              <li className="yes"><CheckIcon /> Study difficulties</li>
+              <li className="yes"><CheckIcon /> Emotional &amp; behavioural concerns</li>
+              <li className="yes"><CheckIcon /> Career guidance</li>
+              <li className="yes"><CheckIcon /> Personal development</li>
+            </ul>
           </div>
         </div>
       </section>

@@ -783,6 +783,38 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* (3.6) STUDENT COUNSELLING — teaser linking to /counselling */}
+      <section className="section fee-tease" data-screen-label="Counselling teaser">
+        <div className="container">
+          <div className="fee-tease-card counsel-tease reveal">
+            <div className="ft-copy">
+              <span className="eyebrow" style={{ color: 'var(--red)' }}>
+                Student counselling services
+              </span>
+              <h2>
+                Every student deserves to be <span className="underline-accent">heard</span>
+              </h2>
+              <p className="lead">
+                Is your child struggling with studies, stress, confidence, emotions or behaviour? We
+                support students through professional guidance and counselling — in person or
+                online.
+              </p>
+              <Link className="btn btn-red" href="/counselling">
+                Explore counselling <ArrowIcon />
+              </Link>
+            </div>
+            <ul className="compare-list" aria-label="Counselling areas">
+              <li className="yes"><CheckIcon /> Academic stress &amp; exam anxiety</li>
+              <li className="yes"><CheckIcon /> Low confidence &amp; motivation</li>
+              <li className="yes"><CheckIcon /> Study difficulties</li>
+              <li className="yes"><CheckIcon /> Emotional &amp; behavioural concerns</li>
+              <li className="yes"><CheckIcon /> Career guidance</li>
+              <li className="yes"><CheckIcon /> Personal development</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* (4) WHY EDUPLUS */}
       <section
         className="section"

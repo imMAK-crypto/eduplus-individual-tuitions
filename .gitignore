@@ -41,3 +41,6 @@ yarn-error.log*
 norvex_sports_logo.png
 
 .vercel
+
+# local browser-test screenshots
+/.playwright-mcp/

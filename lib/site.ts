@@ -18,7 +18,7 @@ export const YEARS_ACTIVE = new Date().getFullYear() - Number(SITE.foundedYear);
 
 // Bumped whenever page copy meaningfully changes — feeds sitemap lastModified
 // and WebPage dateModified so freshness signals are honest, not per-build noise.
-export const CONTENT_UPDATED = '2026-07-15';
+export const CONTENT_UPDATED = '2026-11-23';
 
 // WebPage JSON-LD with Speakable — AI/voice engines quote the h1 + lead.
 export function webPageLd(name: string, path: string, description: string) {
@@ -70,13 +70,23 @@ export function validIndianPhone(raw: string): boolean {
   return /^[6-9]\d{9}$/.test(local);
 }
 
-export type NavKey = 'home' | 'about' | 'programs' | 'exam' | 'fees' | 'why' | 'results' | 'contact';
+export type NavKey =
+  | 'home'
+  | 'about'
+  | 'programs'
+  | 'exam'
+  | 'counselling'
+  | 'fees'
+  | 'why'
+  | 'results'
+  | 'contact';
 
 export const NAV: { label: string; href: string; key: NavKey }[] = [
   { label: 'Home', href: '/', key: 'home' },
   { label: 'About', href: '/about', key: 'about' },
   { label: 'Programs', href: '/programs', key: 'programs' },
   { label: 'Exam Prep', href: '/exam-prep', key: 'exam' },
+  { label: 'Counselling', href: '/counselling', key: 'counselling' },
   { label: 'Fees', href: '/fees', key: 'fees' },
   { label: 'Why Eduplus', href: '/why', key: 'why' },
   { label: 'Contact', href: '/contact', key: 'contact' },
