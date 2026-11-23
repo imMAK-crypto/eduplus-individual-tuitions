@@ -1,4 +1,5 @@
-import type { Metadata } from 'next';
+import FaqItem from '@/components/FaqItem';
+import { pageMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 import {
   ArrowIcon,
@@ -8,46 +9,25 @@ import {
   CompassIcon,
   HeartIcon,
   PhoneIcon,
-  PlusIcon,
   ShieldIcon,
   TargetIcon,
   WhatsAppIcon,
 } from '@/lib/icons';
-import { SITE, breadcrumbLd, ogImage, telLink, waLink, webPageLd } from '@/lib/site';
+import { jsonLd, SITE, breadcrumbLd, telLink, waLink, webPageLd } from '@/lib/site';
 
 const PATH = '/counselling';
-const TITLE = 'Student Counselling & Career Guidance in Kozhikode';
+const TITLE = 'Student Counselling in Kozhikode';
 const DESCRIPTION =
-  'Student counselling in Ashokapuram, Kozhikode for exam stress, anxiety, low confidence, study difficulties, emotional & behavioural concerns, and career guidance after SSLC & Plus Two. In person or online.';
-const WA_MSG = "Hi Eduplus, I'd like to know about student counselling for my child.";
+  'Ask Eduplus in Ashokapuram about student counselling for exam stress, confidence and study difficulties, and career guidance after SSLC and Plus Two.';
+const WA_MSG = "Hi Eduplus, I'd like to ask about student counselling appointments.";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: TITLE,
   description: DESCRIPTION,
-  keywords: [
-    'student counselling Kozhikode',
-    'student counselling Calicut',
-    'counselling for students Kozhikode',
-    'exam stress counselling Kerala',
-    'exam anxiety help for students',
-    'career guidance Kozhikode',
-    'career guidance after Plus Two',
-    'career guidance after SSLC',
-    'child counselling Kozhikode',
-    'study skills coaching Kozhikode',
-    'വിദ്യാർത്ഥി കൗൺസിലിംഗ് കോഴിക്കോട്',
-    'കരിയർ ഗൈഡൻസ് കോഴിക്കോട്',
-  ],
-  alternates: { canonical: PATH },
-  openGraph: {
-    title: `Student Counselling Services | ${SITE.name}`,
-    description:
-      'Every student deserves to be heard, understood and supported. Counselling for exam stress, confidence, study difficulties, emotions, behaviour and career choices — Kozhikode & online.',
-    url: PATH,
-    type: 'website',
-    images: ogImage('Student counselling services', 'Stress · confidence · emotions · career guidance'),
-  },
-};
+  path: PATH,
+  imageTitle: 'Student counselling in Kozhikode',
+  imageSubtitle: 'Exam stress · study skills · career guidance',
+});
 
 // The six areas from the client's counselling flyer — keep these in sync with it.
 const AREAS = [
@@ -73,7 +53,7 @@ const AREAS = [
     icon: HeartIcon,
     acc: 'acc-red',
     title: 'Emotional & Behavioural Concerns',
-    text: 'Mood changes, anger, withdrawal or worry — a safe, non-judgemental space for students to talk, with guidance for parents on how to help at home.',
+    text: 'Talk through concerns about changes in mood, worry, withdrawal or behaviour and ask which kind of support may be appropriate.',
   },
   {
     icon: CompassIcon,
@@ -105,15 +85,15 @@ const COUNSEL_FAQ = [
   },
   {
     q: 'Which students is counselling for?',
-    a: 'School students from primary classes up to Plus Two (Class 12), across Kerala State, CBSE and ICSE. It is especially helpful around board-exam years — SSLC, Plus One and Plus Two — and at decision points like choosing a stream or a course.',
+    a: 'The service is for students seeking support with school, study habits or career decisions. Contact the centre with the student’s age and class so the team can advise on suitability.',
   },
   {
     q: 'Does my child need to be a tuition student at Eduplus?',
-    a: 'No. Counselling and guidance are open to any student. If your child also takes tuition with us, the study side of the plan can be reflected in their classes too.',
+    a: 'If your child does not attend Eduplus tuition, contact the centre to check eligibility before arranging a session.',
   },
   {
     q: 'Is counselling available online?',
-    a: `Yes. Sessions can happen in person at our Ashokapuram centre in Kozhikode or online, whichever your child is more comfortable with. Call or WhatsApp ${SITE.phone} to arrange a time.`,
+    a: `Call or WhatsApp ${SITE.phone} to confirm which session formats and appointment times are currently available.`,
   },
   {
     q: 'Do you offer career guidance after SSLC and Plus Two?',
@@ -121,29 +101,13 @@ const COUNSEL_FAQ = [
   },
   {
     q: 'Can parents be involved?',
-    a: 'Yes. Parents usually start the conversation, and we share guidance on how to support the child at home. Students also get space to talk on their own, so they can open up honestly.',
+    a: 'Ask the centre before booking how consent, privacy and parent participation are handled for the student’s age.',
   },
   {
     q: 'Is this a replacement for a doctor or psychiatrist?',
-    a: 'No. Our counselling is supportive guidance for everyday student challenges. If a concern needs clinical care, we will tell you honestly and encourage you to see a qualified mental-health professional. In an emergency, call 112, or the free national Tele-MANAS helpline on 14416.',
+    a: 'Eduplus offers student guidance. A qualified mental-health professional can assess concerns that need clinical care. For immediate danger, call 112. For free mental-health support in India, call Tele-MANAS on 14416.',
   },
 ];
-
-function Qa({ q, a }: { q: string; a: string }) {
-  return (
-    <div className="qa">
-      <button className="q" aria-expanded="false">
-        {q}
-        <span className="ic">
-          <PlusIcon />
-        </span>
-      </button>
-      <div className="a">
-        <p>{a}</p>
-      </div>
-    </div>
-  );
-}
 
 export default function CounsellingPage() {
   const faqLd = {
@@ -165,19 +129,8 @@ export default function CounsellingPage() {
     description: DESCRIPTION,
     provider: { '@id': `${SITE.url}/#organization` },
     audience: { '@type': 'EducationalAudience', educationalRole: 'student' },
-    areaServed: [
-      { '@type': 'City', name: 'Kozhikode' },
-      { '@type': 'State', name: 'Kerala, India' },
-    ],
-    availableChannel: [
-      {
-        '@type': 'ServiceChannel',
-        name: 'In person at the Ashokapuram centre',
-        servicePhone: { '@type': 'ContactPoint', telephone: SITE.phoneRaw },
-        serviceLocation: { '@id': `${SITE.url}/#organization` },
-      },
-      { '@type': 'ServiceChannel', name: 'Online sessions', serviceUrl: `${SITE.url}${PATH}` },
-    ],
+    areaServed: { '@type': 'City', name: 'Kozhikode' },
+
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Counselling areas',
@@ -186,52 +139,48 @@ export default function CounsellingPage() {
         itemOffered: { '@type': 'Service', name: a.title, description: a.text },
       })),
     },
-    availableLanguage: ['en', 'ml', 'hi'],
     url: `${SITE.url}${PATH}`,
   };
 
   return (
     <main id="main">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(serviceLd) }} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd(TITLE, PATH, DESCRIPTION)) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(webPageLd(TITLE, PATH, DESCRIPTION)) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd('Student Counselling', PATH)) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbLd('Student Counselling', PATH)) }}
       />
 
       {/* HERO */}
       <section className="page-hero" data-screen-label="Counselling hero">
         <div className="container">
-          <div className="crumbs reveal">
+          <div className="crumbs">
             <Link href="/">Home</Link>
             <span className="sep">/</span>
             <span>Student Counselling</span>
           </div>
           <div style={{ maxWidth: '840px' }}>
-            <span className="eyebrow reveal" style={{ color: 'var(--red)' }}>
+            <span className="eyebrow" style={{ color: 'var(--red)' }}>
               Student counselling services
             </span>
-            <h1 className="display reveal" style={{ margin: '.6rem 0 1rem' }}>
-              Every student deserves to be <span className="underline-accent">heard</span>,
-              understood and supported.
+            <h1 className="display" style={{ margin: '.6rem 0 1rem' }}>
+              Student counselling in <span className="underline-accent">Kozhikode</span>
             </h1>
-            <p className="lead reveal">
-              Is your child facing difficulties with <strong>studies, stress, confidence, emotions
-              or behaviour</strong>? We support students through professional guidance and
-              counselling — at our Ashokapuram centre in Kozhikode or online.
+            <p className="lead">
+              Eduplus offers student counselling and career guidance in Ashokapuram for concerns
+              about school, exams, confidence, study habits and choices after SSLC or Plus Two.
             </p>
           </div>
-          <div className="hero-chips reveal" style={{ marginTop: '1.4rem' }}>
+          <div className="hero-chips" style={{ marginTop: '1.4rem' }}>
             <span className="chip">Exam stress &amp; anxiety</span>
             <span className="chip">Confidence &amp; motivation</span>
             <span className="chip">Career guidance</span>
-            <span className="chip">In person &amp; online</span>
           </div>
-          <div className="hero-cta reveal" style={{ marginTop: '1.6rem' }}>
+          <div className="hero-cta" style={{ marginTop: '1.6rem' }}>
             <a className="btn btn-red btn-lg" href={telLink}>
               <PhoneIcon /> Call {SITE.phone}
             </a>
@@ -250,7 +199,7 @@ export default function CounsellingPage() {
       {/* HOW WE HELP — the six areas */}
       <section className="section" data-screen-label="Counselling areas">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               How we can help
             </span>
@@ -262,7 +211,7 @@ export default function CounsellingPage() {
               through.
             </p>
           </div>
-          <div className="feat-grid" data-stagger>
+          <div className="feat-grid">
             {AREAS.map(({ icon: Icon, acc, title, text }) => (
               <article key={title} className={`card card-hover feat ${acc}`}>
                 <span className="f-ico">
@@ -279,7 +228,7 @@ export default function CounsellingPage() {
       {/* SIGNS */}
       <section className="section" style={{ background: 'var(--soft)' }} data-screen-label="Signs">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--red)' }}>
               When to reach out
             </span>
@@ -291,7 +240,7 @@ export default function CounsellingPage() {
               can help.
             </p>
           </div>
-          <div className="card counsel-signs reveal">
+          <div className="card counsel-signs">
             <ul className="compare-list">
               {SIGNS.map((s) => (
                 <li key={s} className="yes">
@@ -306,7 +255,7 @@ export default function CounsellingPage() {
       {/* HOW IT WORKS */}
       <section className="section" data-screen-label="How counselling works">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--green-600)' }}>
               How it works
             </span>
@@ -314,28 +263,28 @@ export default function CounsellingPage() {
               Three simple <span className="underline-accent">steps</span>
             </h2>
           </div>
-          <div className="steps" data-stagger>
+          <div className="steps">
             <div className="step">
               <span className="n">1</span>
               <h3>Reach out</h3>
-              <p>Call or WhatsApp us and tell us briefly what your child is going through.</p>
+              <p>Call or WhatsApp the centre to ask about availability and whether the service fits your child’s needs.</p>
             </div>
             <div className="step">
               <span className="n">2</span>
-              <h3>Talk it through</h3>
-              <p>A first session to listen to the student and parent and understand the concern.</p>
+              <h3>Ask about the session</h3>
+              <p>Ask who will see your child, what their qualifications are, how consent and privacy are handled, and whether a parent attends.</p>
             </div>
             <div className="step">
               <span className="n">3</span>
-              <h3>Guidance &amp; follow-up</h3>
-              <p>Practical strategies, a plan for home and study, and follow-up sessions as needed.</p>
+              <h3>Agree the next step</h3>
+              <p>Confirm the format, cost and appointment time before booking. You can also ask whether follow-up is available.</p>
             </div>
           </div>
-          <p className="counsel-care reveal">
+          <p className="counsel-care">
             <strong>A note on care:</strong> our counselling is supportive guidance for students
-            and families, not a substitute for medical treatment. If a child is in danger or crisis,
-            call <a href="tel:112">112</a> or the free national Tele-MANAS mental-health helpline on{' '}
-            <a href="tel:14416">14416</a> right away.
+            and families. A qualified mental-health professional can assess concerns that need clinical care.
+            If a child is in immediate danger, call <a href="tel:112">112</a>. For free mental-health support
+            in India, call Tele-MANAS on <a href="tel:14416">14416</a>.
           </p>
         </div>
       </section>
@@ -343,7 +292,7 @@ export default function CounsellingPage() {
       {/* FAQ */}
       <section className="section" style={{ background: 'var(--soft)' }} data-screen-label="Counselling FAQ">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               Questions
             </span>
@@ -353,14 +302,15 @@ export default function CounsellingPage() {
           </div>
           <div className="faq">
             {COUNSEL_FAQ.map((f, i) => (
-              <Qa key={i} q={f.q} a={f.a} />
+              <FaqItem key={i} q={f.q} a={f.a} />
             ))}
           </div>
           <p className="center" style={{ marginTop: '1.6rem' }}>
-            Preparing for a board, SAY or Improvement exam too?{' '}
+            For academic preparation, see our{' '}
             <Link href="/exam-prep" style={{ color: 'var(--blue)', fontWeight: 700 }}>
-              See our exam-target batches <ArrowIcon style={{ width: 16, height: 16, verticalAlign: '-3px' }} />
-            </Link>
+              exam coaching programs <ArrowIcon style={{ width: 16, height: 16, verticalAlign: '-3px' }} />
+            </Link>. For stream choices, read our <Link href="/guides/choose-plus-one-stream-after-sslc">guide to choosing a Plus One stream</Link>.
+            For appointments, find our <Link href="/contact">address and opening hours</Link>.
           </p>
         </div>
       </section>
@@ -369,7 +319,7 @@ export default function CounsellingPage() {
       <section className="section final" data-screen-label="Final CTA">
         <span className="deco d1" />
         <span className="deco d2" />
-        <div className="container reveal">
+        <div className="container">
           <h2>Contact us today for counselling and guidance.</h2>
           <p>A short conversation is often the first step. We’re here to listen.</p>
           <div className="final-cta">

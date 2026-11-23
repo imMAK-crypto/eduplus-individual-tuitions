@@ -1,4 +1,6 @@
+import FaqItem from '@/components/FaqItem';
 import type { Metadata } from 'next';
+import { ONLINE_TUITION_LANGUAGE_URLS, pageMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
@@ -8,12 +10,11 @@ import {
   ClockIcon,
   CompassIcon,
   PinIcon,
-  PlusIcon,
   ShieldIcon,
   TargetIcon,
   UsersIcon,
 } from '@/lib/icons';
-import { SITE, breadcrumbLd, ogImage, telLink, waLink, webPageLd } from '@/lib/site';
+import { jsonLd, SITE, breadcrumbLd, telLink, waLink, webPageLd } from '@/lib/site';
 import { SEO_PAGES, getSeoPage } from '@/lib/seoPages';
 
 // Local-SEO landing pages (localities + search intents). Only slugs listed in
@@ -30,19 +31,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const page = getSeoPage(slug);
   if (!page) return {};
-  return {
+  return pageMetadata({
     title: page.title,
     description: page.description,
-    keywords: page.keywords,
-    alternates: { canonical: `/${page.slug}` },
-    openGraph: {
-      title: `${page.ogTitle} | ${SITE.name}`,
-      description: page.description,
-      url: `/${page.slug}`,
-      type: 'website',
-      images: ogImage(page.ogTitle, page.ogSub),
-    },
-  };
+    path: `/${page.slug}`,
+    imageTitle: page.ogTitle,
+    imageSubtitle: page.ogSub,
+    ...(slug === 'online-tuition-kerala' && { translations: ONLINE_TUITION_LANGUAGE_URLS }),
+  });
 }
 
 // Six card icons cycled across the "why" points, matching the home page vibe.
@@ -58,22 +54,6 @@ function AccentTitle({ text, accent }: { text: string; accent?: string }) {
       <span className="underline-accent">{accent}</span>
       {text.slice(i + accent.length)}
     </>
-  );
-}
-
-function Qa({ q, a }: { q: string; a: string }) {
-  return (
-    <div className="qa">
-      <button className="q" aria-expanded="false">
-        {q}
-        <span className="ic">
-          <PlusIcon />
-        </span>
-      </button>
-      <div className="a">
-        <p>{a}</p>
-      </div>
-    </div>
   );
 }
 
@@ -114,52 +94,57 @@ export default async function SeoLandingPage({ params }: Props) {
     <main id="main">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(faqLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(serviceLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd(page.name, `/${page.slug}`)) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbLd(page.name, `/${page.slug}`)) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd(page.title, `/${page.slug}`, page.description)) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(webPageLd(page.title, `/${page.slug}`, page.description)) }}
       />
 
       {/* PAGE HERO */}
       <section className="page-hero" data-screen-label={`${page.name} hero`}>
         <div className="container">
-          <div className="crumbs reveal">
+          <div className="crumbs">
             <Link href="/">Home</Link>
             <span className="sep">/</span>
             <span>{page.name}</span>
           </div>
           <div style={{ maxWidth: '820px' }}>
-            <span className="eyebrow reveal" style={{ color: 'var(--red)' }}>
+            <span className="eyebrow" style={{ color: 'var(--red)' }}>
               {page.eyebrow}
             </span>
-            <h1 className="display reveal" style={{ margin: '.6rem 0 1rem' }}>
+            <h1 className="display" style={{ margin: '.6rem 0 1rem' }}>
               <AccentTitle text={page.h1} accent={page.accent} />
             </h1>
-            <p className="lead reveal">{page.lead}</p>
+            <p className="lead">{page.lead}</p>
           </div>
-          <div className="hero-chips reveal" style={{ marginTop: '1.4rem' }}>
+          <div className="hero-chips" style={{ marginTop: '1.4rem' }}>
             {page.chips.map((c) => (
               <span key={c} className="chip">
                 {c}
               </span>
             ))}
           </div>
-          <div className="hero-cta reveal" style={{ marginTop: '1.6rem' }}>
+          <div className="hero-cta" style={{ marginTop: '1.6rem' }}>
             <button className="btn btn-red btn-lg" data-open-modal data-subjects={page.name}>
               Book a Free Demo Class
             </button>
             <a className="btn btn-outline btn-lg" href={telLink}>
               Call {SITE.phone}
             </a>
+            {slug === 'online-tuition-kerala' && (
+              <Link href="/ml/online-tuition-kerala" className="btn btn-outline" lang="ml-IN" hrefLang="ml-IN">
+                മലയാളത്തിൽ വായിക്കുക
+              </Link>
+            )}
           </div>
         </div>
       </section>
@@ -167,7 +152,7 @@ export default async function SeoLandingPage({ params }: Props) {
       {/* INTRO */}
       <section className="section" data-screen-label={`${page.name} intro`}>
         <div className="container">
-          <div className="reveal prose" style={{ maxWidth: '820px' }}>
+          <div className="prose" style={{ maxWidth: '820px' }}>
             {page.intro.map((p, i) => (
               <p key={i} style={{ marginBottom: '1.1rem' }}>
                 {p}
@@ -191,7 +176,7 @@ export default async function SeoLandingPage({ params }: Props) {
       {/* WHY POINTS */}
       <section className="section" style={{ background: 'var(--soft)' }} data-screen-label={`${page.name} highlights`}>
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               Why families pick Eduplus
             </span>
@@ -199,7 +184,7 @@ export default async function SeoLandingPage({ params }: Props) {
               What you <span className="underline-accent">get</span> here
             </h2>
           </div>
-          <div className="feat-grid" data-stagger>
+          <div className="feat-grid">
             {page.points.map((pt, i) => {
               const Icon = POINT_ICONS[i % POINT_ICONS.length];
               return (
@@ -219,7 +204,7 @@ export default async function SeoLandingPage({ params }: Props) {
       {/* LOCATION / HOURS STRIP */}
       <section className="section" data-screen-label={`${page.name} visit`}>
         <div className="container">
-          <div className="grev card reveal">
+          <div className="grev card">
             <h3 style={{ fontSize: 'clamp(1.3rem,2.6vw,1.7rem)' }}>
               {page.kind === 'locality'
                 ? `Easy to reach — and easy to try`
@@ -248,7 +233,7 @@ export default async function SeoLandingPage({ params }: Props) {
       {/* FAQ */}
       <section className="section" style={{ background: 'var(--soft)' }} data-screen-label={`${page.name} FAQ`}>
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               Questions
             </span>
@@ -258,7 +243,7 @@ export default async function SeoLandingPage({ params }: Props) {
           </div>
           <div className="faq">
             {page.faqs.map((f, i) => (
-              <Qa key={i} q={f.q} a={f.a} />
+              <FaqItem key={i} q={f.q} a={f.a} />
             ))}
           </div>
         </div>
@@ -268,7 +253,7 @@ export default async function SeoLandingPage({ params }: Props) {
       {siblings.length > 0 && (
         <section className="section" data-screen-label="Related pages">
           <div className="container">
-            <div className="sh center reveal">
+            <div className="sh center">
               <span className="eyebrow" style={{ color: 'var(--green-600)' }}>
                 {page.kind === 'locality' ? 'Nearby areas' : 'More courses'}
               </span>
@@ -276,7 +261,7 @@ export default async function SeoLandingPage({ params }: Props) {
                 Also <span className="underline-accent">explore</span>
               </h2>
             </div>
-            <div className="area-chips" data-stagger>
+            <div className="area-chips">
               {siblings.map((s) => (
                 <Link key={s.slug} href={`/${s.slug}`} className="area-chip">
                   <CheckIcon /> {s.name}
@@ -294,7 +279,7 @@ export default async function SeoLandingPage({ params }: Props) {
       <section className="section final" data-screen-label="Final CTA">
         <span className="deco d1" />
         <span className="deco d2" />
-        <div className="container reveal">
+        <div className="container">
           <h2>Start with a free demo class.</h2>
           <p>Tell us the class and board — we&apos;ll set up a no-obligation demo, online or at the centre.</p>
           <div className="final-cta">

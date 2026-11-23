@@ -1,4 +1,5 @@
-import type { Metadata } from 'next';
+import FaqItem from '@/components/FaqItem';
+import { pageMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 import {
   ArrowIcon,
@@ -7,27 +8,19 @@ import {
   CheckIcon,
   CompassIcon,
   HelpIcon,
-  PlusIcon,
   ShieldIcon,
   UsersIcon,
   XIcon,
 } from '@/lib/icons';
-import { SITE, YEARS_ACTIVE, breadcrumbLd, ogImage, telLink } from '@/lib/site';
+import { jsonLd, SITE, YEARS_ACTIVE, breadcrumbLd, telLink } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: 'Why Eduplus — Individual Attention That Gets Results',
-  description:
-    'Why families in Ashokapuram, Kozhikode choose Eduplus Individual Tuitions: true one-to-one attention, concept clarity, daily doubt-clearing, regular tests, experienced local teachers and mentorship beyond the classroom. Since 2015.',
-  alternates: { canonical: '/why' },
-  openGraph: {
-    title: 'Why Eduplus Individual Tuitions',
-    description:
-      'True one-to-one attention, concept clarity, doubt-clearing and mentorship — LKG to Plus Two, online & offline, in Ashokapuram, Kozhikode.',
-    url: '/why',
-    type: 'website',
-    images: ogImage('Why parents choose Eduplus', 'Individual attention that gets results'),
-  },
-};
+export const metadata = pageMetadata({
+  title: 'How One-to-One Tuition Works',
+  description: 'See how Eduplus plans one-to-one lessons, clears doubts, checks progress and updates parents. Try a free class in Ashokapuram or online.',
+  path: '/why',
+  imageTitle: 'Why parents choose Eduplus',
+  imageSubtitle: 'Individual attention that gets results',
+});
 
 const WHY_FAQ = [
   {
@@ -48,22 +41,6 @@ const WHY_FAQ = [
   },
 ];
 
-function Qa({ q, a }: { q: string; a: string }) {
-  return (
-    <div className="qa">
-      <button className="q" aria-expanded="false">
-        {q}
-        <span className="ic">
-          <PlusIcon />
-        </span>
-      </button>
-      <div className="a">
-        <p>{a}</p>
-      </div>
-    </div>
-  );
-}
-
 export default function WhyPage() {
   const faqLd = {
     '@context': 'https://schema.org',
@@ -79,35 +56,35 @@ export default function WhyPage() {
     <main id="main">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(faqLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd('Why Eduplus', '/why')) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbLd('Why Eduplus', '/why')) }}
       />
 
       {/* HERO */}
       <section className="page-hero" data-screen-label="Why hero">
         <div className="container">
-          <div className="crumbs reveal">
+          <div className="crumbs">
             <Link href="/">Home</Link>
             <span className="sep">/</span>
             <span>Why Eduplus</span>
           </div>
           <div style={{ maxWidth: '820px' }}>
-            <span className="eyebrow reveal" style={{ color: 'var(--red)' }}>
+            <span className="eyebrow" style={{ color: 'var(--red)' }}>
               Why Eduplus
             </span>
-            <h1 className="display reveal" style={{ margin: '.6rem 0 1rem' }}>
+            <h1 className="display" style={{ margin: '.6rem 0 1rem' }}>
               Every child <span className="underline-accent">seen</span>, heard and helped.
             </h1>
-            <p className="lead reveal">
+            <p className="lead">
               We started Eduplus in {SITE.foundedYear} on one belief: every student learns
               differently and deserves to be taught that way. That’s why families across Ashokapuram
               trust us — honest, local, and truly personal.
             </p>
           </div>
-          <div className="hero-chips reveal" style={{ marginTop: '1.4rem' }}>
+          <div className="hero-chips" style={{ marginTop: '1.4rem' }}>
             <span className="chip">★ Trusted by parents</span>
             <span className="chip">{YEARS_ACTIVE}+ years · since {SITE.foundedYear}</span>
             <span className="chip">LKG to Plus Two</span>
@@ -119,7 +96,7 @@ export default function WhyPage() {
       {/* 6 REASONS */}
       <section className="section" data-screen-label="Reasons">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               Six reasons
             </span>
@@ -128,7 +105,7 @@ export default function WhyPage() {
             </h2>
             <p className="lead maxw">Honest, local, and personal — here’s what that actually means.</p>
           </div>
-          <div className="feat-grid" data-stagger>
+          <div className="feat-grid">
             <article className="card card-hover feat acc-blue">
               <span className="f-ico">
                 <UsersIcon />
@@ -178,7 +155,7 @@ export default function WhyPage() {
       {/* COMPARISON */}
       <section className="section" style={{ background: 'var(--soft)' }} data-screen-label="Comparison">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--red)' }}>
               The difference
             </span>
@@ -186,7 +163,7 @@ export default function WhyPage() {
               One-to-one vs a <span className="underline-accent">crowded</span> batch
             </h2>
           </div>
-          <div className="compare-grid" data-stagger>
+          <div className="compare-grid">
             <article className="card compare typical">
               <h3>Typical big tuition</h3>
               <ul className="compare-list">
@@ -228,7 +205,7 @@ export default function WhyPage() {
       {/* APPROACH */}
       <section className="section" data-screen-label="Approach">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--green-600)' }}>
               How we teach
             </span>
@@ -236,7 +213,7 @@ export default function WhyPage() {
               A simple, repeatable <span className="underline-accent">rhythm</span>
             </h2>
           </div>
-          <div className="steps" data-stagger>
+          <div className="steps">
             <div className="step">
               <span className="n">1</span>
               <h3>Understand</h3>
@@ -260,44 +237,27 @@ export default function WhyPage() {
       <section className="section results" data-screen-label="Trust">
         <div className="container">
           <div className="stat-band">
-            <div className="stat reveal">
-              <div className="num" data-count={YEARS_ACTIVE} data-suffix="+">
-                0
-              </div>
+            <div className="stat">
+              <div className="num">{YEARS_ACTIVE}<span className="suf">+</span></div>
               <div className="lbl">Years since {SITE.foundedYear}</div>
             </div>
-            <div className="stat reveal">
+            <div className="stat">
               <div className="num">1-to-1</div>
               <div className="lbl">True individual attention</div>
             </div>
-            <div className="stat reveal">
-              <div className="num" data-count="3">
-                0
-              </div>
+            <div className="stat">
+              <div className="num">3</div>
               <div className="lbl">Boards · State, CBSE, ICSE</div>
             </div>
-            <div className="stat reveal">
+            <div className="stat">
               <div className="num">LKG–12</div>
               <div className="lbl">Classes covered</div>
             </div>
           </div>
-          <div className="grev card reveal">
-            <div className="grev-logo">
-              <span className="g-b">G</span>
-              <span className="g-r">o</span>
-              <span className="g-y">o</span>
-              <span className="g-b">g</span>
-              <span className="g-g">l</span>
-              <span className="g-r">e</span> Reviews
-            </div>
-            <h3 style={{ fontSize: 'clamp(1.4rem,3vw,1.9rem)' }}>Real parents. Real words.</h3>
-            <div className="grev-sub">
-              Don&apos;t take our word for it — read what{' '}
-              <strong>families in Ashokapuram, Kozhikode</strong> say about us on Google.
-            </div>
-            <a className="btn btn-blue" href={SITE.mapsLink} target="_blank" rel="noopener noreferrer">
-              Read our Google reviews <ArrowIcon />
-            </a>
+          <div className="grev card">
+            <h3 style={{ fontSize: 'clamp(1.4rem,3vw,1.9rem)' }}>Meet the centre in Ashokapuram</h3>
+            <div className="grev-sub">Find out how Eduplus has supported students in Kozhikode since 2015 and get directions for a visit.</div>
+            <Link className="btn btn-blue" href="/about">About Eduplus <ArrowIcon /></Link>
           </div>
         </div>
       </section>
@@ -305,7 +265,7 @@ export default function WhyPage() {
       {/* FAQ */}
       <section className="section" style={{ background: 'var(--soft)' }} data-screen-label="Why FAQ">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               Questions
             </span>
@@ -315,7 +275,7 @@ export default function WhyPage() {
           </div>
           <div className="faq">
             {WHY_FAQ.map((f, i) => (
-              <Qa key={i} q={f.q} a={f.a} />
+              <FaqItem key={i} q={f.q} a={f.a} />
             ))}
           </div>
         </div>
@@ -325,7 +285,7 @@ export default function WhyPage() {
       <section className="section final" data-screen-label="Final CTA">
         <span className="deco d1" />
         <span className="deco d2" />
-        <div className="container reveal">
+        <div className="container">
           <h2>See the difference in one free class.</h2>
           <p>Book a free demo and watch your child actually enjoy learning.</p>
           <div className="final-cta">

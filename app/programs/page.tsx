@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 import {
   ArrowIcon,
@@ -15,113 +15,82 @@ import {
   ShieldIcon,
   TargetIcon,
 } from '@/lib/icons';
-import { SITE, breadcrumbLd, ogImage, waLink } from '@/lib/site';
+import { jsonLd, SITE, breadcrumbLd, waLink } from '@/lib/site';
+import { hourlyTuitionOffer } from '@/lib/tuitionPricing';
+import fees from '@/content/fees.json';
 
-const COURSES: { name: string; desc: string }[] = [
-  {
-    name: 'Foundation tuition (LKG – Class 4)',
-    desc: 'One-to-one and small-batch tuition in all subjects for LKG to Class 4 — Kerala State, CBSE and ICSE, online and offline.',
-  },
-  {
-    name: 'Middle school tuition (Class 5 – 7)',
-    desc: 'Concept-first Maths, Science, English, Social and languages for Class 5 to 7 — Kerala State, CBSE and ICSE, online and offline.',
-  },
-  {
-    name: 'High school & SSLC tuition (Class 8 – 10)',
-    desc: 'Board-focused coaching for Class 8 to 10 (Kerala State, CBSE and ICSE) with exam technique, revision and model papers.',
-  },
-  {
-    name: 'Plus One & Plus Two tuition (Class 11 & 12)',
-    desc: 'Science, Commerce and Humanities subject coaching for Plus One and Plus Two — Kerala State, CBSE and ICSE, aligned to the board exam.',
-  },
-  {
-    name: 'Exam-target batches (Class 10 onwards)',
-    desc: 'Short, intensive batches timed to board (SSLC, +1, +2), half-yearly and term exams — revision, previous-year papers and daily doubt-clearing.',
-  },
-  {
-    name: 'SAY & Improvement exam classes (Plus One & Plus Two)',
-    desc: 'Dedicated SAY (Save A Year) and Improvement exam coaching for Plus One and Plus Two with full exam assistance — Mon–Fri 2 PM–7 PM, Sat & Sun 7 AM–6:30 PM.',
-  },
+const COURSES = [
+  { id: 'foundation', tiers: ['t1'], name: 'Foundation tuition (LKG to Class 4)', description: 'Reading, numeracy and homework support.' },
+  { id: 'middle-school', tiers: ['t2'], name: 'Middle school tuition (Classes 5–7)', description: 'Maths, Science, English and languages.' },
+  { id: 'high-school', tiers: ['t3', 't4', 't5'], name: 'High school and SSLC tuition', description: 'Class 8 to 10 lessons, revision and exam practice.' },
+  { id: 'plus-one-two', tiers: ['t6'], name: 'Plus One and Plus Two tuition', description: 'Science, Commerce and Humanities subjects.' },
+  { id: 'exam-prep', tiers: [], name: 'Exam-target coaching', description: 'Board, half-yearly and term exam preparation.' },
+  { id: 'say-improvement', tiers: [], name: 'SAY and Improvement coaching', description: 'Subject revision and past-paper practice.' },
 ];
 
 const courseLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  itemListElement: COURSES.map((c, i) => ({
-    '@type': 'ListItem',
-    position: i + 1,
-    item: {
-      '@type': 'Course',
-      name: c.name,
-      description: c.desc,
-      provider: {
-        '@type': 'EducationalOrganization',
-        name: SITE.name,
-        sameAs: SITE.url,
+  itemListElement: COURSES.map(({ id, tiers, name, description }, index) => {
+    const url = `${SITE.url}/programs#${id}`;
+    const offers = fees.tiers.filter((tier) => tiers.includes(tier.id)).map(hourlyTuitionOffer);
+    return {
+      '@type': 'ListItem',
+      position: index + 1,
+      url,
+      item: {
+        '@type': 'Course',
+        name,
+        description,
+        url,
+        provider: { '@type': 'EducationalOrganization', '@id': `${SITE.url}/#organization`, name: SITE.name },
+        ...(offers.length > 0 && { offers }),
       },
-      availableLanguage: ['en', 'ml', 'hi'],
-      offers: { '@type': 'Offer', category: 'Paid', priceCurrency: 'INR' },
-      hasCourseInstance: {
-        '@type': 'CourseInstance',
-        courseMode: ['Onsite', 'Online'],
-        location: {
-          '@type': 'Place',
-          name: 'Eduplus Individual Tuitions, Ashokapuram',
-          address: 'Pootholi Building, behind Rajendra Hospital, Ashokapuram, Kozhikode, Kerala 673001',
-        },
-      },
-    },
-  })),
+    };
+  }),
 };
 
-export const metadata: Metadata = {
-  title: 'Programs & Courses — LKG to Plus Two',
-  description:
-    'Tuition programs for LKG–Class 12 — Foundation, High School (SSLC), Plus One / Plus Two (Science, Commerce, Humanities), exam-target batches & SAY / Improvement exam classes. One-to-one, online & offline. Kerala State, CBSE & ICSE in Ashokapuram, Kozhikode.',
-  alternates: { canonical: '/programs' },
-  openGraph: {
-    title: 'Programs for LKG to Plus Two | Eduplus Individual Tuitions',
-    description:
-      'One-to-one tuition programs for LKG–12 in Ashokapuram, Kozhikode — online & offline. SSLC, Plus One, Plus Two & exam-target batches.',
-    url: '/programs',
-    type: 'website',
-    images: ogImage('Programs LKG to Plus Two', 'Foundation · SSLC · +1/+2 · exam-target batches'),
-  },
-};
+export const metadata = pageMetadata({
+  title: 'Tuition Programs for LKG to Class 12',
+  description: 'Explore one-to-one tuition from LKG to Plus Two for Kerala State, CBSE and ICSE. Compare foundation, high school and exam programs in Kozhikode.',
+  path: '/programs',
+  imageTitle: 'Programs LKG to Plus Two',
+  imageSubtitle: 'Foundation · SSLC · +1/+2 · exam-target batches',
+});
 
 export default function ProgramsPage() {
   return (
     <main id="main">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(courseLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd('Programs', '/programs')) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbLd('Programs', '/programs')) }}
       />
       {/* PAGE HERO */}
       <section className="page-hero" data-screen-label="Programs hero">
         <div className="container">
-          <div className="crumbs reveal">
+          <div className="crumbs">
             <Link href="/">Home</Link>
             <span className="sep">/</span>
             <span>Programs</span>
           </div>
           <div style={{ maxWidth: '760px' }}>
-            <span className="eyebrow reveal" style={{ color: 'var(--blue)' }}>
+            <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               What we teach
             </span>
-            <h1 className="display reveal" style={{ margin: '.6rem 0 1rem' }}>
+            <h1 className="display" style={{ margin: '.6rem 0 1rem' }}>
               Programs for LKG to Plus Two, <span className="underline-accent">every</span> board.
             </h1>
-            <p className="lead reveal">
+            <p className="lead">
               Kerala State, CBSE &amp; ICSE — from early foundations to board exams and stream
               subjects, one-to-one and online or offline. Tap any program to enquire and we'll
               arrange a free demo.
             </p>
           </div>
-          <div className="hero-chips reveal" style={{ marginTop: '1.4rem' }}>
+          <div className="hero-chips" style={{ marginTop: '1.4rem' }}>
             <span className="chip">Kerala State</span>
             <span className="chip">CBSE</span>
             <span className="chip">ICSE</span>
@@ -132,7 +101,7 @@ export default function ProgramsPage() {
 
       <div className="container">
         {/* PRIMARY */}
-        <section className="stage" data-screen-label="Primary">
+        <section className="stage" id="foundation" data-screen-label="Primary">
           <div className="stage-head">
             <span className="sn" style={{ background: 'var(--blue)' }}>
               <NotebookIcon />
@@ -156,7 +125,7 @@ export default function ProgramsPage() {
             <span className="badge badge-red">Reading</span>
             <span className="badge badge-blue">Phonics</span>
           </div>
-          <div className="prog-grid" data-stagger>
+          <div className="prog-grid">
             <article className="card card-hover prog-card blue">
               <span className="pc-ico">
                 <NotebookIcon />
@@ -201,7 +170,7 @@ export default function ProgramsPage() {
         </section>
 
         {/* MIDDLE */}
-        <section className="stage" data-screen-label="Middle">
+        <section className="stage" id="middle-school" data-screen-label="Middle">
           <div className="stage-head">
             <span className="sn" style={{ background: 'var(--green)' }}>
               <GlobeIcon />
@@ -224,7 +193,7 @@ export default function ProgramsPage() {
             <span className="badge badge-yellow">Social</span>
             <span className="badge badge-blue">Malayalam / Hindi</span>
           </div>
-          <div className="prog-grid" data-stagger>
+          <div className="prog-grid">
             <article className="card card-hover prog-card blue">
               <span className="pc-ico">
                 <GlobeIcon />
@@ -274,7 +243,7 @@ export default function ProgramsPage() {
         </section>
 
         {/* HIGH SCHOOL */}
-        <section className="stage" data-screen-label="High school">
+        <section className="stage" id="high-school" data-screen-label="High school">
           <div className="stage-head">
             <span className="sn" style={{ background: 'var(--red)' }}>
               <TargetIcon />
@@ -298,7 +267,7 @@ export default function ProgramsPage() {
             <span className="badge badge-blue">English</span>
             <span className="badge badge-green">Social</span>
           </div>
-          <div className="prog-grid" data-stagger>
+          <div className="prog-grid">
             <article className="card card-hover prog-card red">
               <span className="pc-ico">
                 <TargetIcon />
@@ -348,7 +317,7 @@ export default function ProgramsPage() {
         </section>
 
         {/* PLUS ONE / TWO */}
-        <section className="stage" data-screen-label="Plus One Two">
+        <section className="stage" id="plus-one-two" data-screen-label="Plus One Two">
           <div className="stage-head">
             <span className="sn" style={{ background: 'var(--yellow)', color: 'var(--ink)' }}>
               <AtomIcon />
@@ -364,7 +333,7 @@ export default function ProgramsPage() {
             <span className="badge badge-green">CBSE</span>
             <span className="badge badge-red">ICSE</span>
           </div>
-          <div className="prog-grid" data-stagger>
+          <div className="prog-grid">
             <article className="card card-hover prog-card blue">
               <span className="pc-ico">
                 <AtomIcon />
@@ -433,7 +402,7 @@ export default function ProgramsPage() {
         <span className="deco d1" />
         <span className="deco d2" />
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="pulse-tag">
               <span className="dot" /> Exam season · enrolling now
             </span>
@@ -447,7 +416,7 @@ export default function ProgramsPage() {
               your exam date.
             </p>
           </div>
-          <div className="exam-grid" data-stagger>
+          <div className="exam-grid">
             <article className="exam-card">
               <span className="ec-ico">
                 <TargetIcon />
@@ -464,7 +433,7 @@ export default function ProgramsPage() {
               <p>Focused syllabus revision + timed practice tests for any class from 10th onwards.</p>
               <span className="ec-tag">Class 10+ · term exams</span>
             </article>
-            <article className="exam-card">
+            <article className="exam-card" id="say-improvement">
               <span className="ec-ico">
                 <HelpIcon />
               </span>
@@ -484,18 +453,18 @@ export default function ProgramsPage() {
       {/* STUDENT COUNSELLING — new service, full page at /counselling */}
       <section className="section" data-screen-label="Counselling">
         <div className="container">
-          <div className="fee-tease-card counsel-tease reveal">
+          <div className="fee-tease-card counsel-tease">
             <div className="ft-copy">
               <span className="pulse-tag">
-                <span className="dot" /> New · Student counselling services
+                <span className="dot" /> Student counselling services
               </span>
               <h2>
                 Support beyond <span className="underline-accent">marks</span>
               </h2>
               <p className="lead">
-                Professional guidance and counselling for students facing difficulties with studies,
+                Guidance and counselling for students facing difficulties with studies,
                 stress, confidence, emotions or behaviour, plus career guidance after SSLC and Plus
-                Two. In person or online.
+                Two. Contact our Ashokapuram centre for appointment details.
               </p>
               <Link className="btn btn-red" href="/counselling">
                 Explore student counselling <ArrowIcon />
@@ -517,7 +486,7 @@ export default function ProgramsPage() {
       <section className="section final" data-screen-label="Final CTA">
         <span className="deco d1" />
         <span className="deco d2" />
-        <div className="container reveal">
+        <div className="container">
           <h2>Not sure which program fits?</h2>
           <p>Tell us your child's class and board — we'll guide you and set up a free demo.</p>
           <div className="final-cta">

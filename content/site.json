@@ -1,7 +1,7 @@
 {
   "name": "Eduplus Individual Tuitions",
   "tagline": "Beyond Classroom",
-  "url": "https://eduplustuitions.in",
+  "url": "https://www.eduplustuitions.in",
   "phone": "+91 70123 70310",
   "phoneRaw": "+917012370310",
   "whatsappRaw": "917012370310",
@@ -10,8 +10,8 @@
   "addressFull": "Pootholi Building, behind Rajendra Hospital, Ashokapuram, Kozhikode, Kerala 673001",
   "plusCode": "7Q8J+F3 Kozhikode",
   "geo": { "lat": 11.2481, "lng": 75.7947 },
-  "mapsLink": "https://www.google.com/maps/search/?api=1&query=Eduplus+Individual+Tuitions+Ashokapuram+Kozhikode",
-  "mapsEmbed": "https://www.google.com/maps?q=Ashokapuram+Kozhikode+Kerala&output=embed",
+  "mapsLink": "https://www.google.com/maps/search/?api=1&query=Pootholi+Building%2C+behind+Rajendra+Hospital%2C+Ashokapuram%2C+Kozhikode%2C+Kerala+673001",
+  "mapsEmbed": "https://www.google.com/maps?q=Pootholi+Building%2C+behind+Rajendra+Hospital%2C+Ashokapuram%2C+Kozhikode%2C+Kerala+673001&output=embed",
   "hours": "Mon–Fri 2 PM – 7 PM · Sat & Sun 7 AM – 6:30 PM",
   "hoursNote": "Open all 7 days",
   "areas": ["Ashokapuram", "Nadakkavu", "Eranhipalam", "Mankavu", "Chevayur", "Kozhikode city"],
@@ -27,8 +27,5 @@
     "facebook": "#",
     "youtube": "#"
   },
-  "listings": [
-    "https://www.justdial.com/Kozhikode/Eduplus-Tuitions-Behind-Rajendra-Nursing-Home-Balan-K-Nair-Road-Kozhikode-HO/0495PX495-X495-211116145336-D9C3_BZDET",
-    "https://www.quickerala.com/calicut/ashokapuram/eduplus/291423"
-  ]
+  "listings": []
 }

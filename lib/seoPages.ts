@@ -21,7 +21,6 @@ export type SeoPage = {
   intro: string[];
   points: { title: string; text: string }[];
   faqs: { q: string; a: string }[];
-  keywords: string[];
   serviceName: string;
 };
 
@@ -32,9 +31,9 @@ export const SEO_PAGES: SeoPage[] = [
     kind: 'locality',
     area: 'Nadakkavu',
     name: 'Tuition in Nadakkavu',
-    title: 'Tuition in Nadakkavu, Kozhikode — One-to-One, LKG to Plus Two',
+    title: 'One-to-One Tuition near Nadakkavu',
     description:
-      'Looking for tuition near Nadakkavu? Eduplus runs one-to-one & individual tuition for LKG–Class 12 in Ashokapuram, just off Balan K. Nair Road — at the centre or live online. Kerala State, CBSE & ICSE. Free demo class.',
+      'Find one-to-one tuition near Nadakkavu at our Ashokapuram centre or online. LKG to Class 12, Kerala State, CBSE and ICSE. Book a free demo.',
     ogTitle: 'Tuition near Nadakkavu, Kozhikode',
     ogSub: 'One-to-one · LKG to Plus Two · online & offline',
     eyebrow: 'Serving Nadakkavu families',
@@ -77,12 +76,6 @@ export const SEO_PAGES: SeoPage[] = [
         a: 'Call or WhatsApp us with your child’s class and board, and we’ll arrange a free demo class — at the Ashokapuram centre or online. There’s no obligation to continue after the demo.',
       },
     ],
-    keywords: [
-      'tuition in Nadakkavu',
-      'tuition centre near Nadakkavu Kozhikode',
-      'one to one tuition Nadakkavu',
-      'tuition near Balan K Nair Road',
-    ],
     serviceName: 'One-to-one tuition for students in Nadakkavu, Kozhikode',
   },
   {
@@ -90,9 +83,9 @@ export const SEO_PAGES: SeoPage[] = [
     kind: 'locality',
     area: 'Eranhipalam',
     name: 'Tuition in Eranhipalam',
-    title: 'Tuition in Eranhipalam, Kozhikode — Individual Coaching LKG–12',
+    title: 'One-to-One Tuition near Eranhipalam',
     description:
-      'Individual & one-to-one tuition for Eranhipalam students — LKG to Plus Two at our Ashokapuram centre, an easy ride from Eranhipalam junction, or live online. Kerala State, CBSE & ICSE. Book a free demo.',
+      'Looking for tuition near Eranhipalam? Try a free one-to-one class at our Ashokapuram centre or live online, from LKG to Plus Two.',
     ogTitle: 'Tuition near Eranhipalam, Kozhikode',
     ogSub: 'Individual coaching · LKG–12 · all boards',
     eyebrow: 'Serving Eranhipalam families',
@@ -135,12 +128,6 @@ export const SEO_PAGES: SeoPage[] = [
         a: 'Fees are simple per-hour rates that rise with the class level, from ₹150/hour for Class I–IV up to ₹350/hour for Plus One / Plus Two, plus a one-time ₹500 admission fee. The full table is on our fees page.',
       },
     ],
-    keywords: [
-      'tuition in Eranhipalam',
-      'tuition centre near Eranhipalam',
-      'individual tuition Eranhipalam Kozhikode',
-      'plus two tuition Eranhipalam',
-    ],
     serviceName: 'One-to-one tuition for students in Eranhipalam, Kozhikode',
   },
   {
@@ -148,9 +135,9 @@ export const SEO_PAGES: SeoPage[] = [
     kind: 'locality',
     area: 'Mankavu',
     name: 'Tuition in Mankavu',
-    title: 'Tuition in Mankavu, Kozhikode — One-to-One, All Boards',
+    title: 'One-to-One Tuition near Mankavu',
     description:
-      'One-to-one tuition for Mankavu students, LKG to Plus Two — at our Ashokapuram centre a short drive away, or live online at home. Kerala State, CBSE & ICSE, exam-target batches included. Free demo class.',
+      'Families in Mankavu can join Eduplus at our Ashokapuram centre or live online. One-to-one tuition from LKG to Plus Two, with weekend classes.',
     ogTitle: 'Tuition near Mankavu, Kozhikode',
     ogSub: 'One-to-one · foundation to Plus Two',
     eyebrow: 'Serving Mankavu families',
@@ -193,12 +180,6 @@ export const SEO_PAGES: SeoPage[] = [
         a: 'Regular tests, direct WhatsApp updates and honest feedback from the teacher — you’ll always know what’s improving and what we’re working on next.',
       },
     ],
-    keywords: [
-      'tuition in Mankavu',
-      'tuition centre near Mankavu Kozhikode',
-      'LKG tuition Mankavu',
-      'SSLC tuition Mankavu',
-    ],
     serviceName: 'One-to-one tuition for students in Mankavu, Kozhikode',
   },
   {
@@ -206,9 +187,9 @@ export const SEO_PAGES: SeoPage[] = [
     kind: 'locality',
     area: 'Chevayur',
     name: 'Tuition in Chevayur',
-    title: 'Tuition in Chevayur, Kozhikode — Individual & Online Coaching',
+    title: 'One-to-One Tuition near Chevayur',
     description:
-      'Individual tuition for students in Chevayur and the Medical College area — live online one-to-one classes at home, or at our Ashokapuram centre. LKG to Plus Two, Kerala State, CBSE & ICSE. Free demo class.',
+      'Join live one-to-one classes from Chevayur or visit our Ashokapuram centre. Tuition for LKG to Class 12 across Kerala State, CBSE and ICSE.',
     ogTitle: 'Tuition for Chevayur students',
     ogSub: 'Live online 1-to-1 · or at our Ashokapuram centre',
     eyebrow: 'Serving Chevayur & Medical College area',
@@ -251,12 +232,6 @@ export const SEO_PAGES: SeoPage[] = [
         a: 'Yes, anytime — the plan, teacher and progress tracking stay the same. Many Chevayur students go hybrid during exam season for extra in-person practice.',
       },
     ],
-    keywords: [
-      'tuition in Chevayur',
-      'online tuition Chevayur Kozhikode',
-      'tuition near Medical College Kozhikode',
-      'one to one tuition Chevayur',
-    ],
     serviceName: 'One-to-one tuition for students in Chevayur, Kozhikode',
   },
   {
@@ -264,9 +239,9 @@ export const SEO_PAGES: SeoPage[] = [
     kind: 'locality',
     area: 'Kozhikode (Calicut)',
     name: 'Home Tuition in Calicut',
-    title: 'Home Tuition in Calicut? Get One-to-One at Home — Live Online',
+    title: 'Online Tuition at Home in Calicut',
     description:
-      'Searching for home tuition in Calicut? Eduplus delivers true one-to-one classes at your home — live online with a fixed, accountable teacher — or at our Ashokapuram centre. LKG–12, all boards, ₹150–₹350/hour. Free demo.',
+      'Study from home in Calicut with live one-to-one online tuition for LKG to Class 12. See how classes work, compare fees and book a free demo.',
     ogTitle: 'Home tuition in Calicut, done better',
     ogSub: 'One-to-one at home (live online) or at our centre',
     eyebrow: 'The home-tuition alternative',
@@ -309,13 +284,6 @@ export const SEO_PAGES: SeoPage[] = [
         a: 'All of them — because classes are live online, a student anywhere in Kozhikode district (or anywhere in Kerala) gets the same teacher and programme. In-person classes run at our Ashokapuram centre, behind Rajendra Hospital.',
       },
     ],
-    keywords: [
-      'home tuition Calicut',
-      'home tuition Kozhikode',
-      'private tutor Calicut',
-      'home tutor for CBSE Calicut',
-      'one to one home tuition Kerala',
-    ],
     serviceName: 'Home-style one-to-one tuition across Calicut (live online & centre)',
   },
 
@@ -324,9 +292,9 @@ export const SEO_PAGES: SeoPage[] = [
     slug: 'sslc-tuition-kozhikode',
     kind: 'intent',
     name: 'SSLC Tuition',
-    title: 'SSLC Tuition in Kozhikode — Class 10 Board Exam Coaching',
+    title: 'SSLC Tuition in Kozhikode',
     description:
-      'SSLC tuition in Kozhikode built for the board exam — all Class 10 subjects, model papers, answer-writing & marking-scheme practice. Kerala State, CBSE & ICSE. One-to-one, online & offline in Ashokapuram. Free demo.',
+      'Prepare for Kerala SSLC with one-to-one Class 10 tuition, timed practice and help with difficult chapters. Join in Kozhikode or live online.',
     ogTitle: 'SSLC tuition in Kozhikode',
     ogSub: 'All subjects · model papers · exam technique',
     eyebrow: 'Class 10 · SSLC',
@@ -369,22 +337,15 @@ export const SEO_PAGES: SeoPage[] = [
         a: 'Yes — live one-to-one online classes with recordings for revision work anywhere in Kozhikode or across Kerala. Mocks and papers are handled online too, with the same timing discipline.',
       },
     ],
-    keywords: [
-      'SSLC tuition Kozhikode',
-      'Class 10 tuition Kozhikode',
-      'SSLC coaching centre Calicut',
-      'Kerala SSLC exam coaching',
-      'CBSE class 10 tuition Kozhikode',
-    ],
     serviceName: 'SSLC / Class 10 board exam tuition',
   },
   {
     slug: 'plus-two-tuition-kozhikode',
     kind: 'intent',
     name: 'Plus One & Plus Two Tuition',
-    title: 'Plus Two Tuition in Kozhikode — +1 & +2, Science Commerce Humanities',
+    title: 'Plus Two Tuition in Kozhikode',
     description:
-      'Plus One & Plus Two tuition in Kozhikode — stream-wise coaching in Science, Commerce & Humanities, one-to-one, online & offline. Board focus plus SAY & Improvement exam batches. ₹350/hour, free demo class.',
+      'Get Plus One and Plus Two tuition for Science, Commerce or Humanities. Book a demo for individual lessons or ask about SAY and Improvement batches.',
     ogTitle: 'Plus One & Plus Two tuition, Kozhikode',
     ogSub: 'Science · Commerce · Humanities · SAY & Improvement',
     eyebrow: 'Plus One & Plus Two',
@@ -427,23 +388,15 @@ export const SEO_PAGES: SeoPage[] = [
         a: 'All three. The teacher follows your board’s textbook, question pattern and marking scheme, whether it’s Kerala Higher Secondary (DHSE), CBSE Class 11–12 or ISC.',
       },
     ],
-    keywords: [
-      'plus two tuition Kozhikode',
-      'plus one tuition Kozhikode',
-      '+2 tuition centre Calicut',
-      'HSE tuition Kerala',
-      'commerce tuition Kozhikode',
-      'accountancy tuition Kozhikode',
-    ],
     serviceName: 'Plus One & Plus Two stream-wise tuition',
   },
   {
     slug: 'cbse-tuition-kozhikode',
     kind: 'intent',
     name: 'CBSE Tuition',
-    title: 'CBSE Tuition in Kozhikode — NCERT-Aligned, LKG to Class 12',
+    title: 'CBSE Tuition in Kozhikode',
     description:
-      'CBSE tuition in Kozhikode aligned to NCERT — LKG to Class 12, every subject, one-to-one online & offline in Ashokapuram. ICSE & IGCSE also handled. Board exam technique included. Book a free demo class.',
+      'Get one-to-one CBSE tuition from LKG to Class 12 in Kozhikode or online. Practise NCERT topics, work through doubts and prepare for board exams.',
     ogTitle: 'CBSE tuition in Kozhikode',
     ogSub: 'NCERT-aligned · LKG to Class 12 · 1-to-1',
     eyebrow: 'CBSE · ICSE · IGCSE',
@@ -486,23 +439,15 @@ export const SEO_PAGES: SeoPage[] = [
         a: 'Fully — live one-to-one classes with recordings, which suits CBSE families anywhere in Kozhikode or beyond. Centre classes run at Ashokapuram on the same programme.',
       },
     ],
-    keywords: [
-      'CBSE tuition Kozhikode',
-      'CBSE tuition centre Calicut',
-      'NCERT tuition Kozhikode',
-      'ICSE tuition Kozhikode',
-      'IGCSE tuition Calicut',
-      'CBSE class 12 tuition Kozhikode',
-    ],
     serviceName: 'CBSE / ICSE / IGCSE board-aligned tuition',
   },
   {
     slug: 'online-tuition-kerala',
     kind: 'intent',
     name: 'Online Tuition Kerala',
-    title: 'Online Tuition in Kerala — Live One-to-One Classes, LKG to +2',
+    title: 'Live One-to-One Online Tuition in Kerala',
     description:
-      'Live online tuition across Kerala — true one-to-one video classes with a fixed teacher, recordings included. LKG to Plus Two, Kerala State, CBSE & ICSE. Malayalam, English & Hindi medium. Free demo class.',
+      'Book a free demo for live one-to-one online tuition anywhere in Kerala. LKG to Plus Two for Kerala State, CBSE and ICSE. See subjects and fees.',
     ogTitle: 'Online tuition across Kerala',
     ogSub: 'Live 1-to-1 video classes · recordings included',
     eyebrow: 'Live online · statewide',
@@ -544,14 +489,6 @@ export const SEO_PAGES: SeoPage[] = [
         q: 'Are online fees different from centre fees?',
         a: 'No — the same simple per-hour rates apply: ₹150/hour for Class I–IV up to ₹350/hour for Plus One / Plus Two, with a one-time ₹500 admission fee. The first demo class is free either way.',
       },
-    ],
-    keywords: [
-      'online tuition Kerala',
-      'online tuition Malayalam medium',
-      'live online tuition India',
-      'online tuition for SSLC Kerala',
-      'online plus two tuition Kerala',
-      'one to one online tuition',
     ],
     serviceName: 'Live online one-to-one tuition across Kerala',
   },

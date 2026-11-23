@@ -1,25 +1,19 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/metadata';
 import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { ArrowIcon, CheckIcon, ClockIcon, RupeeIcon, TargetIcon } from '@/lib/icons';
-import { SITE, breadcrumbLd, ogImage, telLink, waLink } from '@/lib/site';
+import { jsonLd, SITE, breadcrumbLd, telLink, waLink } from '@/lib/site';
 import FeeEstimator from '@/components/FeeEstimator';
+import { hourlyTuitionOffer } from '@/lib/tuitionPricing';
 import fees from '@/content/fees.json';
 
-export const metadata: Metadata = {
-  title: 'Fee Structure — Simple Per-Hour Tuition Fees',
-  description:
-    'Transparent per-hour tuition fees at Eduplus, Ashokapuram Kozhikode — ₹150/hr (Class I–IV) to ₹350/hr (Plus One / Plus Two), one-time ₹500 admission. Fee may vary for ICSE / IGCSE. Estimate your monthly fee and book a free demo class.',
-  alternates: { canonical: '/fees' },
-  openGraph: {
-    title: 'Fee Structure | Eduplus Individual Tuitions',
-    description:
-      'Clear per-hour fees for every class — ₹150 to ₹350 per hour, ₹500 one-time admission. Estimate your monthly fee in seconds.',
-    url: '/fees',
-    type: 'website',
-    images: ogImage('Simple per-hour fees', '₹150–₹350 per hour · ₹500 one-time admission'),
-  },
-};
+export const metadata = pageMetadata({
+  title: 'Tuition Fees in Kozhikode',
+  description: 'See hourly tuition fees by class at Eduplus, from ₹150 to ₹350, plus ₹500 one-time admission. Estimate your monthly cost and book a free demo.',
+  path: '/fees',
+  imageTitle: 'Simple per-hour fees',
+  imageSubtitle: '₹150–₹350 per hour · ₹500 one-time admission',
+});
 
 const MAX_FEE = Math.max(...fees.tiers.map((t) => t.feePerHour));
 
@@ -30,19 +24,7 @@ const feeLd = {
   itemListElement: fees.tiers.map((t, i) => ({
     '@type': 'ListItem',
     position: i + 1,
-    item: {
-      '@type': 'Offer',
-      name: `Tuition — ${t.range}`,
-      description: `${t.note}. One-time admission fee ₹${fees.admissionFee}. Fee may vary for ICSE / IGCSE syllabus.`,
-      priceCurrency: 'INR',
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: t.feePerHour,
-        priceCurrency: 'INR',
-        referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'HUR' },
-      },
-      offeredBy: { '@type': 'EducationalOrganization', name: SITE.name, url: SITE.url },
-    },
+    item: hourlyTuitionOffer(t),
   })),
 };
 
@@ -51,35 +33,35 @@ export default function FeesPage() {
     <main id="main">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(feeLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(feeLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd('Fees', '/fees')) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbLd('Fees', '/fees')) }}
       />
 
       {/* PAGE HERO */}
       <section className="page-hero" data-screen-label="Fees hero">
         <div className="container">
-          <div className="crumbs reveal">
+          <div className="crumbs">
             <Link href="/">Home</Link>
             <span className="sep">/</span>
             <span>Fees</span>
           </div>
           <div style={{ maxWidth: '780px' }}>
-            <span className="eyebrow reveal" style={{ color: 'var(--green-600)' }}>
+            <span className="eyebrow" style={{ color: 'var(--green-600)' }}>
               Fee structure
             </span>
-            <h1 className="display reveal" style={{ margin: '.6rem 0 1rem' }}>
+            <h1 className="display" style={{ margin: '.6rem 0 1rem' }}>
               Clear fees. <span className="underline-accent">No surprises.</span>
             </h1>
-            <p className="lead reveal">
+            <p className="lead">
               One simple per-hour rate for every class — the same whether you learn at our
               Ashokapuram centre or live online. Pay for the hours you take, plus a one-time ₹
               {fees.admissionFee} admission. That&apos;s the whole story.
             </p>
           </div>
-          <div className="hero-chips reveal" style={{ marginTop: '1.4rem' }}>
+          <div className="hero-chips" style={{ marginTop: '1.4rem' }}>
             <span className="chip">
               <RupeeIcon /> Per-hour pricing
             </span>
@@ -99,7 +81,7 @@ export default function FeesPage() {
       {/* FEE LADDER */}
       <section className="section fee-ladder-sec" data-screen-label="Fee ladder">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               The fee ladder
             </span>
@@ -112,7 +94,7 @@ export default function FeesPage() {
             </p>
           </div>
 
-          <div className="fee-ladder" data-stagger>
+          <div className="fee-ladder">
             {fees.tiers.map((t, i) => (
               <article
                 key={t.id}
@@ -138,7 +120,7 @@ export default function FeesPage() {
             ))}
           </div>
 
-          <p className="fee-vary reveal">
+          <p className="fee-vary">
             <strong>*</strong> Fee may vary for <strong>ICSE / IGCSE</strong> syllabus — message us
             and we&apos;ll confirm your exact rate.
           </p>
@@ -153,7 +135,7 @@ export default function FeesPage() {
         data-screen-label="Fee estimator"
       >
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--red)' }}>
               Try it yourself
             </span>
@@ -165,7 +147,7 @@ export default function FeesPage() {
               it like a bill, before you ever pay one.
             </p>
           </div>
-          <div className="reveal">
+          <div>
             <FeeEstimator />
           </div>
         </div>
@@ -175,7 +157,7 @@ export default function FeesPage() {
       <section className="section" data-screen-label="Fee table">
         <div className="container">
           <div className="fee-ref">
-            <div className="fee-table-card reveal">
+            <div className="fee-table-card">
               <h3>At a glance</h3>
               <div className="fee-table-wrap">
                 <table className="fee-table">
@@ -191,7 +173,7 @@ export default function FeesPage() {
                   </thead>
                   <tbody>
                     {fees.tiers.map((t) => (
-                      <tr key={t.id}>
+                      <tr key={t.id} id={t.id}>
                         <th scope="row">{t.range}</th>
                         <td>₹{t.feePerHour}</td>
                         <td>₹{fees.admissionFee}</td>
@@ -202,7 +184,7 @@ export default function FeesPage() {
               </div>
               <p className="fee-table-foot">* Fee may vary for ICSE / IGCSE syllabus.</p>
             </div>
-            <div className="fee-notes reveal">
+            <div className="fee-notes">
               <h3>Good to know</h3>
               <ul>
                 {fees.notes.map((n) => (
@@ -233,7 +215,7 @@ export default function FeesPage() {
       <section className="section final" data-screen-label="Final CTA">
         <span className="deco d1" />
         <span className="deco d2" />
-        <div className="container reveal">
+        <div className="container">
           <h2>Try a class before you pay for one.</h2>
           <p>Your first demo class is completely free — see the teaching, then decide.</p>
           <div className="final-cta">

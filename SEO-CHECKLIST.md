@@ -1,117 +1,81 @@
-# SEO / AEO Checklist — Eduplus
+# Eduplus SEO operations
 
-Everything in code is done. This file lists what must be done **outside the code**
-(owner / deployment actions) and how to operate the SEO features.
+## Production
 
-## 0. CURRENT STATE (read this first)
+The canonical site is https://www.eduplustuitions.in. The apex and the original
+`eduplus-individual-tuitions.vercel.app` hostname redirect to the same path on
+the canonical host. The canonical HTTPS origin is defined in
+`content/site.json`. Build and test changes with `npm run build`.
 
-The domain **`eduplustuitions.in` is not connected yet**. The site is live at:
+- Sitemap: https://www.eduplustuitions.in/sitemap.xml
+- Crawler rules: https://www.eduplustuitions.in/robots.txt
+- Site summary: https://www.eduplustuitions.in/llms.txt
+- Study guides: https://www.eduplustuitions.in/guides
 
-> **https://eduplus-individual-tuitions.vercel.app**
+## Google and Bing
 
-So `NEXT_PUBLIC_SITE_URL` in Vercel is set to that vercel.app URL — every
-canonical, sitemap URL, OG image and llms.txt link points there, which is correct
-while that is the only host that actually resolves. **Do not** point canonicals at
-`eduplustuitions.in` before DNS works: Google would see every page canonicalised
-to a dead host and drop the site.
+- In [Google Search Console](https://search.google.com/search-console), verify
+  the domain property via DNS. For the HTTPS www URL-prefix property, the
+  alternate verification method is `NEXT_PUBLIC_GSC_VERIFICATION` in Vercel.
+- In [Bing Webmaster Tools](https://www.bing.com/webmasters), import the verified
+  site or use `NEXT_PUBLIC_BING_VERIFICATION` for meta-tag verification.
+- Submit the canonical sitemap to both tools. Inspect the counselling page, the
+  study guide hub and the Malayalam page after publishing. Use the dashboards
+  to check indexing, search queries, and field Core Web Vitals as data arrives.
 
-## 1. WHEN THE DOMAIN IS READY — the switch (2 steps, ~5 min)
+## IndexNow
 
-Everything derives from one variable, so switching hosts is a config change only —
-no code edits.
+The production project uses `INDEXNOW_KEY` and serves its verification file at
+`/<key>.txt`. Submit changed URLs once the deployment is live. With no URL
+arguments, the command submits all canonical URLs in the live sitemap.
 
-- [ ] **Attach the domain in Vercel**: Project → Settings → Domains → add
-      `eduplustuitions.in` **and** `www.eduplustuitions.in`. Vercel shows the DNS
-      records to create at your registrar (usually an `A` record → `76.76.21.21`
-      for the apex, and a `CNAME` → `cname.vercel-dns.com` for `www`). Wait for
-      both to go **Valid**.
-- [ ] **Flip the env var**: Vercel → Settings → Environment Variables →
-      `NEXT_PUBLIC_SITE_URL` = `https://eduplustuitions.in` → **Redeploy**.
-      (`content/site.json` already carries this domain as its built-in default.)
-
-The app then 301-redirects `www` → apex by itself (middleware), and canonicals,
-sitemap, OG images, schema and llms.txt all move to the real domain automatically.
-
-- [ ] Afterwards, optionally stop the old vercel.app URL being indexed separately —
-      once the domain is primary, Vercel serves the vercel.app host with a redirect
-      to it, which resolves the duplicate.
-
-## 2. Google Search Console + Bing (do once — highest value)
-
-Best done **after** the real domain is live, so the property matches the final host.
-If you want data now, add the vercel.app URL as a URL-prefix property and re-add the
-domain later.
-
-- [ ] https://search.google.com/search-console → add property `eduplustuitions.in`
-      (domain property via DNS TXT, or URL-prefix via the meta-tag token below).
-- [ ] Add `NEXT_PUBLIC_GSC_VERIFICATION=<token>` in Vercel env if using the meta tag.
-- [ ] Submit sitemap: `https://eduplustuitions.in/sitemap.xml`
-- [ ] https://www.bing.com/webmasters → add site (can import from GSC in 2 clicks),
-      submit the same sitemap. **Bing powers ChatGPT search & Copilot answers.**
-
-## 2b. Optional env vars (any time)
-
-  - `NEXT_PUBLIC_GA_ID=G-XXXXXXX` — enables Google Analytics 4
-  - `INDEXNOW_KEY=<any 32-char hex string>` (e.g. `openssl rand -hex 16`) — enables
-    the IndexNow endpoint below
-
-## 3. IndexNow (after every deploy / big content change)
-
-Requires `INDEXNOW_KEY` to be set in Vercel env first. Use the host that is
-currently live (vercel.app today, the real domain after the switch):
-
-```bash
-curl -X POST https://eduplustuitions.in/api/indexnow -H "x-indexnow-secret: $INDEXNOW_KEY"
+```sh
+vercel env run -e production -- npm run indexnow
+vercel env run -e production -- npm run indexnow -- /counselling /guides
 ```
-Instantly notifies Bing/Copilot/ChatGPT-search indexing of all page URLs.
 
-## 4. Google Business Profile (owner — the #1 local ranking factor)
+HTTP 200 acknowledges the submission. HTTP 202 means key validation is pending.
+IndexNow informs participating engines about changes. Check indexing in the
+search engine's dashboard.
 
-- [ ] Claim/create the profile at https://business.google.com for
-      "Eduplus Individual Tuitions", Pootholi Building, behind Rajendra Hospital,
-      Ashokapuram, Kozhikode 673001 — category **"Tutoring service"**.
-- [ ] Use EXACTLY the same name, address and phone (+91 70123 70310) as the website.
-- [ ] Add the website link, hours (Mon–Fri 2–7 PM, Sat–Sun 7 AM–6:30 PM), photos.
-- [ ] Ask happy parents for Google reviews — reviews decide the local 3-pack.
-- [ ] Once ≥5 real reviews exist, tell the developer the live rating/count so an
-      `aggregateRating` can be added to the site schema (never fabricate it).
+## Conversion measurement
 
-## 5. Citations & socials (owner)
+Set `NEXT_PUBLIC_GA_ID` only when the owner supplies the intended GA4 property.
+In the GA4 data stream, disable Enhanced Measurement and advertising features.
+The site emits page views and the events `click_to_call`, `click_whatsapp` and
+`prepare_whatsapp_enquiry` with the path only. Counselling, admin and showcase
+pages are excluded. The last event measures preparation of a WhatsApp message.
+The visitor still has to send it to Eduplus. Verify events in GA4 Realtime and
+choose the contact events the owner wants to mark as key events.
 
-- [ ] Existing: Justdial ✓, Quickerala ✓ — update both to the new domain
-      `eduplustuitions.in` and verify NAP (name/address/phone) matches exactly.
-- [ ] Add listings: Sulekha, UrbanPro (big for tuition), Asklaila — same NAP.
-- [ ] Real Instagram / Facebook / YouTube URLs → enter them in **Admin → Global
-      settings** (currently `#` placeholders). They auto-flow into `sameAs` schema.
-- [ ] Add a real email in Admin → Global settings (currently empty).
+## Local profile and credentials
 
-## 6. Facts to confirm (currently claimed on the site)
+- Confirm the exact pin against the entrance at Pootholi Building, behind
+  Rajendra Hospital, Ashokapuram, Kozhikode 673001. Replace the address-search
+  URL with a verified business profile link when available.
+- Claim or verify the [Google Business Profile](https://business.google.com/)
+  under the owner's account. Confirm the public name, primary category,
+  address, phone (+91 70123 70310), website and hours. Update existing
+  [Justdial](https://www.justdial.com/Kozhikode/Eduplus-Tuitions-Behind-Rajendra-Nursing-Home-Balan-K-Nair-Road-Kozhikode-HO/0495PX495-X495-211116145336-D9C3_BZDET)
+  and [Quickerala](https://www.quickerala.com/calicut/ashokapuram/eduplus/291423)
+  entries to match once confirmed.
+- Add the exact Maps review link when available. Invite actual families to
+  leave honest feedback. Google excludes business-controlled
+  [self-serving review rich results](https://developers.google.com/search/blog/2019/09/making-review-rich-results-more-helpful).
+- In Admin → Global settings, add the verified business email and real
+  social-profile URLs. Add confirmed directories to `content/site.json` under
+  `listings` after the records match.
+- Get permission to use real centre and staff photos. Obtain the approved names,
+  roles and qualifications for tutors and the counsellor. For counselling,
+  also confirm eligible ages, access for non-tuition students, online session
+  availability, parent participation, consent and the appointment process.
+- Ask the owner before arranging outreach to nearby schools, parent groups,
+  or local publications.
 
-- [ ] Founded **2015** (site copy + schema say "since 2015")
-- [ ] Exact map pin / Plus Code `7Q8J+F3` and geo `11.2481, 75.7947`
-- [ ] Opening hours as above
+## Maintenance
 
-## What's already implemented in code (for reference)
-
-- Canonical domain + www→apex 301 (middleware), per-page canonicals
-- 9 local-SEO landing pages (`/tuition-in-nadakkavu|eranhipalam|mankavu|chevayur`,
-  `/home-tuition-calicut`, `/sslc-tuition-kozhikode`, `/plus-two-tuition-kozhikode`,
-  `/cbse-tuition-kozhikode`, `/online-tuition-kerala`) — unique copy, FAQs,
-  Service/FAQ/Breadcrumb/WebPage(Speakable) schema, footer-linked, in sitemap
-- Org schema: EducationalOrganization+LocalBusiness with geo, hours, offer catalog
-- Course schema with courseMode Online/Onsite; fee Offer schema; FAQPage everywhere
-- AEO: `/llms.txt`, AI-crawler allows in robots.txt (GPTBot, ClaudeBot, Perplexity,
-  Google-Extended, Bingbot, …), Speakable schema, geo meta tags (IN-KL/ICBM)
-- Malayalam FAQ block on home + Malayalam keywords
-- Per-page OG share images (`/og?title=…`), PWA icons 192/512
-- Sitemap with honest lastModified (bump `CONTENT_UPDATED` in `lib/site.ts` when
-  copy changes), GA4 via env, IndexNow endpoint
-
-## Content roadmap (next wins, when ready)
-
-1. A simple blog/answers section targeting question queries ("What is the SAY exam
-   in Kerala?", "SSLC grace marks", "Plus Two improvement exam dates 2026–27") —
-   the strongest AI-Overview citation magnet for this niche.
-2. More locality pages once students actually come from there (Palazhi, Medical
-   College, Vellayil…) — only with genuinely unique copy.
-3. Real photos of the centre (Google loves them on GBP + site).
+Recheck sitemap URLs, titles, descriptions and site speed after major changes.
+Review the official examination notices linked by each guide when a new cycle
+begins. Add a sitemap modification date when a page has a real publication or
+substantial update date. Keep translated pages self-canonical and update both
+language links when adding a translation.

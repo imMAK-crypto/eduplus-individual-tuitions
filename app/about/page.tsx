@@ -1,4 +1,5 @@
-import type { Metadata } from 'next';
+import LocationMap from '@/components/LocationMap';
+import { pageMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 import {
   BrandIllustration,
@@ -12,47 +13,40 @@ import {
   TargetIcon,
   UsersIcon,
 } from '@/lib/icons';
-import { SITE, YEARS_ACTIVE, breadcrumbLd, ogImage, telLink } from '@/lib/site';
+import { jsonLd, SITE, YEARS_ACTIVE, breadcrumbLd, telLink } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: 'About Eduplus',
-  description:
-    'Eduplus Individual Tuitions is a neighbourhood tuition centre in Ashokapuram, Kozhikode, teaching LKG–Class 12 one-to-one, online & offline since 2015. Personal attention, concept clarity and mentorship — beyond the classroom.',
-  alternates: { canonical: '/about' },
-  openGraph: {
-    title: 'About Eduplus Individual Tuitions — Ashokapuram, Kozhikode',
-    description:
-      'A neighbourhood tuition centre teaching LKG–12 one-to-one, online & offline since 2015. Personal attention, concept clarity and mentorship.',
-    url: '/about',
-    type: 'website',
-    images: ogImage('About Eduplus', 'A neighbourhood one-to-one tuition centre since 2015'),
-  },
-};
+export const metadata = pageMetadata({
+  title: 'About Our Kozhikode Tuition Centre',
+  description: 'Get to know Eduplus, a one-to-one tuition centre in Ashokapuram, Kozhikode, teaching LKG to Class 12 since 2015. Visit the centre or book a demo.',
+  path: '/about',
+  imageTitle: 'About Eduplus',
+  imageSubtitle: 'A neighbourhood one-to-one tuition centre since 2015',
+});
 
 export default function AboutPage() {
   return (
     <main id="main">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd('About', '/about')) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbLd('About', '/about')) }}
       />
       {/* PAGE HERO */}
       <section className="page-hero" data-screen-label="About hero">
         <div className="container">
-          <div className="crumbs reveal">
+          <div className="crumbs">
             <Link href="/">Home</Link>
             <span className="sep">/</span>
             <span>About</span>
           </div>
           <div style={{ maxWidth: '760px' }}>
-            <span className="eyebrow reveal" style={{ color: 'var(--blue)' }}>
+            <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               Who we are
             </span>
-            <h1 className="display reveal" style={{ margin: '.6rem 0 1rem' }}>
+            <h1 className="display" style={{ margin: '.6rem 0 1rem' }}>
               A neighbourhood tuition centre that actually{' '}
               <span className="underline-accent">knows</span> your child.
             </h1>
-            <p className="lead reveal">
+            <p className="lead">
               Eduplus Individual Tuitions began with a simple belief: every student learns
               differently, and deserves to be taught that way. We're right here in Ashokapuram —
               local, personal, and accountable.
@@ -65,7 +59,7 @@ export default function AboutPage() {
       <section className="section" data-screen-label="Our story">
         <div className="container">
           <div className="loc-grid">
-            <div className="reveal prose">
+            <div className="prose">
               <span className="eyebrow" style={{ color: 'var(--red)' }}>
                 Our story
               </span>
@@ -92,7 +86,7 @@ export default function AboutPage() {
                 </Link>
               </div>
             </div>
-            <div className="hero-visual reveal" style={{ maxWidth: '460px' }}>
+            <div className="hero-visual" style={{ maxWidth: '460px' }}>
               <span className="blob b1 sq" />
               <span className="blob b3" />
               <span className="blob b4" />
@@ -111,7 +105,7 @@ export default function AboutPage() {
         data-screen-label="Mission and values"
       >
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               What drives us
             </span>
@@ -119,7 +113,7 @@ export default function AboutPage() {
               Mission, vision &amp; <span className="underline-accent">values</span>
             </h2>
           </div>
-          <div className="feat-grid" data-stagger style={{ marginBottom: '2.4rem' }}>
+          <div className="feat-grid" style={{ marginBottom: '2.4rem' }}>
             <article className="card card-hover feat acc-blue">
               <span className="f-ico">
                 <TargetIcon />
@@ -149,7 +143,7 @@ export default function AboutPage() {
             </article>
           </div>
 
-          <div className="feat-grid" data-stagger>
+          <div className="feat-grid">
             <article className="card feat acc-blue">
               <span className="f-ico">
                 <UsersIcon />
@@ -185,7 +179,7 @@ export default function AboutPage() {
       {/* APPROACH */}
       <section className="section" data-screen-label="Our approach">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--green-600)' }}>
               How we teach
             </span>
@@ -194,7 +188,7 @@ export default function AboutPage() {
             </h2>
             <p className="lead maxw">A simple, repeatable rhythm that turns weak spots into strengths.</p>
           </div>
-          <div className="steps" data-stagger>
+          <div className="steps">
             <div className="step">
               <span className="n">1</span>
               <h3>Understand</h3>
@@ -218,23 +212,19 @@ export default function AboutPage() {
       <section className="section results" data-screen-label="By the numbers">
         <div className="container">
           <div className="stat-band" style={{ marginBottom: 0 }}>
-            <div className="stat reveal">
-              <div className="num" data-count={YEARS_ACTIVE} data-suffix="+">
-                0
-              </div>
+            <div className="stat">
+              <div className="num">{YEARS_ACTIVE}<span className="suf">+</span></div>
               <div className="lbl">Years teaching · since {SITE.foundedYear}</div>
             </div>
-            <div className="stat reveal">
+            <div className="stat">
               <div className="num">1-to-1</div>
               <div className="lbl">True individual attention</div>
             </div>
-            <div className="stat reveal">
-              <div className="num" data-count="3">
-                0
-              </div>
+            <div className="stat">
+              <div className="num">3</div>
               <div className="lbl">Boards covered</div>
             </div>
-            <div className="stat reveal">
+            <div className="stat">
               <div className="num">LKG–12</div>
               <div className="lbl">Classes covered</div>
             </div>
@@ -250,7 +240,7 @@ export default function AboutPage() {
       >
         <div className="container">
           <div className="loc-grid">
-            <div className="loc-info reveal">
+            <div className="loc-info">
               <span className="eyebrow" style={{ color: 'var(--red)' }}>
                 Find us
               </span>
@@ -281,13 +271,8 @@ export default function AboutPage() {
                 </Link>
               </div>
             </div>
-            <div className="map-wrap reveal">
-              <iframe
-                title="Map to Eduplus, Ashokapuram, Kozhikode"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                src={SITE.mapsEmbed}
-              />
+            <div className="map-wrap">
+              <LocationMap />
             </div>
           </div>
         </div>
@@ -297,7 +282,7 @@ export default function AboutPage() {
       <section className="section final" data-screen-label="Final CTA">
         <span className="deco d1" />
         <span className="deco d2" />
-        <div className="container reveal">
+        <div className="container">
           <h2>Let's help your child love learning.</h2>
           <p>Book a free demo class and meet us in person.</p>
           <div className="final-cta">

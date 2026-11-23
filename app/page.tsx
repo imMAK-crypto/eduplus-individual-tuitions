@@ -1,3 +1,5 @@
+import LocationMap from '@/components/LocationMap';
+import FaqItem from '@/components/FaqItem';
 import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import {
@@ -16,14 +18,13 @@ import {
   NotebookIcon,
   PhoneIcon,
   PinIcon,
-  PlusIcon,
   RupeeIcon,
   ShieldIcon,
   StarIcon,
   TargetIcon,
   UsersIcon,
 } from '@/lib/icons';
-import { SITE, YEARS_ACTIVE, telLink, waLink } from '@/lib/site';
+import { jsonLd, SITE, YEARS_ACTIVE, telLink, waLink } from '@/lib/site';
 import home from '@/content/home.json';
 import fees from '@/content/fees.json';
 
@@ -59,20 +60,20 @@ export default function HomePage() {
     <main id="main">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(faqLd) }}
       />
       {/* (1) HERO */}
       <section className="hero" data-screen-label="Hero">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <span className="eyebrow reveal" style={{ color: 'var(--blue)' }}>
+            <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               {home.hero.eyebrow}
             </span>
-            <h1 className="display reveal" style={{ marginTop: '.6rem' }}>
+            <h1 className="display" style={{ marginTop: '.6rem' }}>
               <AccentTitle text={home.hero.title} accent={home.hero.accent} />
             </h1>
-            <p className="lead reveal">{home.hero.lead}</p>
-            <div className="hero-cta reveal">
+            <p className="lead">{home.hero.lead}</p>
+            <div className="hero-cta">
               <button className="btn btn-red btn-lg" data-open-modal>
                 {home.hero.ctaPrimary}
               </button>
@@ -80,10 +81,10 @@ export default function HomePage() {
                 {home.hero.ctaSecondary}
               </a>
             </div>
-            <a className="hero-exam-link reveal" href="#exam-prep">
+            <a className="hero-exam-link" href="#exam-prep">
               {home.hero.examLink} <ArrowIcon width={16} height={16} />
             </a>
-            <div className="hero-chips" data-stagger>
+            <div className="hero-chips">
               {home.hero.chips.map((c) => (
                 <span key={c} className="chip">
                   {c}
@@ -91,7 +92,7 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-          <div className="hero-visual reveal">
+          <div className="hero-visual">
             <span className="blob b1 sq" />
             <span className="blob b2" />
             <span className="blob b3" />
@@ -106,10 +107,10 @@ export default function HomePage() {
       {/* (2) TRUST STRIP */}
       <section className="trust">
         <div className="container">
-          <div className="trust-grid" data-stagger>
+          <div className="trust-grid">
             <a
               className="trust-item"
-              href="https://www.google.com/maps/search/?api=1&query=Eduplus+Ashokapuram+Kozhikode"
+              href={SITE.mapsLink}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -155,7 +156,7 @@ export default function HomePage() {
       {/* (2.5) LEARNING MODES + STAGES — one-to-one, online/offline, every stage */}
       <section className="section modes" id="learning" data-screen-label="How we teach">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--red)' }}>
               Individual · one-to-one
             </span>
@@ -256,7 +257,7 @@ export default function HomePage() {
           </div>
 
           {/* stage bands: LKG–7 · 8–10 · 11 & 12 */}
-          <div className="stage-grid" data-stagger>
+          <div className="stage-grid">
             <article className="card card-hover stage-card blue">
               <div className="sc-top">
                 <span className="sc-range">LKG–7</span>
@@ -376,7 +377,7 @@ export default function HomePage() {
         <span className="deco d1" />
         <span className="deco d2" />
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="pulse-tag">
               <span className="dot" /> {home.exam.tag}
             </span>
@@ -386,7 +387,7 @@ export default function HomePage() {
             <p className="lead maxw">{home.exam.lead}</p>
           </div>
 
-          <div className="exam-grid" data-stagger>
+          <div className="exam-grid">
             <article className="exam-card">
               <span className="ec-ico">
                 <TargetIcon />
@@ -422,7 +423,7 @@ export default function HomePage() {
             </article>
           </div>
 
-          <div className="exam-tags" data-stagger>
+          <div className="exam-tags">
             <span className="etag">SSLC board</span>
             <span className="etag">Plus One</span>
             <span className="etag">Plus Two</span>
@@ -432,7 +433,7 @@ export default function HomePage() {
             <span className="etag">Revision papers</span>
           </div>
 
-          <p className="exam-hours reveal">
+          <p className="exam-hours">
             <ClockIcon /> Mon–Fri 2 PM – 7 PM &nbsp;·&nbsp; Sat &amp; Sun 7 AM – 6:30 PM
           </p>
 
@@ -447,7 +448,7 @@ export default function HomePage() {
       {/* (3) PROGRAMS */}
       <section className="section" id="programs" data-screen-label="Programs">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               What we teach
             </span>
@@ -482,7 +483,7 @@ export default function HomePage() {
             </div>
 
             <div className="tab-panel show" id="p-primary" role="tabpanel">
-              <div className="prog-grid" data-stagger>
+              <div className="prog-grid">
                 <article className="card card-hover prog-card blue">
                   <span className="pc-ico">
                     <NotebookIcon />
@@ -546,7 +547,7 @@ export default function HomePage() {
             </div>
 
             <div className="tab-panel" id="p-middle" role="tabpanel">
-              <div className="prog-grid" data-stagger>
+              <div className="prog-grid">
                 <article className="card card-hover prog-card blue">
                   <span className="pc-ico">
                     <GlobeIcon />
@@ -609,7 +610,7 @@ export default function HomePage() {
             </div>
 
             <div className="tab-panel" id="p-high" role="tabpanel">
-              <div className="prog-grid" data-stagger>
+              <div className="prog-grid">
                 <article className="card card-hover prog-card red">
                   <span className="pc-ico">
                     <TargetIcon />
@@ -675,7 +676,7 @@ export default function HomePage() {
             </div>
 
             <div className="tab-panel" id="p-hs" role="tabpanel">
-              <div className="prog-grid" data-stagger>
+              <div className="prog-grid">
                 <article className="card card-hover prog-card blue">
                   <span className="pc-ico">
                     <AtomIcon />
@@ -749,7 +750,7 @@ export default function HomePage() {
       {/* (3.5) FEES TEASER — transparent per-hour rates, links to /fees */}
       <section className="section fee-tease" data-screen-label="Fees teaser">
         <div className="container">
-          <div className="fee-tease-card reveal">
+          <div className="fee-tease-card">
             <div className="ft-copy">
               <span className="eyebrow" style={{ color: 'var(--green-600)' }}>
                 Transparent fees
@@ -786,7 +787,7 @@ export default function HomePage() {
       {/* (3.6) STUDENT COUNSELLING — teaser linking to /counselling */}
       <section className="section fee-tease" data-screen-label="Counselling teaser">
         <div className="container">
-          <div className="fee-tease-card counsel-tease reveal">
+          <div className="fee-tease-card counsel-tease">
             <div className="ft-copy">
               <span className="eyebrow" style={{ color: 'var(--red)' }}>
                 Student counselling services
@@ -796,8 +797,7 @@ export default function HomePage() {
               </h2>
               <p className="lead">
                 Is your child struggling with studies, stress, confidence, emotions or behaviour? We
-                support students through professional guidance and counselling — in person or
-                online.
+                offer student counselling and career guidance through our Ashokapuram centre.
               </p>
               <Link className="btn btn-red" href="/counselling">
                 Explore counselling <ArrowIcon />
@@ -823,7 +823,7 @@ export default function HomePage() {
         data-screen-label="Why Eduplus"
       >
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--red)' }}>
               Why Eduplus
             </span>
@@ -835,7 +835,7 @@ export default function HomePage() {
               personal.
             </p>
           </div>
-          <div className="feat-grid" data-stagger>
+          <div className="feat-grid">
             <article className="card card-hover feat acc-blue">
               <span className="f-ico">
                 <UsersIcon />
@@ -885,7 +885,7 @@ export default function HomePage() {
       {/* (5) RESULTS */}
       <section className="section results" id="results" data-screen-label="Results">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--green-600)' }}>
               Results
             </span>
@@ -897,46 +897,27 @@ export default function HomePage() {
             </p>
           </div>
           <div className="stat-band">
-            <div className="stat reveal">
+            <div className="stat">
               <div className="num">1-to-1</div>
               <div className="lbl">True individual attention</div>
             </div>
-            <div className="stat reveal">
-              <div className="num" data-count={YEARS_ACTIVE} data-suffix="+">
-                0
-              </div>
+            <div className="stat">
+              <div className="num">{YEARS_ACTIVE}<span className="suf">+</span></div>
               <div className="lbl">Years since {SITE.foundedYear}</div>
             </div>
-            <div className="stat reveal">
-              <div className="num" data-count="7">
-                0
-              </div>
+            <div className="stat">
+              <div className="num">7</div>
               <div className="lbl">Days a week · open Mon–Sun</div>
             </div>
-            <div className="stat reveal">
-              <div className="num" data-count="3">
-                0
-              </div>
+            <div className="stat">
+              <div className="num">3</div>
               <div className="lbl">Boards · State, CBSE, ICSE</div>
             </div>
           </div>
-          <div className="grev card reveal">
-            <div className="grev-logo">
-              <span className="g-b">G</span>
-              <span className="g-r">o</span>
-              <span className="g-y">o</span>
-              <span className="g-b">g</span>
-              <span className="g-g">l</span>
-              <span className="g-r">e</span> Reviews
-            </div>
-            <h3 style={{ fontSize: 'clamp(1.4rem,3vw,1.9rem)' }}>Real parents. Real words.</h3>
-            <div className="grev-sub">
-              Don&apos;t take our word for it — read what{' '}
-              <strong>families in Ashokapuram, Kozhikode</strong> say about us on Google.
-            </div>
-            <a className="btn btn-blue" href={SITE.mapsLink} target="_blank" rel="noopener noreferrer">
-              Read our Google reviews <ArrowIcon />
-            </a>
+          <div className="grev card">
+            <h3 style={{ fontSize: 'clamp(1.4rem,3vw,1.9rem)' }}>Study guides for Kerala families</h3>
+            <div className="grev-sub">Plan SSLC revision, check how SAY and Improvement exams work or compare Plus One streams.</div>
+            <Link className="btn btn-blue" href="/guides">Explore the study guides <ArrowIcon /></Link>
           </div>
         </div>
       </section>
@@ -944,7 +925,7 @@ export default function HomePage() {
       {/* (6) HOW TO JOIN */}
       <section className="section" data-screen-label="How to join">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               How to join
             </span>
@@ -952,7 +933,7 @@ export default function HomePage() {
               Start in three <span className="underline-accent">simple</span> steps
             </h2>
           </div>
-          <div className="steps" data-stagger>
+          <div className="steps">
             <div className="step">
               <span className="n">1</span>
               <h3>Reach out</h3>
@@ -982,7 +963,7 @@ export default function HomePage() {
       {/* (7) LOCATION */}
       <section className="section" style={{ background: 'var(--soft)' }} data-screen-label="Location">
         <div className="container">
-          <div className="sh reveal">
+          <div className="sh">
             <span className="eyebrow" style={{ color: 'var(--red)' }}>
               Visit us
             </span>
@@ -992,7 +973,7 @@ export default function HomePage() {
             <p className="lead">Behind Rajendra Hospital — easy to reach, easy to trust.</p>
           </div>
           <div className="loc-grid">
-            <div className="loc-info reveal">
+            <div className="loc-info">
               <div className="loc-row">
                 <span className="lr-ico">
                   <PinIcon />
@@ -1027,7 +1008,7 @@ export default function HomePage() {
               <div style={{ display: 'flex', gap: '.7rem', flexWrap: 'wrap', marginTop: '.4rem' }}>
                 <a
                   className="btn btn-blue"
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.plusCode)}`}
+                  href={SITE.mapsLink}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -1038,13 +1019,8 @@ export default function HomePage() {
                 </a>
               </div>
             </div>
-            <div className="map-wrap reveal">
-              <iframe
-                title="Map to Eduplus Individual Tuitions, Ashokapuram, Kozhikode"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                src={SITE.mapsEmbed}
-              />
+            <div className="map-wrap">
+              <LocationMap />
             </div>
           </div>
         </div>
@@ -1053,7 +1029,7 @@ export default function HomePage() {
       {/* (7.5) AREAS WE SERVE */}
       <section className="section areas-strip" data-screen-label="Areas we serve">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--green-600)' }}>
               Areas we serve
             </span>
@@ -1065,7 +1041,7 @@ export default function HomePage() {
               across Kerala.
             </p>
           </div>
-          <div className="area-chips" data-stagger>
+          <div className="area-chips">
             {SITE.areas.map((a) => (
               <span key={a} className="area-chip">
                 <PinIcon /> {a}
@@ -1078,7 +1054,7 @@ export default function HomePage() {
       {/* (8) FAQ */}
       <section className="section" data-screen-label="FAQ">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               Questions
             </span>
@@ -1088,7 +1064,7 @@ export default function HomePage() {
           </div>
           <div className="faq" id="faq">
             {FAQS.map((f, i) => (
-              <Qa key={i} q={f.q} a={f.a} />
+              <FaqItem key={i} q={f.q} answerHtml={f.a} />
             ))}
           </div>
         </div>
@@ -1098,7 +1074,7 @@ export default function HomePage() {
       <section className="section final" data-screen-label="Final CTA">
         <span className="deco d1" />
         <span className="deco d2" />
-        <div className="container reveal">
+        <div className="container">
           <h2>Give your child the attention they deserve.</h2>
           <p>Book a free demo class today — or just call and talk to us.</p>
           <div className="final-cta">
@@ -1112,22 +1088,6 @@ export default function HomePage() {
         </div>
       </section>
     </main>
-  );
-}
-
-function Qa({ q, a }: { q: string; a: string }) {
-  return (
-    <div className="qa">
-      <button className="q" aria-expanded="false">
-        {q}
-        <span className="ic">
-          <PlusIcon />
-        </span>
-      </button>
-      <div className="a">
-        <p dangerouslySetInnerHTML={{ __html: a }} />
-      </div>
-    </div>
   );
 }
 

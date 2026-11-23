@@ -3,7 +3,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { SITE, NAV, telLink, waLink, validIndianPhone, type NavKey } from '@/lib/site';
+import { SITE, NAV, isProfileUrl, telLink, waLink, validIndianPhone, type NavKey } from '@/lib/site';
+import { GA_ID, trackContact } from '@/lib/analytics';
 import {
   Logo,
   PhoneIcon,
@@ -31,14 +32,9 @@ const PAGE_FROM_PATH: Record<string, NavKey> = {
   '/contact': 'contact',
 };
 
-function pageKey(path: string | null): NavKey {
-  if (!path) return 'home';
-  return PAGE_FROM_PATH[path] || 'home';
-}
-
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const active = pageKey(pathname);
+  const active = PAGE_FROM_PATH[pathname ?? ''];
   const isShowcase = pathname === '/phone-showcase' || !!pathname?.startsWith('/admin');
 
   const [announceHidden, setAnnounceHidden] = useState(false);
@@ -50,7 +46,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     subjects?: string;
     mode?: string;
   }>({});
-  const [submitted, setSubmitted] = useState(false);
+  const [enquiryUrl, setEnquiryUrl] = useState('');
   const [errors, setErrors] = useState<Record<string, boolean>>({});
   const [mode, setMode] = useState<'Offline' | 'Online' | ''>('');
   const lastFocusedRef = useRef<HTMLElement | null>(null);
@@ -116,13 +112,6 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     return () => document.removeEventListener('keydown', onKey);
   }, [menuOpen]);
 
-  // body class for action-bar padding
-  useEffect(() => {
-    if (isShowcase) return;
-    document.body.classList.add('has-actionbar');
-    return () => document.body.classList.remove('has-actionbar');
-  }, [isShowcase]);
-
   // global modal opener — listens for any [data-open-modal] click
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -131,7 +120,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       e.preventDefault();
       lastFocusedRef.current = document.activeElement as HTMLElement;
       setMenuOpen(false);
-      setSubmitted(false);
+      setEnquiryUrl('');
       setErrors({});
       setModalPrefill({
         klass: t.dataset.class || undefined,
@@ -142,6 +131,17 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     };
     document.addEventListener('click', onClick);
     return () => document.removeEventListener('click', onClick);
+  }, []);
+
+  useEffect(() => {
+    if (!GA_ID) return;
+    function onContactClick(event: MouseEvent) {
+      const href = (event.target as Element).closest('a[href]')?.getAttribute('href');
+      if (href === telLink) trackContact('click_to_call');
+      if (href?.startsWith(`https://wa.me/${SITE.whatsappRaw}?`)) trackContact('click_whatsapp');
+    }
+    document.addEventListener('click', onContactClick);
+    return () => document.removeEventListener('click', onContactClick);
   }, []);
 
   // body scroll lock when modal or menu open
@@ -193,13 +193,8 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     if (!mode) err.mode = true;
     setErrors(err);
     if (Object.keys(err).length) return;
-    setSubmitted(true);
-    // hand the lead straight to WhatsApp (their real inbox) — user-gesture, so allowed
-    try {
-      window.open(waLink(successMsg()), '_blank', 'noopener,noreferrer');
-    } catch {
-      /* popup blocked — the success screen still offers the same link */
-    }
+    setEnquiryUrl(waLink(successMsg()));
+    trackContact('prepare_whatsapp_enquiry');
   }
 
   if (isShowcase) return <>{children}</>;
@@ -255,6 +250,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
             <div className="nav-links">
               {NAV.map((n) => (
                 <Link
+                  prefetch={false}
                   key={n.key}
                   href={n.href}
                   className={n.key === active ? 'active' : undefined}
@@ -299,7 +295,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
         </div>
         <nav className="mm-links" aria-label="Mobile">
           {NAV.map((n) => (
-            <Link key={n.key} href={n.href} onClick={() => setMenuOpen(false)}>
+            <Link prefetch={false} key={n.key} href={n.href} aria-current={n.key === active ? 'page' : undefined} onClick={() => setMenuOpen(false)}>
               {n.label}
             </Link>
           ))}
@@ -343,15 +339,15 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                 Personalised tuition that goes beyond the classroom — {SITE.addressShort}.
               </p>
               <div className="socials">
-                <a href={SITE.social.instagram} aria-label="Instagram">
-                  <IgIcon />
-                </a>
-                <a href={SITE.social.facebook} aria-label="Facebook">
-                  <FbIcon />
-                </a>
-                <a href={SITE.social.youtube} aria-label="YouTube">
-                  <YtIcon />
-                </a>
+                {([
+                  ['Instagram', SITE.social.instagram, IgIcon],
+                  ['Facebook', SITE.social.facebook, FbIcon],
+                  ['YouTube', SITE.social.youtube, YtIcon],
+                ] as const).filter(([, url]) => isProfileUrl(url)).map(([label, url, Icon]) => (
+                  <a key={label} href={url} aria-label={label} target="_blank" rel="noopener noreferrer">
+                    <Icon />
+                  </a>
+                ))}
                 <a
                   href={waLink()}
                   target="_blank"
@@ -363,32 +359,33 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
               </div>
             </div>
             <div className="foot-col">
-              <h4>Explore</h4>
+              <h2>Explore</h2>
               <ul>
-                <li><Link href="/">Home</Link></li>
-                <li><Link href="/about">About</Link></li>
-                <li><Link href="/programs">Programs</Link></li>
-                <li><Link href="/exam-prep">Exam Prep</Link></li>
-                <li><Link href="/counselling">Student Counselling</Link></li>
-                <li><Link href="/fees">Fee Structure</Link></li>
-                <li><Link href="/why">Why Eduplus</Link></li>
-                <li><Link href="/contact">Contact</Link></li>
+                <li><Link prefetch={false} href="/">Home</Link></li>
+                <li><Link prefetch={false} href="/about">About</Link></li>
+                <li><Link prefetch={false} href="/programs">Programs</Link></li>
+                <li><Link prefetch={false} href="/exam-prep">Exam Prep</Link></li>
+                <li><Link prefetch={false} href="/guides">Study Guides</Link></li>
+                <li><Link prefetch={false} href="/counselling">Student Counselling</Link></li>
+                <li><Link prefetch={false} href="/fees">Fee Structure</Link></li>
+                <li><Link prefetch={false} href="/why">Why Eduplus</Link></li>
+                <li><Link prefetch={false} href="/contact">Contact</Link></li>
               </ul>
             </div>
             <div className="foot-col">
-              <h4>Programs</h4>
+              <h2>Programs</h2>
               <ul>
-                <li><Link href="/programs">Foundation (LKG–4)</Link></li>
-                <li><Link href="/programs">Middle (5–7)</Link></li>
-                <li><Link href="/programs">High School (8–10)</Link></li>
-                <li><Link href="/programs">Plus One / Plus Two</Link></li>
-                <li><Link href="/exam-prep">SAY &amp; Improvement (+1/+2)</Link></li>
-                <li><Link href="/programs#exam-prep">Exam-target batches</Link></li>
-                <li><Link href="/counselling">Counselling &amp; Career Guidance</Link></li>
+                <li><Link prefetch={false} href="/programs#foundation">Foundation (LKG–4)</Link></li>
+                <li><Link prefetch={false} href="/programs#middle-school">Middle (5–7)</Link></li>
+                <li><Link prefetch={false} href="/programs#high-school">High School (8–10)</Link></li>
+                <li><Link prefetch={false} href="/programs#plus-one-two">Plus One / Plus Two</Link></li>
+                <li><Link prefetch={false} href="/programs#say-improvement">SAY &amp; Improvement (+1/+2)</Link></li>
+                <li><Link prefetch={false} href="/programs#exam-prep">Exam-target batches</Link></li>
+                <li><Link prefetch={false} href="/counselling">Counselling &amp; Career Guidance</Link></li>
               </ul>
             </div>
             <div className="foot-col">
-              <h4>Visit / Contact</h4>
+              <h2>Visit / Contact</h2>
               <ul className="foot-contact">
                 <li>
                   <PinIcon />
@@ -415,23 +412,23 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
           </div>
           {/* Local-SEO landing pages — internal links keep them crawled & ranked */}
           <div className="foot-areas">
-            <h4>Tuition near you</h4>
+            <h2>Tuition near you</h2>
             <ul>
-              <li><Link href="/tuition-in-nadakkavu">Tuition in Nadakkavu</Link></li>
-              <li><Link href="/tuition-in-eranhipalam">Tuition in Eranhipalam</Link></li>
-              <li><Link href="/tuition-in-mankavu">Tuition in Mankavu</Link></li>
-              <li><Link href="/tuition-in-chevayur">Tuition in Chevayur</Link></li>
-              <li><Link href="/home-tuition-calicut">Home Tuition Calicut</Link></li>
-              <li><Link href="/sslc-tuition-kozhikode">SSLC Tuition Kozhikode</Link></li>
-              <li><Link href="/plus-two-tuition-kozhikode">Plus Two Tuition</Link></li>
-              <li><Link href="/cbse-tuition-kozhikode">CBSE Tuition Kozhikode</Link></li>
-              <li><Link href="/online-tuition-kerala">Online Tuition Kerala</Link></li>
+              <li><Link prefetch={false} href="/tuition-in-nadakkavu">Tuition in Nadakkavu</Link></li>
+              <li><Link prefetch={false} href="/tuition-in-eranhipalam">Tuition in Eranhipalam</Link></li>
+              <li><Link prefetch={false} href="/tuition-in-mankavu">Tuition in Mankavu</Link></li>
+              <li><Link prefetch={false} href="/tuition-in-chevayur">Tuition in Chevayur</Link></li>
+              <li><Link prefetch={false} href="/home-tuition-calicut">Online Tuition at Home</Link></li>
+              <li><Link prefetch={false} href="/sslc-tuition-kozhikode">SSLC Tuition Kozhikode</Link></li>
+              <li><Link prefetch={false} href="/plus-two-tuition-kozhikode">Plus Two Tuition</Link></li>
+              <li><Link prefetch={false} href="/cbse-tuition-kozhikode">CBSE Tuition Kozhikode</Link></li>
+              <li><Link prefetch={false} href="/online-tuition-kerala">Online Tuition Kerala</Link></li>
             </ul>
           </div>
           <div className="foot-bottom">
             <span>
               © {new Date().getFullYear()} {SITE.name}. All rights reserved. ·{' '}
-              <Link href="/privacy">Privacy</Link>
+              <Link prefetch={false} href="/privacy">Privacy</Link>
             </span>
             <span className="made">
               Made in Kozhikode <HeartIcon />
@@ -480,7 +477,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
             </button>
           </div>
           <div className="modal-body">
-            {!submitted ? (
+            {!enquiryUrl ? (
               <form onSubmit={submitEnquiry} noValidate>
                 <div className="field-row">
                   <div className={`field ${errors.student ? 'error' : ''}`}>
@@ -587,7 +584,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                   />
                 </div>
                 <button type="submit" className="btn btn-red btn-block btn-lg">
-                  Request Callback
+                  Prepare WhatsApp message
                 </button>
                 <p
                   style={{
@@ -613,15 +610,11 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                 <div className="ok">
                   <CheckIcon />
                 </div>
-                <h3>Request received — thank you!</h3>
-                <p>
-                  We'll call you back shortly to arrange{' '}
-                  {(studentRef.current?.value?.split(' ')[0] || 'your child') + "'s"} free demo
-                  class. For an instant reply, message us on WhatsApp.
-                </p>
+                <h3>Your demo request is ready</h3>
+                <p>Continue to WhatsApp and tap Send so Eduplus receives your message.</p>
                 <a
                   className="btn btn-green btn-lg"
-                  href={waLink(successMsg())}
+                  href={enquiryUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

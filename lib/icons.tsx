@@ -249,7 +249,7 @@ export const BrandIllustration = (p: Props) => (
 export function Logo({ mono = false, lg = false }: { mono?: boolean; lg?: boolean }) {
   const cls = ['logo', mono && 'mono', lg && 'lg'].filter(Boolean).join(' ');
   return (
-    <Link href="/" className={cls} aria-label="Eduplus — Beyond Classroom, home">
+    <Link href="/" prefetch={false} className={cls} aria-label="Eduplus+ Beyond Classroom home">
       <span className="logo-word">
         <span className="c1">E</span>
         <span className="c2">d</span>

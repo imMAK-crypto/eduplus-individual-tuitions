@@ -1,74 +1,47 @@
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
 import { Plus_Jakarta_Sans, Inter, Baloo_2 } from 'next/font/google';
 import './globals.css';
 import SiteChrome from '@/components/SiteChrome';
 import Interactions from '@/components/Interactions';
-import IntroSplash from '@/components/IntroSplash';
-import { SITE, realSocials } from '@/lib/site';
+import SiteAnalytics from '@/components/SiteAnalytics';
+import { GA_ID } from '@/lib/analytics';
+import { jsonLd, SITE, realSocials } from '@/lib/site';
+import { pageMetadata } from '@/lib/metadata';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['500', '600', '700', '800'],
+  weight: 'variable',
   display: 'swap',
   variable: '--font-jakarta',
 });
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: 'variable',
   display: 'swap',
   variable: '--font-inter',
 });
 
 const baloo = Baloo_2({
   subsets: ['latin'],
-  weight: ['700', '800'],
+  weight: 'variable',
+  preload: false,
   display: 'swap',
   variable: '--font-baloo',
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
+  ...pageMetadata({
+    title: 'One-to-One Tuition in Kozhikode',
+    description: 'Book a free demo for one-to-one tuition in Ashokapuram, Kozhikode. LKG to Class 12, Kerala State, CBSE and ICSE, at the centre or live online.',
+    path: '/',
+  }),
   title: {
-    default: 'Individual Tuition LKG–12, Ashokapuram Kozhikode | Eduplus',
-    template: '%s | Eduplus Individual Tuitions',
+    default: 'One-to-One Tuition in Kozhikode | Eduplus',
+    template: '%s | Eduplus',
   },
-  description:
-    'One-to-one & individual tuition for LKG–Class 12 in Ashokapuram, Kozhikode — online & offline. Kerala State, CBSE & ICSE. Board, SAY & Improvement exam batches (SSLC, +1, +2). Since 2015. Book a free demo class.',
   applicationName: SITE.name,
-  authors: [{ name: SITE.name }],
-  creator: SITE.name,
-  publisher: SITE.name,
-  category: 'education',
-  keywords: [
-    'individual tuition Ashokapuram',
-    'one to one tuition Kozhikode',
-    'online tuition Kozhikode',
-    'home tuition Calicut',
-    'SSLC tuition Kozhikode',
-    'Plus One Plus Two tuition Kozhikode',
-    'CBSE tuition Ashokapuram',
-    'ICSE tuition Kozhikode',
-    'Kerala State syllabus tuition',
-    'board exam coaching Kozhikode',
-    'SAY exam coaching Kozhikode',
-    'improvement exam tuition Plus Two',
-    'tuition fees Kozhikode',
-    'LKG to 12 tuition Kozhikode',
-    'Eduplus Individual Tuitions',
-    'best tuition centre in Kozhikode',
-    'tuition centre near me Kozhikode',
-    'tuition in Nadakkavu',
-    'tuition in Eranhipalam',
-    'online tuition Kerala',
-    'student counselling Kozhikode',
-    'career guidance Kozhikode',
-    'ട്യൂഷൻ കോഴിക്കോട്',
-    'ഓൺലൈൻ ട്യൂഷൻ കേരളം',
-    'വ്യക്തിഗത ട്യൂഷൻ കോഴിക്കോട്',
-  ],
-  alternates: { canonical: '/' },
   robots: {
     index: true,
     follow: true,
@@ -80,31 +53,11 @@ export const metadata: Metadata = {
       'max-video-preview': -1,
     },
   },
-  openGraph: {
-    type: 'website',
-    url: SITE.url,
-    siteName: SITE.name,
-    title: 'Eduplus — One-to-One Tuition LKG to Plus Two, Kozhikode',
-    description:
-      'Personalised 1-to-1 tuition for LKG–12 in Ashokapuram, Kozhikode. Online & offline. Board, SAY & Improvement exam batches. Book a free demo class.',
-    locale: 'en_IN',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Eduplus Individual Tuitions — Beyond Classroom',
-    description:
-      'One-to-one tuition LKG–12 in Kozhikode. Online & offline. Board & exam-focused batches. Book a free demo.',
-  },
-  formatDetection: { telephone: true, address: true, email: true },
-  verification: process.env.NEXT_PUBLIC_GSC_VERIFICATION
-    ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }
-    : undefined,
-  // Legacy geo tags — still read by local directories and some crawlers.
-  other: {
-    'geo.region': 'IN-KL',
-    'geo.placename': 'Kozhikode, Kerala, India',
-    'geo.position': `${SITE.geo.lat};${SITE.geo.lng}`,
-    ICBM: `${SITE.geo.lat}, ${SITE.geo.lng}`,
+  verification: {
+    ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION && { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }),
+    ...(process.env.NEXT_PUBLIC_BING_VERIFICATION && {
+      other: { 'msvalidate.01': process.env.NEXT_PUBLIC_BING_VERIFICATION },
+    }),
   },
 };
 
@@ -121,16 +74,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${jakarta.variable} ${inter.variable} ${baloo.variable}`}
     >
       <head>
-        {/* Hide intro splash pre-hydration if already shown this session */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{if(sessionStorage.getItem('eduplus-intro-shown'))document.documentElement.classList.add('no-intro')}catch(e){}`,
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: jsonLd({
               '@context': 'https://schema.org',
               '@graph': [
                 {
@@ -145,9 +92,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   telephone: SITE.phoneRaw,
                   ...(SITE.email ? { email: SITE.email } : {}),
                   foundingDate: SITE.foundedYear,
-                  priceRange: '₹₹',
                   image: `${SITE.url}/opengraph-image`,
-                  logo: `${SITE.url}/logo`,
+                  logo: {
+                    '@type': 'ImageObject',
+                    url: `${SITE.url}/logo`,
+                    width: 256,
+                    height: 256,
+                  },
                   contactPoint: {
                     '@type': 'ContactPoint',
                     telephone: SITE.phoneRaw,
@@ -162,11 +113,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     addressRegion: 'Kerala',
                     postalCode: '673001',
                     addressCountry: 'IN',
-                  },
-                  geo: {
-                    '@type': 'GeoCoordinates',
-                    latitude: SITE.geo.lat,
-                    longitude: SITE.geo.lng,
                   },
                   hasMap: SITE.mapsLink,
                   areaServed: [
@@ -263,7 +209,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                           '@id': `${SITE.url}/counselling#service`,
                           name: 'Student counselling & career guidance',
                           description:
-                            'Counselling and guidance for students facing academic stress, exam anxiety, low confidence or motivation, study difficulties, emotional or behavioural concerns, plus career guidance and personal development — in person or online.',
+                            'Counselling and guidance for students facing academic stress, exam anxiety, low confidence or motivation, study difficulties, emotional or behavioural concerns, plus career guidance and personal development.',
                           url: `${SITE.url}/counselling`,
                         },
                       },
@@ -277,11 +223,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   name: SITE.name,
                   inLanguage: 'en-IN',
                   publisher: { '@id': `${SITE.url}/#organization` },
-                  // Voice/AI answer engines may read the h1 + lead aloud.
-                  speakable: {
-                    '@type': 'SpeakableSpecification',
-                    cssSelector: ['h1', '.lead'],
-                  },
                 },
               ],
             }),
@@ -289,20 +230,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <IntroSplash />
         <SiteChrome>{children}</SiteChrome>
         <Interactions />
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-              strategy="afterInteractive"
-            />
-            <Script id="ga4" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${process.env.NEXT_PUBLIC_GA_ID}');`}
-            </Script>
-          </>
-        )}
+        {GA_ID && <SiteAnalytics />}
       </body>
     </html>
   );

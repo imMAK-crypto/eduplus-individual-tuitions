@@ -1,4 +1,5 @@
-import type { Metadata } from 'next';
+import FaqItem from '@/components/FaqItem';
+import { pageMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 import {
   ArrowIcon,
@@ -9,26 +10,18 @@ import {
   CompassIcon,
   HelpIcon,
   NotebookIcon,
-  PlusIcon,
   ShieldIcon,
   TargetIcon,
 } from '@/lib/icons';
-import { SITE, breadcrumbLd, ogImage, telLink, waLink } from '@/lib/site';
+import { jsonLd, SITE, breadcrumbLd, telLink, waLink } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: 'Exam-Target Coaching — SSLC, Plus One, Plus Two, SAY & Improvement',
-  description:
-    'Exam-focused tuition batches in Ashokapuram, Kozhikode for Class 10 onwards — SSLC, Plus One, Plus Two board exams, SAY & Improvement exam classes and exam assistance. Mon–Fri 2 PM–7 PM, Sat & Sun 7 AM–6:30 PM. Kerala State, CBSE & ICSE, online & offline.',
-  alternates: { canonical: '/exam-prep' },
-  openGraph: {
-    title: 'Exam-Target Coaching | Eduplus Individual Tuitions',
-    description:
-      'Intensive, time-boxed batches for board, SAY & Improvement exams — Class 10 onwards, Kerala State/CBSE/ICSE, online & offline.',
-    url: '/exam-prep',
-    type: 'website',
-    images: ogImage('Exam-target coaching', 'SSLC · Plus One · Plus Two · SAY & Improvement'),
-  },
-};
+export const metadata = pageMetadata({
+  title: 'SSLC, SAY & Improvement Exam Coaching',
+  description: 'Prepare for SSLC or Plus One and Plus Two board, SAY and Improvement exams. Join revision, practice papers and doubt-clearing in Kozhikode or online.',
+  path: '/exam-prep',
+  imageTitle: 'Exam-target coaching',
+  imageSubtitle: 'SSLC · Plus One · Plus Two · SAY & Improvement',
+});
 
 const EXAM_FAQ = [
   {
@@ -61,22 +54,6 @@ const EXAM_FAQ = [
   },
 ];
 
-function Qa({ q, a }: { q: string; a: string }) {
-  return (
-    <div className="qa">
-      <button className="q" aria-expanded="false">
-        {q}
-        <span className="ic">
-          <PlusIcon />
-        </span>
-      </button>
-      <div className="a">
-        <p>{a}</p>
-      </div>
-    </div>
-  );
-}
-
 export default function ExamPrepPage() {
   const faqLd = {
     '@context': 'https://schema.org',
@@ -92,36 +69,36 @@ export default function ExamPrepPage() {
     <main id="main">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(faqLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd('Exam Prep', '/exam-prep')) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbLd('Exam Prep', '/exam-prep')) }}
       />
 
       {/* HERO */}
       <section className="page-hero" data-screen-label="Exam prep hero">
         <div className="container">
-          <div className="crumbs reveal">
+          <div className="crumbs">
             <Link href="/">Home</Link>
             <span className="sep">/</span>
             <span>Exam Prep</span>
           </div>
           <div style={{ maxWidth: '820px' }}>
-            <span className="eyebrow reveal" style={{ color: 'var(--red)' }}>
+            <span className="eyebrow" style={{ color: 'var(--red)' }}>
               Exam-target tuition
             </span>
-            <h1 className="display reveal" style={{ margin: '.6rem 0 1rem' }}>
-              Walk into your exam <span className="underline-accent">prepared</span>, not panicked.
+            <h1 className="display" style={{ margin: '.6rem 0 1rem' }}>
+              SSLC, SAY and <span className="underline-accent">Improvement</span> exam coaching
             </h1>
-            <p className="lead reveal">
+            <p className="lead">
               From <strong>Class 10 onwards</strong>, we run short, high-intensity batches timed to
               your exam — SSLC, Plus One, Plus Two, <strong>SAY &amp; Improvement exams</strong>,
               half-yearly and term exams. Focused revision, real papers, and exam assistance until
               you’re exam-ready.
             </p>
           </div>
-          <div className="hero-chips reveal" style={{ marginTop: '1.4rem' }}>
+          <div className="hero-chips" style={{ marginTop: '1.4rem' }}>
             <span className="chip">Class 10 onwards</span>
             <span className="chip">SAY &amp; Improvement · +1 / +2</span>
             <span className="chip">Kerala State · CBSE · ICSE</span>
@@ -130,7 +107,7 @@ export default function ExamPrepPage() {
               <ClockIcon /> Mon–Fri 2–7 PM · Sat–Sun 7 AM–6:30 PM
             </span>
           </div>
-          <div className="hero-cta reveal" style={{ marginTop: '1.6rem' }}>
+          <div className="hero-cta" style={{ marginTop: '1.6rem' }}>
             <button className="btn btn-red btn-lg" data-open-modal data-subjects="Exam-target batch">
               Reserve an exam-target seat
             </button>
@@ -144,7 +121,7 @@ export default function ExamPrepPage() {
       {/* WHY EXAM COACHING */}
       <section className="section" data-screen-label="Why exam coaching">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               Why it works
             </span>
@@ -156,7 +133,7 @@ export default function ExamPrepPage() {
               you scoring.
             </p>
           </div>
-          <div className="feat-grid" data-stagger>
+          <div className="feat-grid">
             <article className="card card-hover feat acc-red">
               <span className="f-ico">
                 <TargetIcon />
@@ -206,7 +183,7 @@ export default function ExamPrepPage() {
       {/* BY EXAM (interactive tabs) */}
       <section className="section" style={{ background: 'var(--soft)' }} data-screen-label="By exam">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--red)' }}>
               Choose your exam
             </span>
@@ -234,7 +211,7 @@ export default function ExamPrepPage() {
             </div>
 
             <div className="tab-panel show" id="e-sslc" role="tabpanel">
-              <div className="prog-grid" data-stagger>
+              <div className="prog-grid">
                 <article className="card prog-card red">
                   <span className="pc-ico">
                     <TargetIcon />
@@ -264,7 +241,7 @@ export default function ExamPrepPage() {
             </div>
 
             <div className="tab-panel" id="e-plus1" role="tabpanel">
-              <div className="prog-grid" data-stagger>
+              <div className="prog-grid">
                 <article className="card prog-card blue">
                   <span className="pc-ico">
                     <NotebookIcon />
@@ -284,7 +261,7 @@ export default function ExamPrepPage() {
             </div>
 
             <div className="tab-panel" id="e-plus2" role="tabpanel">
-              <div className="prog-grid" data-stagger>
+              <div className="prog-grid">
                 <article className="card prog-card green">
                   <span className="pc-ico">
                     <TargetIcon />
@@ -304,7 +281,7 @@ export default function ExamPrepPage() {
             </div>
 
             <div className="tab-panel" id="e-say" role="tabpanel">
-              <div className="prog-grid" data-stagger>
+              <div className="prog-grid">
                 <article className="card prog-card red">
                   <span className="pc-ico">
                     <ShieldIcon />
@@ -344,7 +321,7 @@ export default function ExamPrepPage() {
             </div>
 
             <div className="tab-panel" id="e-half" role="tabpanel">
-              <div className="prog-grid" data-stagger>
+              <div className="prog-grid">
                 <article className="card prog-card yellow">
                   <span className="pc-ico">
                     <ClockIcon />
@@ -364,7 +341,7 @@ export default function ExamPrepPage() {
       {/* HOW IT WORKS */}
       <section className="section" data-screen-label="How exam batches work">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--green-600)' }}>
               How it works
             </span>
@@ -372,7 +349,7 @@ export default function ExamPrepPage() {
               From enquiry to <span className="underline-accent">exam-ready</span>
             </h2>
           </div>
-          <div className="steps" data-stagger>
+          <div className="steps">
             <div className="step">
               <span className="n">1</span>
               <h3>Tell us your exam</h3>
@@ -395,7 +372,7 @@ export default function ExamPrepPage() {
       {/* FAQ */}
       <section className="section" style={{ background: 'var(--soft)' }} data-screen-label="Exam FAQ">
         <div className="container">
-          <div className="sh center reveal">
+          <div className="sh center">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>
               Questions
             </span>
@@ -405,8 +382,21 @@ export default function ExamPrepPage() {
           </div>
           <div className="faq">
             {EXAM_FAQ.map((f, i) => (
-              <Qa key={i} q={f.q} a={f.a} />
+              <FaqItem key={i} q={f.q} a={f.a} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="exam-guides">
+        <div className="container">
+          <div className="grev card">
+            <h2 id="exam-guides">Plan your Kerala board exam revision</h2>
+            <p className="grev-sub">Use these guides alongside the current exam notice and your school’s instructions.</p>
+            <div className="hero-cta" style={{ justifyContent: 'center' }}>
+              <Link className="btn btn-outline" href="/guides/kerala-sslc-revision-plan">Kerala SSLC revision plan</Link>
+              <Link className="btn btn-outline" href="/guides/kerala-plus-two-say-improvement">Plus Two SAY &amp; Improvement guide</Link>
+            </div>
           </div>
         </div>
       </section>
@@ -415,7 +405,7 @@ export default function ExamPrepPage() {
       <section className="section final" data-screen-label="Final CTA">
         <span className="deco d1" />
         <span className="deco d2" />
-        <div className="container reveal">
+        <div className="container">
           <h2>Your exam has a date. Let’s build the plan.</h2>
           <p>Tell us the class, board and exam — we’ll set up a free demo and a focused batch.</p>
           <div className="final-cta">

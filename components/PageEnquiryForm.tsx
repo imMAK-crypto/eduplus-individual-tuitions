@@ -3,9 +3,10 @@
 import { useRef, useState } from 'react';
 import { CheckIcon, GlobeIcon, PinIcon, WhatsAppIcon } from '@/lib/icons';
 import { waLink, validIndianPhone } from '@/lib/site';
+import { trackContact } from '@/lib/analytics';
 
 export default function PageEnquiryForm() {
-  const [submitted, setSubmitted] = useState(false);
+  const [enquiryUrl, setEnquiryUrl] = useState('');
   const [errors, setErrors] = useState<Record<string, boolean>>({});
   const [mode, setMode] = useState<'Offline' | 'Online' | ''>('');
   const studentRef = useRef<HTMLInputElement | null>(null);
@@ -33,24 +34,19 @@ export default function PageEnquiryForm() {
     if (!mode) err.mode = true;
     setErrors(err);
     if (Object.keys(err).length) return;
-    setSubmitted(true);
-    try {
-      window.open(waLink(buildMsg()), '_blank', 'noopener,noreferrer');
-    } catch {
-      /* popup blocked — the success screen still offers the same link */
-    }
+    setEnquiryUrl(waLink(buildMsg()));
+    trackContact('prepare_whatsapp_enquiry');
   }
 
-  if (submitted) {
-    const msg = buildMsg();
+  if (enquiryUrl) {
     return (
       <div className="modal-success" style={{ padding: '1.5rem 0' }}>
         <div className="ok">
           <CheckIcon />
         </div>
-        <h3>Thank you — enquiry received!</h3>
-        <p>We'll call you back shortly. For an instant reply, continue on WhatsApp.</p>
-        <a className="btn btn-green btn-lg" href={waLink(msg)} target="_blank" rel="noopener noreferrer">
+        <h3>Your enquiry is ready</h3>
+        <p>Continue to WhatsApp and tap Send so Eduplus receives your message.</p>
+        <a className="btn btn-green btn-lg" href={enquiryUrl} target="_blank" rel="noopener noreferrer">
           <WhatsAppIcon /> Continue on WhatsApp
         </a>
       </div>
@@ -151,7 +147,7 @@ export default function PageEnquiryForm() {
         />
       </div>
       <button type="submit" className="btn btn-red btn-block btn-lg">
-        Request Callback
+        Prepare WhatsApp message
       </button>
       <p
         style={{
