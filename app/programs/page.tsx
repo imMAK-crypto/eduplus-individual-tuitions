@@ -446,6 +446,7 @@ export default function ProgramsPage() {
             <button className="btn btn-red btn-lg" data-open-modal data-subjects="Exam-target batch">
               Reserve an exam-target seat
             </button>
+            <Link className="btn btn-outline btn-lg" href="/exam-prep">Compare exam preparation options</Link>
           </div>
         </div>
       </section>

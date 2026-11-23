@@ -54,7 +54,7 @@ export default function PageEnquiryForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate>
+    <form method="post" onSubmit={onSubmit} noValidate>
       <div className="field-row">
         <div className={`field ${errors.student ? 'error' : ''}`}>
           <label htmlFor="p-student">

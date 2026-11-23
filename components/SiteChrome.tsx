@@ -366,6 +366,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                 <li><Link prefetch={false} href="/programs">Programs</Link></li>
                 <li><Link prefetch={false} href="/exam-prep">Exam Prep</Link></li>
                 <li><Link prefetch={false} href="/guides">Study Guides</Link></li>
+                <li><Link prefetch={false} href="/ml" lang="ml-IN" hrefLang="ml-IN">മലയാളം</Link></li>
                 <li><Link prefetch={false} href="/counselling">Student Counselling</Link></li>
                 <li><Link prefetch={false} href="/fees">Fee Structure</Link></li>
                 <li><Link prefetch={false} href="/why">Why Eduplus</Link></li>
@@ -478,7 +479,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
           </div>
           <div className="modal-body">
             {!enquiryUrl ? (
-              <form onSubmit={submitEnquiry} noValidate>
+              <form method="post" onSubmit={submitEnquiry} noValidate>
                 <div className="field-row">
                   <div className={`field ${errors.student ? 'error' : ''}`}>
                     <label htmlFor="f-student">

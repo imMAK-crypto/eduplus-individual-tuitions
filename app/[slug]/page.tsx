@@ -1,6 +1,6 @@
 import FaqItem from '@/components/FaqItem';
 import type { Metadata } from 'next';
-import { ONLINE_TUITION_LANGUAGE_URLS, pageMetadata } from '@/lib/metadata';
+import { languageUrls, pageMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     path: `/${page.slug}`,
     imageTitle: page.ogTitle,
     imageSubtitle: page.ogSub,
-    ...(slug === 'online-tuition-kerala' && { translations: ONLINE_TUITION_LANGUAGE_URLS }),
+    ...(slug === 'online-tuition-kerala' && { translations: languageUrls('/online-tuition-kerala') }),
   });
 }
 

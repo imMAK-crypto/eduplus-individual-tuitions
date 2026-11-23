@@ -33,7 +33,7 @@ export const SEO_PAGES: SeoPage[] = [
     name: 'Tuition in Nadakkavu',
     title: 'One-to-One Tuition near Nadakkavu',
     description:
-      'Find one-to-one tuition near Nadakkavu at our Ashokapuram centre or online. LKG to Class 12, Kerala State, CBSE and ICSE. Book a free demo.',
+      'Find one-to-one tuition near Nadakkavu at our Ashokapuram centre or online. LKG to Class 12, Kerala State, CBSE and ICSE. Book a free demo class.',
     ogTitle: 'Tuition near Nadakkavu, Kozhikode',
     ogSub: 'One-to-one · LKG to Plus Two · online & offline',
     eyebrow: 'Serving Nadakkavu families',
@@ -85,7 +85,7 @@ export const SEO_PAGES: SeoPage[] = [
     name: 'Tuition in Eranhipalam',
     title: 'One-to-One Tuition near Eranhipalam',
     description:
-      'Looking for tuition near Eranhipalam? Try a free one-to-one class at our Ashokapuram centre or live online, from LKG to Plus Two.',
+      'Looking for tuition near Eranhipalam? Book a free one-to-one demo at our Ashokapuram centre or live online, from LKG to Plus Two. See hours and fees.',
     ogTitle: 'Tuition near Eranhipalam, Kozhikode',
     ogSub: 'Individual coaching · LKG–12 · all boards',
     eyebrow: 'Serving Eranhipalam families',
@@ -189,7 +189,7 @@ export const SEO_PAGES: SeoPage[] = [
     name: 'Tuition in Chevayur',
     title: 'One-to-One Tuition near Chevayur',
     description:
-      'Join live one-to-one classes from Chevayur or visit our Ashokapuram centre. Tuition for LKG to Class 12 across Kerala State, CBSE and ICSE.',
+      'Join live one-to-one classes from Chevayur or visit our Ashokapuram centre. Tuition for LKG to Class 12 across Kerala State, CBSE and ICSE. Enquire now.',
     ogTitle: 'Tuition for Chevayur students',
     ogSub: 'Live online 1-to-1 · or at our Ashokapuram centre',
     eyebrow: 'Serving Chevayur & Medical College area',

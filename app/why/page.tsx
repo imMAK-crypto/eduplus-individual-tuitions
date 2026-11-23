@@ -16,7 +16,7 @@ import { jsonLd, SITE, YEARS_ACTIVE, breadcrumbLd, telLink } from '@/lib/site';
 
 export const metadata = pageMetadata({
   title: 'How One-to-One Tuition Works',
-  description: 'See how Eduplus plans one-to-one lessons, clears doubts, checks progress and updates parents. Try a free class in Ashokapuram or online.',
+  description: 'See how Eduplus plans one-to-one lessons, clears doubts, checks progress and updates parents. Book a free demo at our Ashokapuram centre or live online.',
   path: '/why',
   imageTitle: 'Why parents choose Eduplus',
   imageSubtitle: 'Individual attention that gets results',
@@ -258,6 +258,10 @@ export default function WhyPage() {
             <h3 style={{ fontSize: 'clamp(1.4rem,3vw,1.9rem)' }}>Meet the centre in Ashokapuram</h3>
             <div className="grev-sub">Find out how Eduplus has supported students in Kozhikode since 2015 and get directions for a visit.</div>
             <Link className="btn btn-blue" href="/about">About Eduplus <ArrowIcon /></Link>
+            <p className="grev-sub">
+              Compare <Link className="text-link" href="/programs">programs by class</Link> or see the{' '}
+              <Link className="text-link" href="/fees">hourly tuition rates</Link> before booking a demo.
+            </p>
           </div>
         </div>
       </section>

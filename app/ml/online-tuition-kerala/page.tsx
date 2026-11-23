@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ONLINE_TUITION_LANGUAGE_URLS, pageMetadata } from '@/lib/metadata';
+import { languageUrls, pageMetadata } from '@/lib/metadata';
 import { SITE, breadcrumbLd, jsonLd, telLink, waLink, webPageLd } from '@/lib/site';
 import fees from '@/content/fees.json';
 
@@ -12,7 +12,7 @@ export const metadata = pageMetadata({
   description: DESCRIPTION,
   path: PATH,
   language: 'ml-IN',
-  translations: ONLINE_TUITION_LANGUAGE_URLS,
+  translations: languageUrls('/online-tuition-kerala'),
 });
 
 export default function MalayalamOnlineTuitionPage() {

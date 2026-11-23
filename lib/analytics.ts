@@ -2,7 +2,7 @@ export const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export function analyticsAllowed(path: string): boolean {
   return Boolean(GA_ID && /^G-[A-Z0-9]+$/.test(GA_ID)) &&
-    !/^\/(?:admin|api|counselling|phone-showcase)(?:\/|$)/.test(path);
+    !/^\/(?:admin|api|(?:ml\/)?counselling|phone-showcase)(?:\/|$)/.test(path);
 }
 
 export function trackContact(event: 'click_to_call' | 'click_whatsapp' | 'prepare_whatsapp_enquiry') {

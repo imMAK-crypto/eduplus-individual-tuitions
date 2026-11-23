@@ -1,4 +1,5 @@
-import { pageMetadata } from '@/lib/metadata';
+import FaqItem from '@/components/FaqItem';
+import { languageUrls, pageMetadata } from '@/lib/metadata';
 import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { ArrowIcon, CheckIcon, ClockIcon, RupeeIcon, TargetIcon } from '@/lib/icons';
@@ -11,11 +12,31 @@ export const metadata = pageMetadata({
   title: 'Tuition Fees in Kozhikode',
   description: 'See hourly tuition fees by class at Eduplus, from ₹150 to ₹350, plus ₹500 one-time admission. Estimate your monthly cost and book a free demo.',
   path: '/fees',
+  translations: languageUrls('/fees'),
   imageTitle: 'Simple per-hour fees',
   imageSubtitle: '₹150–₹350 per hour · ₹500 one-time admission',
 });
 
 const MAX_FEE = Math.max(...fees.tiers.map((t) => t.feePerHour));
+
+const FEE_FAQ = [
+  {
+    q: 'How do I calculate a month of tuition?',
+    a: 'Multiply the hourly rate for the class by the number of lesson hours on your calendar. Use the estimator to compare schedules, then confirm the number of sessions and the total with Eduplus before starting.',
+  },
+  {
+    q: 'What is charged when my child joins?',
+    a: `The published one-time admission fee is ₹${fees.admissionFee}. Tuition is billed at the applicable hourly rate. The first demo class is free, so you can meet the teacher before deciding.`,
+  },
+  {
+    q: 'Which fee should I use for LKG, UKG, ICSE or IGCSE?',
+    a: 'The table shows published hourly rates from Class I through Class XII. Ask Eduplus to confirm the rate for LKG or UKG. The rate can also vary for ICSE and IGCSE, so share the class and syllabus when you enquire.',
+  },
+  {
+    q: 'Can I compare one-to-one, small-batch and online tuition?',
+    a: 'Tell Eduplus which format and subjects you want to study. The published rates apply to centre and live online classes, subject to any board-specific variation. Confirm the schedule, lesson length and total before booking.',
+  },
+];
 
 const feeLd = {
   '@context': 'https://schema.org',
@@ -40,6 +61,15 @@ export default function FeesPage() {
         dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbLd('Fees', '/fees')) }}
       />
 
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: FEE_FAQ.map(({ q, a }) => ({
+          '@type': 'Question',
+          name: q,
+          acceptedAnswer: { '@type': 'Answer', text: a },
+        })),
+      }) }} />
       {/* PAGE HERO */}
       <section className="page-hero" data-screen-label="Fees hero">
         <div className="container">
@@ -207,6 +237,21 @@ export default function FeesPage() {
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="tuition-fee-questions">
+        <div className="container">
+          <div className="sh center">
+            <h2 id="tuition-fee-questions">Common questions about tuition fees</h2>
+            <p className="lead maxw">Get a clear estimate before choosing a class or schedule.</p>
+          </div>
+          <div className="faq">{FEE_FAQ.map(({ q, a }) => <FaqItem key={q} q={q} a={a} />)}</div>
+          <div className="hero-cta" style={{ justifyContent: 'center', marginTop: '1.6rem' }}>
+            <Link href="/guides/compare-hourly-tuition-fees" className="btn btn-outline">Compare tuition costs</Link>
+            <Link href="/contact" className="btn btn-outline">Confirm your fee</Link>
+            <Link href="/ml/fees" className="btn btn-outline" lang="ml-IN" hrefLang="ml-IN">ഫീസ് മലയാളത്തിൽ</Link>
           </div>
         </div>
       </section>

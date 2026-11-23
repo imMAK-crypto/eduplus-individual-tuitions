@@ -278,6 +278,40 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <section className="section" aria-labelledby="about-first-lesson">
+        <div className="container">
+          <div className="legal prose">
+            <h2 id="about-first-lesson">What families can ask before the first lesson</h2>
+            <p>
+              Bring the class, board and one subject where your child would like help. If there is
+              a lesson they struggled with or a recent paper they are comfortable sharing, bring that
+              too. It gives the teacher a starting point for the free demo and gives you a concrete
+              way to judge how the teacher explains a difficult idea.
+            </p>
+            <p>
+              Ask whether one-to-one sessions or a small batch fits the goal and when a teacher can
+              work with your child. Compare <Link href="/programs">programs by class</Link> and{' '}
+              <Link href="/exam-prep">exam preparation options</Link> if you are deciding between a
+              term-long plan and shorter revision. You can also see how Eduplus approaches{' '}
+              <Link href="/why">individual lessons and progress checks</Link>.
+            </p>
+            <h2>Plan the first few weeks with your child</h2>
+            <p>
+              Pick a goal your child can recognise, such as explaining a chapter without notes or
+              finishing a timed set with all working shown. Agree on the first topics and a weekly schedule
+              that leaves time for homework. Ask how the teacher will show the work covered and when you
+              should check in about progress.
+            </p>
+            <p>
+              Use the <Link href="/fees">hourly rates and fee estimator</Link> to budget for the lessons
+              you have in mind. If travel makes a centre visit difficult, ask about{' '}
+              <Link href="/online-tuition-kerala">live online tuition</Link> and test the setup in a demo.
+              To arrange a visit, see our <Link href="/contact">contact details and directions</Link>.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* FINAL CTA */}
       <section className="section final" data-screen-label="Final CTA">
         <span className="deco d1" />

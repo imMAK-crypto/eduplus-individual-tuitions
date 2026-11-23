@@ -9,7 +9,7 @@ import contactContent from '@/content/contact.json';
 
 export const metadata = pageMetadata({
   title: 'Contact & Directions in Ashokapuram',
-  description: 'Find Eduplus behind Rajendra Hospital in Ashokapuram, Kozhikode. Get directions, check opening hours or call or WhatsApp to book a free demo.',
+  description: 'Find Eduplus behind Rajendra Hospital in Ashokapuram, Kozhikode. Get directions, check centre hours, or call or WhatsApp us to book a free demo class.',
   path: '/contact',
   imageTitle: 'Contact & admissions',
   imageSubtitle: 'Call · WhatsApp · free demo class',
@@ -157,6 +157,40 @@ export default function ContactPage() {
               </p>
               <PageEnquiryForm />
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="planning-your-visit">
+        <div className="container">
+          <div className="legal prose">
+            <h2 id="planning-your-visit">Plan a visit to the Ashokapuram centre</h2>
+            <p>
+              Use {SITE.addressFull} as the destination when planning your route. If Maps brings you to
+              the hospital instead of the building behind it, call <a href={telLink}>{SITE.phone}</a> for
+              help finding the entrance. Contact the centre before your first visit to agree on a time.
+            </p>
+            <p>Open driving directions from a nearby area, or edit the starting point in Maps.</p>
+            <ul className="bullets">
+              {SITE.areas.filter((area) => area !== 'Ashokapuram' && area !== 'Kozhikode city').map((area) => (
+                <li key={area}>
+                  <a href={`https://www.google.com/maps/dir/?${new URLSearchParams({
+                    api: '1', origin: `${area}, Kozhikode`, destination: SITE.addressFull, travelmode: 'driving',
+                  })}`} target="_blank" rel="noopener noreferrer">Directions from {area}</a>
+                </li>
+              ))}
+            </ul>
+            <h2>What to include when you contact us</h2>
+            <p>
+              Tell us the class, board, subject and whether you prefer the centre or an online lesson.
+              Mention any upcoming exam so we can discuss the time available. You can compare the{' '}
+              <Link href="/programs">programs by class</Link> and check <Link href="/fees">hourly fees</Link>
+              {' '}first. For a remote demo, use the <Link href="/guides/online-tuition-demo-checklist">online demo checklist</Link>.
+            </p>
+            <p>
+              For <Link href="/counselling">student counselling</Link>, ask about appointment availability,
+              eligibility and session format. A short appointment enquiry is enough for first contact.
+            </p>
           </div>
         </div>
       </section>

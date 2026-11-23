@@ -1,5 +1,5 @@
 import FaqItem from '@/components/FaqItem';
-import { pageMetadata } from '@/lib/metadata';
+import { languageUrls, pageMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 import {
   ArrowIcon,
@@ -25,6 +25,7 @@ export const metadata = pageMetadata({
   title: TITLE,
   description: DESCRIPTION,
   path: PATH,
+  translations: languageUrls(PATH),
   imageTitle: 'Student counselling in Kozhikode',
   imageSubtitle: 'Exam stress · study skills · career guidance',
 });
@@ -192,6 +193,7 @@ export default function CounsellingPage() {
             >
               <WhatsAppIcon /> WhatsApp us
             </a>
+            <Link href="/ml/counselling" className="btn btn-outline btn-lg" lang="ml-IN" hrefLang="ml-IN">മലയാളത്തിൽ വായിക്കുക</Link>
           </div>
         </div>
       </section>

@@ -6,7 +6,7 @@ import Interactions from '@/components/Interactions';
 import SiteAnalytics from '@/components/SiteAnalytics';
 import { GA_ID } from '@/lib/analytics';
 import { jsonLd, SITE, realSocials } from '@/lib/site';
-import { pageMetadata } from '@/lib/metadata';
+import { languageUrls, pageMetadata } from '@/lib/metadata';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -34,8 +34,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   ...pageMetadata({
     title: 'One-to-One Tuition in Kozhikode',
-    description: 'Book a free demo for one-to-one tuition in Ashokapuram, Kozhikode. LKG to Class 12, Kerala State, CBSE and ICSE, at the centre or live online.',
+    description: 'Book a free demo for one-to-one tuition in Ashokapuram, Kozhikode. Classes from LKG to Class 12 for Kerala State, CBSE and ICSE, at the centre or online.',
     path: '/',
+    translations: languageUrls('/'),
   }),
   title: {
     default: 'One-to-One Tuition in Kozhikode | Eduplus',

@@ -2,24 +2,23 @@ import type { MetadataRoute } from 'next';
 import { SITE } from '@/lib/site';
 import { SEO_PAGES } from '@/lib/seoPages';
 import { GUIDES, GUIDES_UPDATED } from '@/lib/guides';
-import { ONLINE_TUITION_LANGUAGE_URLS } from '@/lib/metadata';
+import { LOCALIZED_PATHS, languageUrls } from '@/lib/metadata';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     '/', '/programs', '/exam-prep', '/counselling', '/fees', '/why', '/about', '/contact',
-    '/privacy', '/guides', '/ml/online-tuition-kerala',
+    '/privacy', '/guides',
     ...SEO_PAGES.map(({ slug }) => `/${slug}`),
   ];
 
   return [
-    ...paths.map((path) => {
-      const url = `${SITE.url}${path}`;
-      return {
+    ...paths.flatMap((path) => {
+      if (!LOCALIZED_PATHS.includes(path)) return [{ url: `${SITE.url}${path}` }];
+      const languages = languageUrls(path);
+      return [languages['en-IN'], languages['ml-IN']].map((url) => ({
         url,
-        ...(Object.values(ONLINE_TUITION_LANGUAGE_URLS).includes(url) && {
-          alternates: { languages: ONLINE_TUITION_LANGUAGE_URLS },
-        }),
-      };
+        alternates: { languages },
+      }));
     }),
     ...GUIDES.map(({ slug }) => ({
       url: `${SITE.url}/guides/${slug}`,

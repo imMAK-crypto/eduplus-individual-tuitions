@@ -34,7 +34,7 @@ export default async function GuidePage({ params }: Props) {
     author: { '@type': 'Organization', '@id': `${SITE.url}/#organization`, name: SITE.name },
     publisher: { '@id': `${SITE.url}/#organization` },
     datePublished: GUIDES_UPDATED,
-    citation: guide.sources.map(({ url }) => url),
+    ...(guide.sources.length > 0 && { citation: guide.sources.map(({ url }) => url) }),
   };
 
   return (
@@ -62,16 +62,18 @@ export default async function GuidePage({ params }: Props) {
                 {list && <ul className="bullets">{list.map((item) => <li key={item}>{item}</li>)}</ul>}
               </section>
             ))}
-            <h2>Official sources</h2>
-            <ul className="bullets">
-              {guide.sources.map(({ label, url }) => <li key={url}><a href={url}>{label}</a></li>)}
-            </ul>
+            {guide.sources.length > 0 && (
+              <>
+                <h2>Official sources</h2>
+                <ul className="bullets">
+                  {guide.sources.map(({ label, url }) => <li key={url}><a href={url}>{label}</a></li>)}
+                </ul>
+              </>
+            )}
             <h2>Related resources</h2>
             <ul className="bullets">
               <li><Link href={guide.related.href}>{guide.related.label}</Link></li>
-              {GUIDES.filter((entry) => entry.slug !== slug).map((entry) => (
-                <li key={entry.slug}><Link href={`/guides/${entry.slug}`}>{entry.title}</Link></li>
-              ))}
+              <li><Link href="/guides">All Kerala exam and study guides</Link></li>
             </ul>
           </div>
         </div>

@@ -1,11 +1,15 @@
 import type { Metadata } from 'next';
 import { SITE, ogImage } from '@/lib/site';
 
-export const ONLINE_TUITION_LANGUAGE_URLS = {
-  'en-IN': `${SITE.url}/online-tuition-kerala`,
-  'ml-IN': `${SITE.url}/ml/online-tuition-kerala`,
-  'x-default': `${SITE.url}/online-tuition-kerala`,
-};
+export const LOCALIZED_PATHS = ['/', '/counselling', '/fees', '/online-tuition-kerala'];
+
+export function languageUrls(path: string) {
+  return {
+    'en-IN': `${SITE.url}${path}`,
+    'ml-IN': `${SITE.url}/ml${path === '/' ? '' : path}`,
+    'x-default': `${SITE.url}${path}`,
+  };
+}
 
 type PageMetadata = {
   title: string;

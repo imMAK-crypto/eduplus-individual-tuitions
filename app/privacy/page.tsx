@@ -1,17 +1,18 @@
 import { pageMetadata } from '@/lib/metadata';
 import { analyticsAllowed } from '@/lib/analytics';
 import Link from 'next/link';
-import { SITE, telLink, waLink } from '@/lib/site';
+import { SITE, breadcrumbLd, jsonLd, telLink, waLink } from '@/lib/site';
 
 export const metadata = pageMetadata({
   title: 'Privacy Policy',
-  description: 'Find out what Eduplus collects when you make a tuition enquiry, how it is used and how to ask us to update or remove your details.',
+  description: 'See what Eduplus collects when you make an enquiry, how WhatsApp and website analytics work, and how to request an update or removal of your details.',
   path: '/privacy',
 });
 
 export default function PrivacyPage() {
   return (
     <main id="main">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbLd('Privacy Policy', '/privacy')) }} />
       {/* PAGE HERO */}
       <section className="page-hero" data-screen-label="Privacy hero">
         <div className="container">

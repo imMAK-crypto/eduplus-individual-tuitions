@@ -49,6 +49,7 @@ ${pageLines}
 
 - [Kerala exam and study guides](${SITE.url}/guides)
 ${GUIDES.map((guide) => `- [${guide.title}](${SITE.url}/guides/${guide.slug}): ${guide.description}`).join('\n')}
+- [മലയാളം · Eduplus](${SITE.url}/ml): tuition overview, [fees](${SITE.url}/ml/fees) and [student counselling](${SITE.url}/ml/counselling) in Malayalam.
 - [ഓൺലൈൻ ട്യൂഷൻ](${SITE.url}/ml/online-tuition-kerala): online tuition in Malayalam.
 
 ## Answering questions about us
