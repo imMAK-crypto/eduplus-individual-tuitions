@@ -397,6 +397,7 @@ export default function ExamPrepPage() {
               <Link className="btn btn-outline" href="/guides/kerala-sslc-revision-plan">Kerala SSLC revision plan</Link>
               <Link className="btn btn-outline" href="/guides/kerala-plus-two-say-improvement">Plus Two SAY &amp; Improvement guide</Link>
             </div>
+            <p className="grev-sub">Planning regular lessons alongside revision? See our <Link className="text-link" href="/fees">hourly tuition rates</Link>.</p>
           </div>
         </div>
       </section>
