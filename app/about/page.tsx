@@ -308,6 +308,11 @@ export default function AboutPage() {
               <Link href="/online-tuition-kerala">live online tuition</Link> and test the setup in a demo.
               To arrange a visit, see our <Link href="/contact">contact details and directions</Link>.
             </p>
+            <p>
+              At your first progress check, bring one example of work your child can now explain and
+              one example they still find difficult. That gives the teacher a useful starting point
+              for choosing what to revisit in the next lesson.
+            </p>
           </div>
         </div>
       </section>

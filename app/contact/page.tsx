@@ -191,6 +191,18 @@ export default function ContactPage() {
               For <Link href="/counselling">student counselling</Link>, ask about appointment availability,
               eligibility and session format. A short appointment enquiry is enough for first contact.
             </p>
+            <h2>Arrange your demo before making the trip</h2>
+            <p>
+              Ask the centre to confirm the date, time, topic and whether the demo will be at
+              Ashokapuram or online. For a centre visit, bring the relevant textbook or one question
+              your child wants to work through. That gives the teacher something concrete to discuss
+              during the lesson and helps you decide whether the teaching suits your child.
+            </p>
+            <p>
+              If you will join online, ask how you will receive the joining details and who to contact
+              if you have trouble connecting. If your plans change, message the centre so you can
+              agree on another time.
+            </p>
           </div>
         </div>
       </section>
